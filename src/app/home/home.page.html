@@ -1,8 +1,27 @@
+<div style="margin-top:75px">
+   <div class="grdPacient">
+      <ion-avatar sytle="justify-self: center;">
+         <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+      </ion-avatar>
+      <div>Nombre y apellido</div>
+      <button class="btnPacient">
+         <ion-icon name="search"></ion-icon>
+      </button>
+      <button class="btnPacient">
+         <ion-icon name="add"></ion-icon>
+      </button>
+   </div>
+   <!-- <ion-item lines="none">
+      <ion-label>Paciente</ion-label>
+      <input type="text">
+      <button (click)="search()">Buscar</button>
+   </ion-item> -->
+</div>
 <ion-tabs class="categories">
-   <ion-tab-bar slot="top" >
-      <ion-tab-button tab="pacientes">
-         <ion-icon name="contacts"></ion-icon>
-         <ion-label>Pacientes</ion-label>
+   <ion-tab-bar slot="top" class="tabsShadow">
+      <ion-tab-button tab="ficha">
+         <ion-icon name="person"></ion-icon>
+         <ion-label>Ficha</ion-label>
       </ion-tab-button>
 
       <ion-tab-button tab="historia">

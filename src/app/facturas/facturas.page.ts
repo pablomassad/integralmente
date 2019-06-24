@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FacturasPage implements OnInit {
 
-  constructor() { }
+  constructor() {
+   console.log('FacturasPage constructor')
+   }
 
   ngOnInit() {
   }

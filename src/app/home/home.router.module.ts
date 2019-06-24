@@ -8,11 +8,11 @@ const routes: Routes = [
       component: HomePage,
       children: [
          {
-            path: 'pacientes',
+            path: 'ficha',
             children: [
                {
                   path: '',
-                  loadChildren: '../pacientes/pacientes.module#PacientesPageModule'
+                  loadChildren: '../ficha/ficha.module#FichaPageModule'
                }
             ]
          },
@@ -45,14 +45,14 @@ const routes: Routes = [
          },
          {
             path: '',
-            redirectTo: '/home/pacientes',
+            redirectTo: '/home/ficha',
             pathMatch: 'full'
          }
       ]
    },
    {
       path: '',
-      redirectTo: '/home/pacientes',
+      redirectTo: '/home/ficha',
       pathMatch: 'full'
    }
 ]

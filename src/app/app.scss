@@ -5,6 +5,13 @@
 // file can hold Sass mixins, functions, and placeholder classes to be imported 
 // and used throughout the application.
 
+.grdHeader{
+   box-shadow: 0px 2px 11px grey;
+   display: grid;
+   grid-template-columns: 1fr 50px;
+   align-items: center;
+}
+
 .backTabs{
    background: lightblue;
 }
