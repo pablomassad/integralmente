@@ -9,4 +9,9 @@ export class HomePage {
 
   constructor() {}
 
+  access(act) {
+   //let flag = ((this.user.actions.indexOf(act) != -1)||(this.master==true))
+   let flag = true
+   return flag
+}
 }

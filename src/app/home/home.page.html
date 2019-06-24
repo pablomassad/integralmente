@@ -1,14 +1,23 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-tabs class="categories">
+   <ion-tab-bar slot="top" >
+      <ion-tab-button tab="pacientes">
+         <ion-icon name="contacts"></ion-icon>
+         <ion-label>Pacientes</ion-label>
+      </ion-tab-button>
 
-<ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
-</ion-content>
+      <ion-tab-button tab="historia">
+         <ion-icon name="albums"></ion-icon>
+         <ion-label>Historia</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="docs">
+         <ion-icon name="attach"></ion-icon>
+         <ion-label>Documentacion</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="facturas">
+         <ion-icon name="filing"></ion-icon>
+         <ion-label>Facturas</ion-label>
+      </ion-tab-button>
+   </ion-tab-bar>
+</ion-tabs>
