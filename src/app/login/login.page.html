@@ -1,0 +1,51 @@
+<ion-content>
+   <div class="backImg">
+      <div class="loginFrame">
+         <form class="form backForm" [formGroup]="loginForm" *ngIf="(user.displayName == '')">
+            <div class="formTitle">
+               Sourveyor
+            </div>
+
+            <input type="text" formControlName="email" placeholder="Correo electrónico">
+            <input type="password" formControlName="password" class="form-controll" placeholder="Contraseña">
+            <div class="error-message">{{errorMessage}}</div>
+
+
+            <div class="grdButtons">
+               <button class="btns btnLogin btnSignIn" type="submit" (click)="tryEmailLogin()">Ingresar</button>
+               <button class="btns btnLogin btnSignUp" type="submit" (click)="goRegisterPage()">Registrar</button>
+
+               <button class="btns btnSocial btnFacebook" type="submit" (click)="tryGoogleLogin()">
+                  <ion-icon name="logo-facebook"></ion-icon>
+               </button>
+               <button class="btns btnSocial btnGoogle" type="submit" (click)="tryFacebookLogin()">
+                  <ion-icon name="logo-google"></ion-icon>
+               </button>
+            </div>
+         </form>
+      </div>
+
+      <!-- <div class="loginFrame">
+      </div> -->
+   </div>
+</ion-content>
+
+<!--
+   Bindings:
+   =========
+   user.displayName
+   errorMessage
+
+   Classes:
+   ========
+   form
+   form-control
+   error-message
+
+   Methods:
+   ========
+   tryEmailLogin()
+   goRegisterPage()
+   tryGoogleLogin()
+   tryFaceBookLogin()
+-->
