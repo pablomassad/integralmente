@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { GlobalService, ApplicationService } from 'fwk4-services'
-import { AuthService, UserModel } from 'fwk4-authentication'
-import { environment } from '../../../environments/environment'
+import { UserModel,AuthService } from 'fwk4-authentication'
+
+import { environment } from '../../environments/environment'
 
 @Component({
    selector: 'app-login',
@@ -41,14 +42,7 @@ export class LoginPage implements OnInit {
       this.user = await this.authSrv.doLogin(this.loginForm.value)
       this.goHome()
    }
-   async tryFacebookLogin() {
-      this.user = await this.authSrv.doFacebookLogin()
-      this.goHome()
-   }
-   async tryGoogleLogin() {
-      this.user = await this.authSrv.doGoogleLogin(environment.googleWebClientId)
-      this.goHome()
-   }
+
    goRegisterPage() {
       this.route.navigate(['/register'])
    }

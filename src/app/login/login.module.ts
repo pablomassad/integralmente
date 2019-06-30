@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
+import { Fwk4AuthenticationModule } from 'fwk4-authentication'
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    Fwk4AuthenticationModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
