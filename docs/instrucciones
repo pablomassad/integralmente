@@ -1,1 +1,4 @@
 npm install @angular/fire firebase --save
+
+npm install --save @ionic-native/ionic-webview
+

@@ -17,12 +17,12 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    Fwk4AuthenticationModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+    Fwk4AuthenticationModule
   ],
   declarations: [LoginPage]
 })
