@@ -19,19 +19,19 @@ export class LoginPage implements OnInit {
 
    validation_messages = {
       'email': [
-         { type: 'required', message: 'Email is required.' },
-         { type: 'pattern', message: 'Please enter a valid email.' }
+         { type: 'required', message: 'El correo electrónico es requerido' },
+         { type: 'pattern', message: 'Por favor ingrese un email correcto' }
       ],
       'password': [
-         { type: 'required', message: 'Password is required.' },
-         { type: 'minlength', message: 'Password must be at least 5 characters long.' }
+         { type: 'required', message: 'Contraseña requerida' },
+         { type: 'minlength', message: 'La contraseña debe tener al menos 5 caracteres' }
       ]
    }
 
    user: UserModel = new UserModel()
 
    constructor(
-      private authSrv: AuthService,
+      // private authSrv: AuthService,
       private route: Router,
       private formBuilder: FormBuilder,
       private globalSrv: GlobalService
@@ -63,12 +63,12 @@ export class LoginPage implements OnInit {
    }
 
    async tryEmailLogin(value) {
-      this.user = await this.authSrv.doLogin(value)
+      // this.user = await this.authSrv.doLogin(value)
       this.goHome()
    }
 
    goRegisterPage() {
-      this.route.navigate(['/register'])
+      //this.route.navigate(['/register'])
    }
 
    private goHome() {

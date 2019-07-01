@@ -1,40 +1,51 @@
-<!-- <ion-content>
+<ion-content>
    <div class="backImg">
       <div class="loginFrame">
-         <form class="form backForm" [formGroup]="loginForm" *ngIf="(user.displayName == '')">
+         <form class="form backForm" [formGroup]="validations_form" (ngSubmit)="tryEmailLogin(validations_form.value)" *ngIf="(user.displayName == '')">
             <div class="formTitle">
-               Sourveyor
+               Integralmente
             </div>
 
-            <input type="text" formControlName="email" placeholder="Correo electrónico">
-            <input type="password" formControlName="password" class="form-controll" placeholder="Contraseña">
-            <div class="error-message">{{errorMessage}}</div>
+            <input type="text" formControlName="email" placeholder="Correo electrónico" formControlName="email">
+            <div class="validation-errors">
+               <ng-container *ngFor="let validation of validation_messages.email">
+                  <div class="error-message"
+                     *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+                     {{ validation.message }}
+                  </div>
+               </ng-container>
+            </div>
+
+            <input type="password" formControlName="password" class="form-controll" placeholder="Contraseña" formControlName="password">
+            <div class="validation-errors">
+               <ng-container *ngFor="let validation of validation_messages.password">
+                  <div class="error-message"
+                     *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+                     {{ validation.message }}
+                  </div>
+               </ng-container>
+            </div>
 
 
             <div class="grdButtons">
-               <button class="btns btnLogin btnSignIn" type="submit" (click)="tryEmailLogin()">Ingresar</button>
-               <button class="btns btnLogin btnSignUp" type="submit" (click)="goRegisterPage()">Registrar</button>
-
-               <button class="btns btnSocial btnFacebook" type="submit" (click)="tryGoogleLogin()">
-                  <ion-icon name="logo-facebook"></ion-icon>
-               </button>
-               <button class="btns btnSocial btnGoogle" type="submit" (click)="tryFacebookLogin()">
-                  <ion-icon name="logo-google"></ion-icon>
-               </button>
+               <button class="btns btnLogin btnSignIn" type="submit" (click)="tryEmailLogin()" [disabled]="!validations_form.valid">Ingresar</button>
+               <button class="btns btnLogin btnSignUp" type="submit" (click)="goRegisterPage()">Registrarse</button>
             </div>
+
+            <label class="error-message">{{errorMessage}}</label>            
          </form>
       </div>
    </div>
-</ion-content> -->
+</ion-content>
 
 
-<ion-header>
+<!-- <ion-header>
    <ion-toolbar color="primary">
       <ion-title>Log In</ion-title>
    </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content padding class="form-content">
+<!-- <ion-content padding class="form-content">
    <form class="form" [formGroup]="validations_form" (ngSubmit)="tryEmailLogin(validations_form.value)">
       <ion-item>
          <ion-label position="floating" color="primary">Email</ion-label>
@@ -68,7 +79,7 @@
    <p class="go-to-register">
       No account yet? <a (click)="goRegisterPage()">Create an account.</a>
    </p>
-</ion-content>
+</ion-content> -->
 
 
 

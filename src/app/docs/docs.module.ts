@@ -23,4 +23,9 @@ const routes: Routes = [
   ],
   declarations: [DocsPage]
 })
-export class DocsPageModule {}
+export class DocsPageModule {
+
+   constructor(){
+      console.log('DocsPageModule constructor')
+   }
+}

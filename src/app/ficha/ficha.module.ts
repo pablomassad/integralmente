@@ -23,4 +23,8 @@ const routes: Routes = [
   ],
   declarations: [FichaPage]
 })
-export class FichaPageModule {}
+export class FichaPageModule {
+   constructor(){
+      console.log('FichaPageModule constructor')
+   }
+}

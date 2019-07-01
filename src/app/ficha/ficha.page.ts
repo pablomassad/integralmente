@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FichaPage implements OnInit {
 
-  constructor() { }
+   constructor(){
+      console.log('FichaPage constructor')
+   }
 
   ngOnInit() {
   }

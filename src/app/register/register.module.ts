@@ -24,4 +24,8 @@ const routes: Routes = [
   ],
   declarations: [RegisterPage]
 })
-export class RegisterPageModule {}
+export class RegisterPageModule {
+   constructor(){
+      console.log('RegisterPageModule constructor')
+   }
+}

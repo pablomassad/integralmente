@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
-import { Fwk4AuthenticationModule } from 'fwk4-authentication'
+// import { Fwk4AuthenticationModule } from 'fwk4-authentication'
 
 const routes: Routes = [
   {
@@ -22,8 +22,12 @@ const routes: Routes = [
     IonicModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    Fwk4AuthenticationModule
+   //  Fwk4AuthenticationModule
   ],
   declarations: [LoginPage]
 })
-export class LoginPageModule {}
+export class LoginPageModule {
+   constructor(){
+      console.log('LoginPageModule constructor')
+   }
+}

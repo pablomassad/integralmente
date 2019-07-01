@@ -23,4 +23,8 @@ const routes: Routes = [
   ],
   declarations: [FacturasPage]
 })
-export class FacturasPageModule {}
+export class FacturasPageModule {
+   constructor(){
+      console.log('FacturasPageModule constructor')
+   }
+}

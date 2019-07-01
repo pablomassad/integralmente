@@ -20,6 +20,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth'
 import { AngularFireDatabaseModule } from '@angular/fire/database'
 import { AngularFireStorageModule } from '@angular/fire/storage'
 
+import { Firebase } from '@ionic-native/firebase/ngx'
+
 import { environment } from 'src/environments/environment'
 
 
@@ -29,7 +31,6 @@ import { environment } from 'src/environments/environment'
    imports: [
       BrowserModule, 
       IonicModule.forRoot(), 
-      AppRoutingModule, 
       IonicStorageModule.forRoot(),
       FormsModule,
       ReactiveFormsModule,
@@ -37,15 +38,21 @@ import { environment } from 'src/environments/environment'
       AngularFirestoreModule, // imports firebase/firestore
       AngularFireAuthModule, // imports firebase/auth
       AngularFireStorageModule, // imports firebase/storage
+      AppRoutingModule, 
    ],
    providers: [
       StatusBar,
       SplashScreen,
       ImagePicker,
+      Firebase,
       WebView,
       { provide: FirestoreSettingsToken, useValue: {} },
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
    ],
    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+   constructor(){
+      console.log('AppModule constructor')
+   }
+}

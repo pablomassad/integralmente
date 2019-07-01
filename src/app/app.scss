@@ -8,14 +8,18 @@
 .grdHeader{
    box-shadow: 0px 2px 11px grey;
    display: grid;
-   grid-template-columns: 1fr 50px;
+   grid-template-columns: 1fr 70px;
    align-items: center;
+}
+
+.avatar{
+   box-shadow: 1px 1px 6px;
 }
 
 .backTabs{
    background: lightblue;
 }
 .backPage{
-   top:55px;
+   top:75px;
    background: lightgray;
 }

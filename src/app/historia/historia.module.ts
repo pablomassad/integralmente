@@ -19,8 +19,13 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+   //  RouterModule.forChild(routes)
   ],
   declarations: [HistoriaPage]
 })
-export class HistoriaPageModule {}
+export class HistoriaPageModule {
+   
+   constructor(){
+      console.log('HistoriaPageModule constructor')
+   }
+}
