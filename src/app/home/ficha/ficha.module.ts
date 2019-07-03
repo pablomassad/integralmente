@@ -8,23 +8,23 @@ import { IonicModule } from '@ionic/angular';
 import { FichaPage } from './ficha.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: FichaPage
-  }
+   {
+      path: '',
+      component: FichaPage
+   }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [FichaPage]
+   imports: [
+      CommonModule,
+      FormsModule,
+      IonicModule,
+      RouterModule.forChild(routes)
+   ],
+   declarations: [FichaPage]
 })
 export class FichaPageModule {
-   constructor(){
+   constructor() {
       console.log('FichaPageModule constructor')
    }
 }

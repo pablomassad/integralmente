@@ -48,10 +48,10 @@ export class AppComponent {
                }
             },
             {
-               text: 'Facturas',
+               text: 'Facturación',
                icon: 'briefcase',
                handler: () => {
-                  this.router.navigate(["/facturas"]);
+                  this.router.navigate(["/facturacion"]);
                   console.log('Pacientes clicked');
                }
             },
