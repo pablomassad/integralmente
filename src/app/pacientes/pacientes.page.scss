@@ -1,0 +1,21 @@
+.grdPatient{
+   margin: 10px;
+   border-radius: 10px;
+   display: grid;
+   grid-template-columns: 1fr 2fr;
+   grid-template-rows: 2fr 1fr 1fr 1fr;
+   align-items: center;
+   box-shadow: 1px 1px 4px;
+   background: #c8c8c8;
+   padding: 10px;
+   grid-gap: 5px;
+}
+
+.campo{
+   font-weight: bold;
+}
+.foto{
+   width: 12vw;
+   height: 12vw;
+   box-shadow: 0 0 5px;
+}

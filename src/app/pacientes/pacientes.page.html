@@ -1,9 +1,29 @@
-<ion-content>
-  1 PACIENTES
-  2 PACIENTES
-  3 PACIENTES
-  4 PACIENTES
-  5 PACIENTES
-  6 PACIENTES
-  7 PACIENTES
+<ion-content class="backPage">
+   <ion-item>
+      <ion-label position="floating">Ingrese datos del paciente</ion-label>
+      <ion-input type="text" [(ngModel)]="criteria"></ion-input>
+      <ion-icon name="person" slot="start"></ion-icon>
+   </ion-item>
+
+   <div class="grdPatient" *ngFor="let p of patients | searchInfo: criteria" (click)="gotoDetail(p)">
+      <ion-avatar class="foto">
+         <img [src]="p.foto" >
+      </ion-avatar>
+      <div></div>
+
+      <div class="campo">
+         Nombres:
+      </div>
+      <div>{{p.nombres}}</div>
+
+      <div class="campo">
+         Apellido:
+      </div>
+      <div>{{p.apellido}}</div>
+
+      <div class="campo">
+            Tel/Cel:
+         </div>
+      <div>{{p.telefono}}</div>
+   </div>
 </ion-content>

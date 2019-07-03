@@ -1,32 +1,30 @@
-import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { Routes, RouterModule } from '@angular/router'
 
 import { IonicModule } from '@ionic/angular'
 
-import { PacientesPage } from './pacientes.page'
-import { Fwk4PipesModule } from 'fwk4-pipes'
+import { FacturasPage } from './facturas.page'
 
 const routes: Routes = [
    {
       path: '',
-      component: PacientesPage
+      component: FacturasPage
    }
-];
+]
 
 @NgModule({
    imports: [
-      Fwk4PipesModule,
       CommonModule,
       FormsModule,
       IonicModule,
       RouterModule.forChild(routes)
    ],
-   declarations: [PacientesPage]
+   declarations: [FacturasPage]
 })
-export class PacientesPageModule {
+export class FacturasPageModule {
    constructor() {
-      console.log('PacientesPageModule constructor')
+      console.log('FacturasPageModule constructor')
    }
 }

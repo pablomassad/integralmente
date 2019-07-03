@@ -6,6 +6,7 @@
 // and used throughout the application.
 
 .grdHeader{
+   z-index: 1000;
    box-shadow: 0px 2px 11px grey;
    display: grid;
    grid-template-columns: 1fr 70px;
