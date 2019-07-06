@@ -64,16 +64,16 @@ export class LoginPage implements OnInit {
 
    async tryEmailLogin(value) {
       // this.user = await this.authSrv.doLogin(value)
-      this.goHome()
+      this.goMenu()
    }
 
    goRegisterPage() {
       //this.route.navigate(['/register'])
    }
 
-   private goHome() {
+   private goMenu() {
       this.globalSrv.setItem('user', this.user)
-      this.route.navigate(['/home'])
+      this.route.navigate(['/menu'])
    }
 
 }

@@ -9,7 +9,7 @@ import { MenuPage } from './menu.page';
 
 const routes: Routes = [
    {
-     path: 'menu',
+     path: '',
      component: MenuPage,
      children: [
        {
@@ -18,18 +18,18 @@ const routes: Routes = [
        },
        {
          path: 'facturacion',
-         redirectTo: './facturacion/facturacion.module#FacturacionPageModule'
+         redirectTo: '../facturacion/facturacion.module#FacturacionPageModule'
        },
        {
          path: 'configuracion',
-         redirectTo: './configuracion/configuracion.module#ConfiguracionPageModule'
+         redirectTo: '../configuracion/configuracion.module#ConfiguracionPageModule'
        }
      ]
    },
-   {
-      path:'',
-      redirectTo:'menu/pacientes'
-   }
+   // {
+   //    path:'',
+   //    redirectTo:'menu/pacientes'
+   // }
  ]
 
 @NgModule({
@@ -41,4 +41,8 @@ const routes: Routes = [
   ],
   declarations: [MenuPage]
 })
-export class MenuPageModule {}
+export class MenuPageModule {
+   constructor(){
+      console.log('MenuPageModule constructor')
+   }
+}

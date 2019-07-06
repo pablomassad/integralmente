@@ -10,6 +10,8 @@ import * as moment from 'moment'
 })
 export class PacientesPage implements OnInit {
 
+   userPhoto: any
+
    patients: any = []
 
    constructor(
@@ -17,6 +19,7 @@ export class PacientesPage implements OnInit {
       private globalSrv: GlobalService
    ) {
       console.log('PacientesPage constructor')
+      this.userPhoto = "assets/users/pato.jpg" //"assets/images/anonymous.png"
    }
 
    ngOnInit() {

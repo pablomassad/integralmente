@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-configuracion',
-  templateUrl: './configuracion.page.html',
-  styleUrls: ['./configuracion.page.scss'],
+   selector: 'app-configuracion',
+   templateUrl: './configuracion.page.html',
+   styleUrls: ['./configuracion.page.scss'],
 })
 export class ConfiguracionPage implements OnInit {
 
-  constructor() { }
+   constructor() {
+      console.log('ConfiguracionPage constructor')
+   }
 
-  ngOnInit() {
-  }
+   ngOnInit() {
+   }
 
 }

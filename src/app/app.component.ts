@@ -11,9 +11,6 @@ import { Router } from '@angular/router'
    templateUrl: 'app.component.html'
 })
 export class AppComponent {
-   userPhoto: any
-
-
 
    constructor(
       //private fcm: FcmService,
@@ -32,7 +29,6 @@ export class AppComponent {
          this.statusBar.styleDefault();
          this.splashScreen.hide();
       })
-      this.userPhoto = "assets/users/pato.jpg" //"assets/images/anonymous.png"
    }
 
    async openMenuSheet() {
@@ -40,29 +36,6 @@ export class AppComponent {
          header: 'Opciones',
          buttons: [
             {
-               text: 'Pacientes',
-               icon: 'people',
-               handler: () => {
-                  this.router.navigate(["/pacientes"]);
-                  console.log('Pacientes clicked');
-               }
-            },
-            {
-               text: 'Facturación',
-               icon: 'briefcase',
-               handler: () => {
-                  this.router.navigate(["/facturacion"]);
-                  console.log('Pacientes clicked');
-               }
-            },
-            {
-               text: 'Configuración',
-               icon: 'settings',
-               handler: () => {
-                  this.router.navigate(["/configuracion"]);
-                  console.log('Configuracion');
-               }
-            }, {
                text: 'Salir',
                icon: 'log-out',
                handler: () => {

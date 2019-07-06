@@ -14,11 +14,11 @@ export class MenuPage implements OnInit {
          url: "/menu/pacientes"
       },
       {
-         title: "Facturacion",
+         title: "Facturación",
          url: "/menu/facturacion"
       },
       {
-         title: "Configuracion",
+         title: "Configuración",
          url: "/menu/configuracion"
       }
    ]
@@ -28,7 +28,9 @@ export class MenuPage implements OnInit {
    constructor(
       private router: Router
    ) { 
+      console.log('MenuPage constructor')
       this.router.events.subscribe((event:RouterEvent)=>{
+         console.log('selectedPath: ', this.selectedPath)
          this.selectedPath = event.url
       })
    }

@@ -23,4 +23,8 @@ const routes: Routes = [
   ],
   declarations: [ConfiguracionPage]
 })
-export class ConfiguracionPageModule {}
+export class ConfiguracionPageModule {
+   constructor(){
+      console.log('ConfiguracionPageModule constructor')
+   }
+}
