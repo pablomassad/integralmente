@@ -19,17 +19,23 @@ import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/fi
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import { AngularFireDatabaseModule } from '@angular/fire/database'
 import { AngularFireStorageModule } from '@angular/fire/storage'
-
 import { Firebase } from '@ionic-native/firebase/ngx'
 
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
+import { FileUploadModule } from 'ng2-file-upload'
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+
 import { environment } from 'src/environments/environment'
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
    declarations: [AppComponent],
    entryComponents: [],
    imports: [
+      HttpClientModule,
       BrowserModule, 
+      FileUploadModule,
       IonicModule.forRoot(), 
       IonicStorageModule.forRoot(),
       FormsModule,
@@ -45,6 +51,8 @@ import { environment } from 'src/environments/environment'
       SplashScreen,
       ImagePicker,
       Firebase,
+      InAppBrowser,
+      FileOpener,
       WebView,
       { provide: FirestoreSettingsToken, useValue: {} },
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
