@@ -18,8 +18,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-   //  RouterModule.forChild(routes)
+    IonicModule
   ],
   declarations: [HistoriaPage]
 })

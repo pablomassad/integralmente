@@ -28,7 +28,7 @@ export class PacientesPage implements OnInit {
 
    async gotoDetail(p){
       await this.globalSrv.setItem('curPatient', p)
-      this.router.navigate(["/home"])
+      this.router.navigate(["/menu/home"])
    }
    private getPatientsByProfessional(id) {
       const arr = [

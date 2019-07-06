@@ -8,7 +8,7 @@ import { HomePage } from './home.page';
 
 const routes: Routes = [
    {
-     path: 'home',
+     path: '',
      component: HomePage,
      children: [
        {
@@ -17,21 +17,22 @@ const routes: Routes = [
        },
        {
          path: 'historia',
-         redirectTo: './historia/historia.module#HistoriaPageModule'
+         loadChildren: './historia/historia.module#HistoriaPageModule'
        },
        {
          path: 'docs',
-         redirectTo: './docs/docs.module#DocsPageModule'
+         loadChildren: './docs/docs.module#DocsPageModule'
        },
        {
          path: 'facturas',
-         redirectTo: './home/facturas/facturas.module#FacturasPageModule',
+         loadChildren: './facturas/facturas.module#FacturasPageModule',
        }
      ]
    },
    {
       path:'',
-      redirectTo:'home/ficha'
+      redirectTo:'home/ficha',
+      pathMatch:'full'
    }
  ]
 

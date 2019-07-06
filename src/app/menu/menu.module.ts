@@ -9,40 +9,45 @@ import { MenuPage } from './menu.page';
 
 const routes: Routes = [
    {
-     path: '',
-     component: MenuPage,
-     children: [
-       {
-         path: 'pacientes',
-         loadChildren: '../pacientes/pacientes.module#PacientesPageModule'
-       },
-       {
-         path: 'facturacion',
-         redirectTo: '../facturacion/facturacion.module#FacturacionPageModule'
-       },
-       {
-         path: 'configuracion',
-         redirectTo: '../configuracion/configuracion.module#ConfiguracionPageModule'
-       }
-     ]
+      path: '',
+      component: MenuPage,
+      children: [
+         {
+            path: 'pacientes',
+            loadChildren: '../pacientes/pacientes.module#PacientesPageModule'
+         },
+         {
+            path: 'facturacion',
+            loadChildren: '../facturacion/facturacion.module#FacturacionPageModule'
+         },
+         {
+            path: 'configuracion',
+            loadChildren: '../configuracion/configuracion.module#ConfiguracionPageModule'
+         },
+         {
+            path: 'home',
+            loadChildren: '../home/home.module#HomePageModule'
+         }
+      ],
    },
-   // {
-   //    path:'',
-   //    redirectTo:'menu/pacientes'
-   // }
- ]
+   {
+      path: '',
+      redirectTo: '/menu/pacientes',
+      pathMatch:'full'
+   }
+]
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [MenuPage]
+   imports: [
+      CommonModule,
+      FormsModule,
+      IonicModule,
+      RouterModule.forChild(routes)
+   ],
+   declarations: [MenuPage]
 })
 export class MenuPageModule {
-   constructor(){
+   constructor() {
       console.log('MenuPageModule constructor')
    }
 }
