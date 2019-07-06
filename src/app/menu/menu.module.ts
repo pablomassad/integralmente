@@ -13,26 +13,22 @@ const routes: Routes = [
      component: MenuPage,
      children: [
        {
-         path: 'ficha',
-         loadChildren: '../ficha/ficha.module#FichaPageModule'
+         path: 'pacientes',
+         loadChildren: '../pacientes/pacientes.module#PacientesPageModule'
        },
        {
-         path: 'historia',
-         redirectTo: '../historia/historia.module#HistoriaPageModule'
+         path: 'facturacion',
+         redirectTo: './facturacion/facturacion.module#FacturacionPageModule'
        },
        {
-         path: 'docs',
-         redirectTo: '../docs/docs.module#DocsPageModule'
-       },
-       {
-         path: 'facturas',
-         redirectTo: '../home/facturas/facturas.module#FacturasPageModule',
+         path: 'configuracion',
+         redirectTo: './configuracion/configuracion.module#ConfiguracionPageModule'
        }
      ]
    },
    {
       path:'',
-      redirectTo:'menu/ficha'
+      redirectTo:'menu/pacientes'
    }
  ]
 

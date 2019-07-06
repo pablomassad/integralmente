@@ -1,3 +1,12 @@
+<ion-header>
+   <ion-toolbar>
+      <ion-buttons slot="start">
+         <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Pacientes</ion-title>
+   </ion-toolbar>
+</ion-header>
+
 <ion-content class="backPage">
    <ion-item>
       <ion-label position="floating">Ingrese datos del paciente</ion-label>
@@ -7,7 +16,7 @@
 
    <div class="grdPatient" *ngFor="let p of patients | searchInfo: criteria" (click)="gotoDetail(p)">
       <ion-avatar class="foto">
-         <img [src]="p.foto" >
+         <img [src]="p.foto">
       </ion-avatar>
       <div></div>
 
@@ -22,8 +31,8 @@
       <div>{{p.apellido}}</div>
 
       <div class="campo">
-            Tel/Cel:
-         </div>
+         Tel/Cel:
+      </div>
       <div>{{p.telefono}}</div>
    </div>
 </ion-content>
