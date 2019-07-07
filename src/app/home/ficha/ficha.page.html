@@ -1,169 +1,171 @@
-<div class="fichaWrapper">
-   <div class="container">
-      <div class="retrato">
-         <ion-avatar class="fichaAvatar">
-            <img src="assets/users/boy2.jpg">
-            <div class="editFoto" *ngIf="isMobile">
-               CAMBIAR
-            </div>
-            <label for="photoEdit" *ngIf="!isMobile">
-               <div class="editFoto">
-                  WEB CH
+<ion-content>
+   <div class="fichaWrapper">
+      <div class="container">
+         <div class="retrato">
+            <ion-avatar class="fichaAvatar">
+               <img src="assets/users/boy2.jpg">
+               <div class="editFoto" *ngIf="isMobile">
+                  CAMBIAR
                </div>
-            </label>
-         </ion-avatar>
-         <input type="file" style="display: none" id="photoEdit" />
-      </div>
-      <div class="det1">
-         <div class="grdItem">
-            <div class="campo">
-               Nombres:
-            </div>
-            <input type="text" class="dato" [(ngModel)]="patient.nombres">
+               <label for="photoEdit" *ngIf="!isMobile">
+                  <div class="editFoto">
+                     WEB CH
+                  </div>
+               </label>
+            </ion-avatar>
+            <input type="file" style="display: none" id="photoEdit" />
          </div>
-         <div class="grdItem">
-            <div class="campo">
-               Apellido:
+         <div class="det1">
+            <div class="grdItem">
+               <div class="campo">
+                  Nombres:
+               </div>
+               <input type="text" class="dato" [(ngModel)]="patient.nombres">
             </div>
-            <input type="text" class="dato" [(ngModel)]="patient.apellido">
-         </div>
-      </div>
-      <div class="det2">
-         <div class="grdItem">
-            <div class="campo">
-               Edad:
+            <div class="grdItem">
+               <div class="campo">
+                  Apellido:
+               </div>
+               <input type="text" class="dato" [(ngModel)]="patient.apellido">
             </div>
-            <input [disabled]="true" type="number" class="dato" [(ngModel)]="patient.edad">
          </div>
-         <div class="grdItem">
-            <div class="campo">
-               Fecha de nacimiento:
+         <div class="det2">
+            <div class="grdItem">
+               <div class="campo">
+                  Edad:
+               </div>
+               <input [disabled]="true" type="number" class="dato" [(ngModel)]="patient.edad">
             </div>
-            <ion-datetime displayFormat="DD/MM/YY" [(ngModel)]="patient.nacimiento"></ion-datetime>
-         </div>
-
-         <div class="grdItem">
-            <div class="campo">
-               Colegio:
-            </div>
-            <input type="text" class="dato" [(ngModel)]="patient.colegio">
-         </div>
-         <div class="grdItem">
-            <div class="campo">
-               Curso:
-            </div>
-            <input type="text" class="dato" [(ngModel)]="patient.curso">
-         </div>
-
-         <div class="grdItem">
-            <div class="campo">
-               DNI:
-            </div>
-            <input type="number" class="dato" [(ngModel)]="patient.dni">
-         </div>
-         <div class="grdItem">
-            <div class="campo">
-               Obra Social:
-            </div>
-            <input type="text" class="dato" [(ngModel)]="patient.obrasocial">
-         </div>
-         <div class="grdItem">
-            <div class="campo">
-               Afiliado Nr:
-            </div>
-            <input type="text" class="dato" [(ngModel)]="patient.afiliado">
-         </div>
-         <div class="grdItem">
-            <div class="campo">
-               Diagnóstico:
-            </div>
-            <input type="text" class="dato" [(ngModel)]="patient.diagnostico">
-         </div>
-         <div class="grdItem">
-            <div class="campo">
-               Dias de atención:
-            </div>
-            <input type="text" class="dato" [(ngModel)]="patient.diasatencion">
-         </div>
-
-         <div class="frameContacto">
-            <div class="subtitle">
-               Datos de contacto
+            <div class="grdItem">
+               <div class="campo">
+                  Fecha de nacimiento:
+               </div>
+               <ion-datetime displayFormat="DD/MM/YY" [(ngModel)]="patient.nacimiento"></ion-datetime>
             </div>
 
-            <div class="grdContacto">
-               <div class="grdItem">
-                  <div class="campo">
-                     Correo electrónico:
-                  </div>
-                  <input type="text" class="dato" [(ngModel)]="patient.email">
+            <div class="grdItem">
+               <div class="campo">
+                  Colegio:
                </div>
-               <div class="grdItem">
-                  <div class="campo">
-                     Madre:
-                  </div>
-                  <input type="text" class="dato" [(ngModel)]="patient.madre">
+               <input type="text" class="dato" [(ngModel)]="patient.colegio">
+            </div>
+            <div class="grdItem">
+               <div class="campo">
+                  Curso:
                </div>
-               <div class="grdItem">
-                  <div class="campo">
-                     Padre:
-                  </div>
-                  <input type="text" class="dato" [(ngModel)]="patient.padre">
+               <input type="text" class="dato" [(ngModel)]="patient.curso">
+            </div>
+
+            <div class="grdItem">
+               <div class="campo">
+                  DNI:
                </div>
-               <div class="grdItem">
-                  <div class="campo">
-                     Tel.Madre:
-                  </div>
-                  <input type="number" class="dato" [(ngModel)]="patient.telmadre">
+               <input type="number" class="dato" [(ngModel)]="patient.dni">
+            </div>
+            <div class="grdItem">
+               <div class="campo">
+                  Obra Social:
                </div>
-               <div class="grdItem">
-                  <div class="campo">
-                     Tel.Pagre:
-                  </div>
-                  <input type="number" class="dato" [(ngModel)]="patient.telpadre">
+               <input type="text" class="dato" [(ngModel)]="patient.obrasocial">
+            </div>
+            <div class="grdItem">
+               <div class="campo">
+                  Afiliado Nr:
                </div>
-               <div class="grdItem">
-                  <div class="campo">
-                     Domicilio:
-                  </div>
-                  <input type="text" class="dato" [(ngModel)]="patient.domicilio">
+               <input type="text" class="dato" [(ngModel)]="patient.afiliado">
+            </div>
+            <div class="grdItem">
+               <div class="campo">
+                  Diagnóstico:
                </div>
-               <div class="grdItem">
-                  <div class="campo">
-                     Ciudad:
+               <input type="text" class="dato" [(ngModel)]="patient.diagnostico">
+            </div>
+            <div class="grdItem">
+               <div class="campo">
+                  Dias de atención:
+               </div>
+               <input type="text" class="dato" [(ngModel)]="patient.diasatencion">
+            </div>
+
+            <div class="frameContacto">
+               <div class="subtitle">
+                  Datos de contacto
+               </div>
+
+               <div class="grdContacto">
+                  <div class="grdItem">
+                     <div class="campo">
+                        Correo electrónico:
+                     </div>
+                     <input type="text" class="dato" [(ngModel)]="patient.email">
                   </div>
-                  <input type="text" class="dato" [(ngModel)]="patient.ciudad">
+                  <div class="grdItem">
+                     <div class="campo">
+                        Madre:
+                     </div>
+                     <input type="text" class="dato" [(ngModel)]="patient.madre">
+                  </div>
+                  <div class="grdItem">
+                     <div class="campo">
+                        Padre:
+                     </div>
+                     <input type="text" class="dato" [(ngModel)]="patient.padre">
+                  </div>
+                  <div class="grdItem">
+                     <div class="campo">
+                        Tel.Madre:
+                     </div>
+                     <input type="number" class="dato" [(ngModel)]="patient.telmadre">
+                  </div>
+                  <div class="grdItem">
+                     <div class="campo">
+                        Tel.Pagre:
+                     </div>
+                     <input type="number" class="dato" [(ngModel)]="patient.telpadre">
+                  </div>
+                  <div class="grdItem">
+                     <div class="campo">
+                        Domicilio:
+                     </div>
+                     <input type="text" class="dato" [(ngModel)]="patient.domicilio">
+                  </div>
+                  <div class="grdItem">
+                     <div class="campo">
+                        Ciudad:
+                     </div>
+                     <input type="text" class="dato" [(ngModel)]="patient.ciudad">
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="pie">
+            <div class="grdPie">
+               <div class="btnFoot" (click)="cancel()">
+                  <ion-icon name="close"></ion-icon>
+                  <p>Cancelar</p>
+               </div>
+               <div></div>
+               <div class="btnFoot" (click)="save()">
+                  <ion-icon name="save"></ion-icon>
+                  <p>Guardar</p>
                </div>
             </div>
          </div>
       </div>
-      <div class="pie">
-         <div class="grdPie">
-            <div class="btnFoot" (click)="cancel()">
-               <ion-icon name="close"></ion-icon>
-               <p>Cancelar</p>
-            </div>
-            <div></div>
-            <div class="btnFoot" (click)="save()">
-               <ion-icon name="save"></ion-icon>
-               <p>Guardar</p>
-            </div>
-         </div>
-      </div>
+
+      <!-- <div ng2FileDrop [ngClass]="{'drop-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)"
+                        [uploader]="fileUploader" class="area">
+                        <div id="dropZone">Drop files here</div>
+                     </div> -->
+
+      <!-- <input type="file" accept="image/*" ng2FileSelect [uploader]="fileUploader" multiple />
+                     <ion-button (click)="uploadFiles()">Upload files</ion-button>
+                   
+                     <h2>Your files: {{ fileUploader?.queue?.length }}</h2>
+                     <ul>
+                       <li *ngFor="let item of fileUploader.queue">
+                         {{ item?.file?.name }}
+                       </li>
+                     </ul> -->
    </div>
-
-   <!-- <div ng2FileDrop [ngClass]="{'drop-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)"
-      [uploader]="fileUploader" class="area">
-      <div id="dropZone">Drop files here</div>
-   </div> -->
-
-   <!-- <input type="file" accept="image/*" ng2FileSelect [uploader]="fileUploader" multiple />
-   <ion-button (click)="uploadFiles()">Upload files</ion-button>
- 
-   <h2>Your files: {{ fileUploader?.queue?.length }}</h2>
-   <ul>
-     <li *ngFor="let item of fileUploader.queue">
-       {{ item?.file?.name }}
-     </li>
-   </ul> -->
-</div>
+</ion-content>

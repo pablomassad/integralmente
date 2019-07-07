@@ -8,12 +8,14 @@ import { GlobalService } from 'fwk4-services'
 })
 export class HomePage implements OnInit {
 
+   userPhoto: any
    patient:any;
 
    constructor(
       private globalSrv: GlobalService
    ) {
       console.log('HomePage constructor')
+      this.userPhoto = "assets/users/pato.jpg" //"assets/images/anonymous.png"
    }
 
    ngOnInit(){

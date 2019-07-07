@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalService } from 'fwk4-services';
 import { Router } from '@angular/router'
 import * as moment from 'moment'
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
    selector: 'app-pacientes',
@@ -15,6 +16,7 @@ export class PacientesPage implements OnInit {
    patients: any = []
 
    constructor(
+      private actionSheetController: ActionSheetController,
       private router:Router,
       private globalSrv: GlobalService
    ) {
@@ -25,6 +27,29 @@ export class PacientesPage implements OnInit {
    ngOnInit() {
       this.patients = this.getPatientsByProfessional(1)
    }
+
+   async openMenuSheet() {
+      const actionSheet = await this.actionSheetController.create({
+         header: 'Opciones',
+         buttons: [
+            {
+               text: 'Salir',
+               icon: 'log-out',
+               handler: () => {
+                  console.log('Logout');
+               }
+            }, {
+               text: 'Cancelar',
+               icon: 'close',
+               role: 'cancel',
+               handler: () => {
+                  console.log('Cancelar');
+               }
+            }]
+      });
+      await actionSheet.present();
+   }
+
 
    async gotoDetail(p){
       await this.globalSrv.setItem('curPatient', p)

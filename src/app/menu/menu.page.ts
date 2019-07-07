@@ -30,9 +30,10 @@ export class MenuPage implements OnInit {
    ) { 
       console.log('MenuPage constructor')
       this.router.events.subscribe((event:RouterEvent)=>{
-         console.log('selectedPath: ', this.selectedPath)
-         if (event && (event.url != ''))
+         if (event && event.url && (event.url != '')){
             this.selectedPath = event.url
+            console.log('selectedPath: ', this.selectedPath)
+         }
       })
    }
 

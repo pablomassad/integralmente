@@ -15,11 +15,18 @@
 
 
 
-<ion-content class="backPage">
+<ion-content>
+   <!-- <div class="grdFilter">
+      <ion-icon name="person" class="filterIcon"></ion-icon>
+      <div>
+         <ion-label position="floating">Ingrese datos del paciente</ion-label>
+         <ion-input type="text" [(ngModel)]="criteria" class="filterInput"></ion-input>
+      </div>
+   </div> -->
    <ion-item>
+      <ion-icon name="person" class="filterIcon" slot="start"></ion-icon>
       <ion-label position="floating">Ingrese datos del paciente</ion-label>
-      <ion-input type="text" [(ngModel)]="criteria"></ion-input>
-      <ion-icon name="person" slot="start"></ion-icon>
+      <ion-input type="text" [(ngModel)]="criteria" class="filterInput"></ion-input>
    </ion-item>
 
    <div class="grdPatient" *ngFor="let p of patients | searchInfo: criteria" (click)="gotoDetail(p)">

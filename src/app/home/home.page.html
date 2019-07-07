@@ -1,31 +1,47 @@
-<div style="margin-top:75px; background: lightgray">
-   <div class="grdPacient">
-      <ion-avatar class="avatar">
-         <img src="assets/users/boy.jpg">
-      </ion-avatar>
-      <div style="padding-left: 10px">Miguel Angel Fiore</div>
+<ion-header>
+   <ion-toolbar>
+      <ion-buttons slot="start">
+         <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <div class="grdHeader">
+         <img src="assets/images/integralmenteET.png" style="height: 60px">
+         <ion-avatar (click)="openMenuSheet()">
+            <img class="avatar" [src]="userPhoto">
+         </ion-avatar>
+      </div>
+   </ion-toolbar>
+</ion-header>
+
+<ion-content>
+   <div style="background: lightgray">
+      <div class="grdPacient">
+         <ion-avatar class="avatar">
+            <img src="assets/users/boy.jpg">
+         </ion-avatar>
+         <div style="padding-left: 10px">Miguel Angel Fiore</div>
+      </div>
    </div>
-</div>
-<ion-tabs class="categories">
-   <ion-tab-bar slot="top" class="tabsShadow">
-      <ion-tab-button tab="ficha">
-         <ion-icon name="person"></ion-icon>
-         <ion-label>Ficha</ion-label>
-      </ion-tab-button>
+   <ion-tabs class="categories">
+      <ion-tab-bar slot="top" class="tabsShadow">
+         <ion-tab-button tab="ficha">
+            <ion-icon name="person"></ion-icon>
+            <ion-label>Ficha</ion-label>
+         </ion-tab-button>
 
-      <ion-tab-button tab="historia">
-         <ion-icon name="albums"></ion-icon>
-         <ion-label>Historia</ion-label>
-      </ion-tab-button>
+         <ion-tab-button tab="historia">
+            <ion-icon name="albums"></ion-icon>
+            <ion-label>Historia</ion-label>
+         </ion-tab-button>
 
-      <ion-tab-button tab="docs">
-         <ion-icon name="attach"></ion-icon>
-         <ion-label>Documentacion</ion-label>
-      </ion-tab-button>
+         <ion-tab-button tab="docs">
+            <ion-icon name="attach"></ion-icon>
+            <ion-label>Documentacion</ion-label>
+         </ion-tab-button>
 
-      <ion-tab-button tab="facturas">
-         <ion-icon name="filing"></ion-icon>
-         <ion-label>Facturas</ion-label>
-      </ion-tab-button>
-   </ion-tab-bar>
-</ion-tabs>
+         <ion-tab-button tab="facturas">
+            <ion-icon name="filing"></ion-icon>
+            <ion-label>Facturas</ion-label>
+         </ion-tab-button>
+      </ion-tab-bar>
+   </ion-tabs>
+</ion-content>

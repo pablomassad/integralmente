@@ -11,6 +11,15 @@
    grid-gap: 5px;
 }
 
+.grdFilter{
+   display: grid;
+   grid-template-columns: 50px 1fr;
+   align-items: center;
+}
+.filterIcon{
+   font-size: 35px;
+   text-shadow: 1px 1px 5px;
+}
 .campo{
    font-weight: bold;
 }

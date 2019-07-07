@@ -17,14 +17,14 @@ body{
 
 .btn {
    background: var(--dark);
-   color: var(--light);
+   color: var(--bright);
    padding:0.6rem 1.3rem;
    text-decoration: none;
    border:0; 
 }
 
 ion-content{
-   --ion-background-color:var(--medium);
+   --ion-background-color:var(--light);
 }
 
 img{
@@ -35,16 +35,8 @@ img{
    display: grid;
 }
 
-ion-content {
-   background: var(--medium);
-}
-
-
-
-
 .grdHeader{
    z-index: 1000;
-   box-shadow: 0px 2px 11px grey;
    display: grid;
    grid-template-columns: 1fr 70px;
    align-items: center;
