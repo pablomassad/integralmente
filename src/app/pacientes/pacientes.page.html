@@ -29,25 +29,39 @@
       <ion-input type="text" [(ngModel)]="criteria" class="filterInput"></ion-input>
    </ion-item>
 
-   <div class="grdPatient" *ngFor="let p of patients | searchInfo: criteria" (click)="gotoDetail(p)">
+   <!-- <div class="grdPatient" *ngFor="let p of patients | searchInfo: criteria" (click)="gotoDetail(p)">
       <ion-avatar class="foto">
          <img [src]="p.foto">
       </ion-avatar>
-      <div></div>
+      <div>{{p.nombres}},{{p.apellido}}</div>
+   </div> -->
 
-      <div class="campo">
-         Nombres:
-      </div>
-      <div>{{p.nombres}}</div>
+   <ion-list>
+      <ion-item-sliding *ngFor="let p of patients | searchInfo: criteria" (click)="gotoDetail(p)">
+         <ion-item>
+            <ion-avatar slot="start" class="foto">
+               <img [src]="p.foto">
+            </ion-avatar>
+            <ion-label>
+               <h2>{{p.apellido}}, {{p.nombres}}</h2>
+               <h3>{{evalEdad(p.nacimiento)}} años, {{p.obrasocial}}</h3>
+               <p>{{p.atencion}}</p>
+            </ion-label>
+         </ion-item>
+         <ion-item-options side="end">
+            <ion-item-option (click)="removePatient(p)"  color="danger">
+               <div class="grdRemove">
+                     <ion-icon name="trash"></ion-icon>
+                     <div>Eliminar</div> 
+               </div>
+            </ion-item-option>
+         </ion-item-options>
+      </ion-item-sliding>
+   </ion-list>
 
-      <div class="campo">
-         Apellido:
-      </div>
-      <div>{{p.apellido}}</div>
-
-      <div class="campo">
-         Tel/Cel:
-      </div>
-      <div>{{p.telefono}}</div>
-   </div>
+   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="addPatient()">
+         <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+   </ion-fab>
 </ion-content>

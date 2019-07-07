@@ -17,7 +17,7 @@
    align-items: center;
 }
 .filterIcon{
-   font-size: 35px;
+   font-size: 55px;
    text-shadow: 1px 1px 5px;
 }
 .campo{
@@ -27,4 +27,17 @@
    width: 12vw;
    height: 12vw;
    box-shadow: 0 0 5px;
+}
+
+.grdRemove{
+   display: grid;
+   justify-items: center;
+   grid-template-columns: 1fr;
+   grid-template-rows: 1fr 1fr;
+}
+ion-item-option ion-icon{
+   font-size: 30px;
+}
+ion-item-option div{
+   // font-weight: bold;
 }

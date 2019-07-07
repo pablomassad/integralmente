@@ -28,6 +28,13 @@ export class PacientesPage implements OnInit {
       this.patients = this.getPatientsByProfessional(1)
    }
 
+   addPatient(){
+      this.router.navigate(['/ficha'])
+   }
+
+   removePatient(p){
+      
+   }
    async openMenuSheet() {
       const actionSheet = await this.actionSheetController.create({
          header: 'Opciones',
@@ -55,13 +62,20 @@ export class PacientesPage implements OnInit {
       await this.globalSrv.setItem('curPatient', p)
       this.router.navigate(["/menu/home"])
    }
+
+   evalEdad(nac){
+      const today = moment()
+      const cumple = moment(nac)
+      const edad = today.diff(cumple, 'y')
+      return edad
+   }
    private getPatientsByProfessional(id) {
       const arr = [
          {
             nombres: 'Miguel Nicolas',
             apellido: 'Aguirre',
             edad: moment().diff(moment(1562096997361, 'y')),
-            nacimiento: 1562096997361,
+            nacimiento: 1512205596527,
             domicilio: "Guido 188",
             ciudad: "Acevedo, Pergamino",
             colegio: "Santa Julia",
@@ -79,37 +93,58 @@ export class PacientesPage implements OnInit {
          {
             nombres: 'Angel Brian',
             apellido: 'Villegas',
-            edad: '11',
-            nacimiento: 1562056997361,
+            edad: '',
+            nacimiento: 1412205596527,
             colegio: "Normal 16",
             domicilio: "Dr.Alem 2100",
-            Localidad: "Pergamino",
+            ciudad: "Pergamino",
+            curso:"3er grado",
+            atencion:"lunes y jueves 17 a 17:45hs",
+            obrasocial:"IOMA",
+            afiliado:"34352222200",
+            padre:"Pedro Luis Cevallos",
+            telpadre: "02477506444",
+            madre:"Natalia Sara Gutierres",
+            telmadre: "02477506455",
             email: "natyperez@hotmail.com",
-            telefono: "02477503344",
             foto:"assets/users/boy2.jpg"
          },
          {
             nombres: 'Lautaro',
             apellido: 'Gomez',
-            edad: '14',
-            nacimiento: 1562006997361,
+            edad: '',
+            nacimiento: 1312205596527,
             colegio: "Marista",
             domicilio: "Ameguino 254 P3A",
-            Localidad: "Pergamino",
+            ciudad: "Pergamino",
+            curso:"5to grado",
+            atencion:"martes 15 a 15:45hs",
+            obrasocial:"IOMA",
+            afiliado:"34352222200",
+            padre:"Pedro Luis Cevallos",
+            telpadre: "02477506444",
+            madre:"Natalia Sara Gutierres",
+            telmadre: "02477506455",
             email: "oficina11@gmail.com",
-            telefono: "02477511401",
             foto:"assets/users/boy3.jpg"
          },
          {
             nombres: 'Sara Luciana',
             apellido: 'Dominguez',
-            edad: '7',
-            nacimiento: 1562086997361,
+            edad: '',
+            nacimiento: 1112205596527,
             colegio: "Santa Julia",
             domicilio: "Posadas 334",
-            Localidad: "Pergamino",
-            email: "marcelagonzalez@gmail.com",
-            telefono: "02477504425",
+            ciudad: "Pergamino",
+            curso:"5to grado",
+            atencion:"miercoles y viernes 16 a 16:45hs",
+            obrasocial:"SWISS MED",
+            afiliado:"34352222200",
+            padre:"Martin Nicolas Pepon",
+            telpadre: "02477506000",
+            madre:"Marta Mariza Reyna",
+            telmadre: "02477523642",
+            email: "martita@gmail.com",
             foto:"assets/users/girl.jpg"
          },                           
       ]
