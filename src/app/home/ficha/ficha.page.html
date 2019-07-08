@@ -1,9 +1,9 @@
-<ion-content>
-   <div class="fichaWrapper">
-      <div class="container">
+<!-- <ion-content> -->
+   <div class="tabWrapper">
+      <div class="container" *ngIf="patient">
          <div class="retrato">
             <ion-avatar class="fichaAvatar">
-               <img src="assets/users/boy2.jpg">
+               <img [src]="patient.foto">
                <div class="editFoto" *ngIf="isMobile">
                   CAMBIAR
                </div>
@@ -32,17 +32,19 @@
          <div class="det2">
             <div class="grdItem">
                <div class="campo">
-                  Edad:
+                  Fecha Nac.:
                </div>
-               <input [disabled]="true" type="number" class="dato" [(ngModel)]="patient.edad">
+               <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="patient.nacimiento" class="dato datePicker">
+               </ion-datetime>
             </div>
             <div class="grdItem">
                <div class="campo">
-                  Fecha de nacimiento:
+                  Edad:
                </div>
-               <ion-datetime displayFormat="DD/MM/YY" [(ngModel)]="patient.nacimiento"></ion-datetime>
+               <div class="dato lblEdad">
+                  {{evalEdad(patient.nacimiento)}}
+               </div>
             </div>
-
             <div class="grdItem">
                <div class="campo">
                   Colegio:
@@ -55,7 +57,6 @@
                </div>
                <input type="text" class="dato" [(ngModel)]="patient.curso">
             </div>
-
             <div class="grdItem">
                <div class="campo">
                   DNI:
@@ -84,7 +85,7 @@
                <div class="campo">
                   Dias de atención:
                </div>
-               <input type="text" class="dato" [(ngModel)]="patient.diasatencion">
+               <input type="text" class="dato" [(ngModel)]="patient.atencion">
             </div>
 
             <div class="frameContacto">
@@ -95,7 +96,7 @@
                <div class="grdContacto">
                   <div class="grdItem">
                      <div class="campo">
-                        Correo electrónico:
+                        Email:
                      </div>
                      <input type="text" class="dato" [(ngModel)]="patient.email">
                   </div>
@@ -168,4 +169,4 @@
                        </li>
                      </ul> -->
    </div>
-</ion-content>
+<!-- </ion-content> -->

@@ -4,9 +4,11 @@ import { AngularFirestore } from '@angular/fire/firestore'
 import { ImagePicker } from '@ionic-native/image-picker/ngx'
 import { Platform } from '@ionic/angular'
 
-import { FileUploader, FileLikeObject } from 'ng2-file-upload';
-import { concat } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { FileUploader, FileLikeObject } from 'ng2-file-upload'
+import { concat } from 'rxjs'
+import { HttpClient } from '@angular/common/http'
+import { GlobalService } from 'fwk4-services'
+import * as moment from 'moment'
 
 @Component({
    selector: 'app-ficha',
@@ -22,6 +24,7 @@ export class FichaPage implements OnInit {
    isMobile:boolean = false
 
    constructor(
+      private globalSrv:GlobalService,
       private http: HttpClient,
       private platform: Platform,
       private imagePicker: ImagePicker,
@@ -31,9 +34,8 @@ export class FichaPage implements OnInit {
       console.log('FichaPage constructor')
    }
 
-   ngOnInit() {
-      // Obtiene paciente seleccionado del listado
-      this.patient = {}
+   async ngOnInit() {
+      this.patient = await this.globalSrv.getItem('patient')
       this.isMobile = this.platform.is('cordova')
    }
    changePhoto() {
@@ -51,6 +53,12 @@ export class FichaPage implements OnInit {
       //    console.log('metadata: ', x)
       //    this.fbsSrv.storeInfoToDatabase(x.metadata)
       // })
+   }
+   evalEdad(nac){
+      const today = moment()
+      const cumple = moment(nac)
+      const edad = today.diff(cumple, 'y')
+      return edad + " años"
    }
    save() {
       this.afs.doc('patients/' + this.patient.id).set(this.patient, { merge: true })

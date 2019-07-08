@@ -1,31 +1,32 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms'
+import { Routes, RouterModule } from '@angular/router'
+import { IonicModule } from '@ionic/angular'
 
-import { IonicModule } from '@ionic/angular';
-
-import { HistoriaPage } from './historia.page';
+import { HistoriaPage } from './historia.page'
+import { Fwk4PipesModule } from 'fwk4-pipes'
 
 const routes: Routes = [
-  {
-    path: '',
-    component: HistoriaPage
-  }
+   {
+      path: '',
+      component: HistoriaPage
+   }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [HistoriaPage]
+   imports: [
+      Fwk4PipesModule,
+      CommonModule,
+      FormsModule,
+      IonicModule,
+      RouterModule.forChild(routes)
+   ],
+   declarations: [HistoriaPage]
 })
 export class HistoriaPageModule {
-   
-   constructor(){
+
+   constructor() {
       console.log('HistoriaPageModule constructor')
    }
 }

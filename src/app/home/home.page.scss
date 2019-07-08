@@ -1,8 +1,9 @@
 .categories{
-   top:72px;
+   top:135px;
 }
 .tabsShadow{
    box-shadow: 0px 2px 6px grey;
+   background: white
 }
 
 .avatar{
@@ -12,6 +13,8 @@
    margin-top: 5px;
 }
 .grdPatient{
+   position: absolute;
+   margin-top: 60px;
    height: 70px;
    font-size: 20px;
    display: grid;
@@ -39,5 +42,5 @@
  }
 
  ion-tab-button{
-    background: white;
+    background: transparent;
  }

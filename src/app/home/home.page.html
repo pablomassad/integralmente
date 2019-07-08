@@ -11,14 +11,13 @@
       </div>
    </ion-toolbar>
 </ion-header>
-
-<ion-content>
-   <div class="grdPatient">
-      <ion-avatar class="avatar">
-         <img src="assets/users/boy.jpg">
-      </ion-avatar>
-      <div style="padding-left: 10px">Miguel Angel Fiore</div>
-   </div>
+<div class="grdPatient" *ngIf="patient">
+   <ion-avatar class="avatar">
+      <img [src]="userPhoto">
+   </ion-avatar>
+   <div style="padding-left: 10px">{{patient.apellido}}, {{patient.nombres}}</div>
+</div>
+<div>
    <ion-tabs class="categories">
       <ion-tab-bar slot="top" class="tabsShadow">
          <ion-tab-button tab="ficha">
@@ -42,4 +41,4 @@
          </ion-tab-button>
       </ion-tab-bar>
    </ion-tabs>
-</ion-content>
+</div>

@@ -1,7 +1,8 @@
-.fichaWrapper {
-   background: var(--medium);
+.tabWrapper {
+   background: var(--light);
    overflow-y: auto;
    height: 78vh;
+   padding: 10px 0px;
 }
 
 .grdItem {
@@ -12,7 +13,7 @@
 
 .campo {
    font-weight: bold;
-   width: 220px;
+   width: 237px;
    text-align: right;
 }
 
@@ -24,8 +25,12 @@
    border-radius: 5px;
    height: 40px;
    padding: 0px 10px;
-   // width: 100%;
    max-width: 250px;
+   width: 100%;
+}
+.datePicker, .lblEdad{
+   padding:8px;
+   width: 100px;
 }
 
 
@@ -36,9 +41,9 @@
    grid-template-columns: 1fr 1fr 1fr 1fr;
    grid-template-rows: auto 1fr 100px;
    grid-template-areas:
-      'retrato det1    det1   det1'
-      'det2    det2    det2   det2'
-      'pie     pie     pie    pie';
+      'retrato det1  det1   det1'
+      'det2    det2  det2   det2'
+      'pie     pie   pie    pie';
 }
 
 
@@ -55,21 +60,19 @@
 
 .det1 {
    grid-area: det1;
-   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+   // display: grid;
+   // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .det2 {
    grid-area: det2;
-   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
-
-   // grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
+   // display: grid;
+   //grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
 }
 
 .pie {
    grid-area: pie;
-   background: var(--medium);
+   background: var(--light);
 }
 
 .grdPie {
@@ -118,9 +121,9 @@
 }
 
 .frameContacto {
-   margin: 5px;
+   margin: 20px 5px;
    padding: 5px;
-   box-shadow: 2px 2px 5px black;
+   box-shadow: 2px 2px 5px #bdbdbd;
    background: #bdbdbd;
    display: grid;
    justify-items: auto;
@@ -136,7 +139,7 @@
 
 .grdContacto {
    display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 }
 
 
