@@ -1,5 +1,6 @@
-<ion-content>
-   <div class="tabWrapper">
+<ion-content *ngIf="session">
+   <h2 class="sessionTitle">{{patient.apellido}}, {{patient.nombres}}</h2>
+   <div class="sessionFrame">
       <!-- <div class="txtFecha">{{s.fecha | date:'dd/MM/yyyy - HH:mm'}}</div> -->
       <div class="grdItem">
          <div class="campo">
@@ -10,12 +11,12 @@
       </div>
 
       <div class="campo">Observaciones</div>
-      <textarea rows="4" cols="40" wrap="hard" class="txtObs">
+      <textarea rows="4" cols="40" wrap="hard" class="txtArea">
          {{s.observaciones}}
       </textarea>
 
       <div class="campo">Notas</div>
-      <textarea rows="4" cols="40" wrap="hard" class="txtObs">
+      <textarea rows="4" cols="40" wrap="hard" class="txtArea">
             {{s.notas}}
       </textarea>  
       

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { GlobalService } from 'fwk4-services'
 import { ModalController } from '@ionic/angular'
 import { SesionPage } from './sesion.page'
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
    selector: 'app-historia',
@@ -14,6 +15,7 @@ export class HistoriaPage implements OnInit {
 
    constructor(
       private modalController: ModalController,
+      private afs: AngularFirestore,
       private globalSrv: GlobalService
    ) {
       console.log('HistoriaPage constructor')
@@ -21,7 +23,9 @@ export class HistoriaPage implements OnInit {
 
    async ngOnInit() {
       this.patient = await this.globalSrv.getItem('patient')
-      this.sessions = this.patient.historia
+      this.afs.collection('pacientes').doc(this.patient.id).collection('sesiones').valueChanges({ idField: 'id' }).subscribe(ses=>{
+         this.sessions = ses 
+      }) 
    }
 
    async gotoSession(s) {

@@ -26,8 +26,11 @@
    text-shadow: 1px 1px 5px;
 }
 
+.newSession{
+   margin-bottom: 140px;
+}
 .historyCards {
-   background: #bbb;
+   background: var(--medium);
    border-radius: 5px;
    box-shadow: 1px 1px 4px;
    padding: 5px;

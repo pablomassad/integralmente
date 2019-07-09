@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular'
 
 import { HistoriaPage } from './historia.page'
 import { Fwk4PipesModule } from 'fwk4-pipes'
+import { SesionPage } from './sesion.page';
 
 const routes: Routes = [
    {
@@ -22,7 +23,10 @@ const routes: Routes = [
       IonicModule,
       RouterModule.forChild(routes)
    ],
-   declarations: [HistoriaPage]
+   entryComponents:[
+      SesionPage
+   ],
+   declarations: [HistoriaPage, SesionPage]
 })
 export class HistoriaPageModule {
 

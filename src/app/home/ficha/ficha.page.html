@@ -33,7 +33,7 @@
                <div class="campo">
                   Fecha Nac.:
                </div>
-               <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="patient.nacimiento" class="dato datePicker">
+               <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fechaNacimiento" class="dato datePicker">
                </ion-datetime>
             </div>
             <div class="grdItem">
@@ -41,7 +41,7 @@
                   Edad:
                </div>
                <div class="dato lblEdad">
-                  {{evalEdad(patient.nacimiento)}}
+                  {{evalEdad()}}
                </div>
             </div>
             <div class="grdItem">

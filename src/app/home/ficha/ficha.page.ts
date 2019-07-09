@@ -22,6 +22,7 @@ export class FichaPage implements OnInit {
 
    patient: any
    isMobile:boolean = false
+   fechaNacimiento:any
 
    constructor(
       private globalSrv:GlobalService,
@@ -36,6 +37,7 @@ export class FichaPage implements OnInit {
 
    async ngOnInit() {
       this.patient = await this.globalSrv.getItem('patient')
+      this.fechaNacimiento = moment(this.patient.nacimiento).format("DD/MM/YYYY");
       this.isMobile = this.platform.is('cordova')
    }
    changePhoto() {
@@ -54,13 +56,14 @@ export class FichaPage implements OnInit {
       //    this.fbsSrv.storeInfoToDatabase(x.metadata)
       // })
    }
-   evalEdad(nac){
+   evalEdad(){
       const today = moment()
-      const cumple = moment(nac)
+      const cumple = moment(this.fechaNacimiento)
       const edad = today.diff(cumple, 'y')
       return edad + " años"
    }
    save() {
+      this.patient.nacimiento = moment(this.fechaNacimiento).valueOf()
       if (this.patient.id)
          this.afs.collection('pacientes').doc(this.patient.id).set(this.patient, { merge: true })
       else

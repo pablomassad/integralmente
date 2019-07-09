@@ -23,7 +23,7 @@ export class MenuPage implements OnInit {
       }
    ]
 
-   selectedPath = ''
+   selectedPath = '/menu/pacientes'
 
    constructor(
       private router: Router

@@ -5,29 +5,7 @@
    padding: 10px 0px;
 }
 
-.grdItem {
-   display: flex;
-   align-items: center;
-   margin: 5px;
-}
 
-.campo {
-   font-weight: bold;
-   width: 237px;
-   text-align: right;
-}
-
-.dato {
-   background: lightgray;
-   box-shadow: inset 1px 1px 3px;
-   border: none;
-   margin: 0px 10px;
-   border-radius: 5px;
-   height: 40px;
-   padding: 0px 10px;
-   max-width: 250px;
-   width: 100%;
-}
 .datePicker, .lblEdad{
    padding:8px;
    width: 100px;
@@ -70,44 +48,6 @@
    //grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
 }
 
-.pie {
-   grid-area: pie;
-   background: var(--light);
-}
-
-.grdPie {
-   display: grid;
-   grid-template-columns: 1fr 2fr 1fr;
-   justify-items: center;
-   align-items: center;
-}
-
-.btnFoot {
-   border: none;
-   outline: none;
-   margin: 10px;
-   background: #5491ff;
-   color: white;
-   font-size: 20px;
-   font-weight: bold;
-   width: 110px;
-   border-radius: 5px;
-   box-shadow: var(--shadow);
-   align-items: center;
-   display: grid;
-   grid-template-columns: 1fr 3fr;
-   justify-items: center;
-}
-
-.btnFoot:active {
-   background-color: #3e4d8e;
-   box-shadow: none;
-   transform: translateY(2px);
-}
-
-.btnFoot p {
-   font-size: 1rem;
-}
 
 .editFoto {
    background: black;
