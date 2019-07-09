@@ -1,0 +1,41 @@
+<ion-content>
+   <div class="tabWrapper">
+      <!-- <div class="txtFecha">{{s.fecha | date:'dd/MM/yyyy - HH:mm'}}</div> -->
+      <div class="grdItem">
+         <div class="campo">
+            Fecha:
+         </div>
+         <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="session.fecha" class="dato datePicker">
+         </ion-datetime>
+      </div>
+
+      <div class="campo">Observaciones</div>
+      <textarea rows="4" cols="40" wrap="hard" class="txtObs">
+         {{s.observaciones}}
+      </textarea>
+
+      <div class="campo">Notas</div>
+      <textarea rows="4" cols="40" wrap="hard" class="txtObs">
+            {{s.notas}}
+      </textarea>  
+      
+      <div class="campo">Adjuntos</div>   
+      <div *ngFor="let a of session.adjuntos">
+         <div>a.nombre</div>
+      </div>   
+   </div>
+   <div class="pie">
+         <div class="grdPie">
+            <div class="btnFoot" (click)="cancel()">
+               <ion-icon name="close"></ion-icon>
+               <p>Cancelar</p>
+            </div>
+            <div></div>
+            <div class="btnFoot" (click)="save()">
+               <ion-icon name="save"></ion-icon>
+               <p>Guardar</p>
+            </div>
+         </div>
+      </div>
+
+</ion-content>

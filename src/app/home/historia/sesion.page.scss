@@ -1,0 +1,61 @@
+.tabWrapper {
+   background: var(--light);
+   overflow-y: auto;
+   height: 78vh;
+   padding: 10px 0px;
+}
+
+.btnEntrevista {
+   border-radius: 50%;
+   background: green;
+   box-shadow: var(--shadow);
+   color: white;
+   width: 50px;
+   height: 50px;
+   font-size: 30px;
+}
+
+.btnEntrevista:active {
+   background-color: rgb(1, 49, 1);
+   box-shadow: none;
+   transform: translateY(2px);
+}
+
+.filterIcon {
+   font-size: 45px;
+   text-shadow: 1px 1px 5px;
+}
+
+.historyCards {
+   background: #bbb;
+   border-radius: 5px;
+   box-shadow: 1px 1px 4px;
+   padding: 5px;
+   margin: 10px 5px;
+}
+.txtFecha{
+   font-size: 15px;
+   font-weight: bold;
+}
+
+.txtObs {
+   color: #555;
+   width: 100%;
+   word-wrap: break-word;
+   text-align: justify;
+   padding: 4px;
+   border:1px solid gray;
+   // box-shadow: inset 1px 1px 1px black;
+   // margin: 5px;
+}
+
+.grdRemove {
+   display: grid;
+   justify-items: center;
+   grid-template-columns: 1fr;
+   grid-template-rows: 1fr 1fr;
+}
+
+ion-item-option ion-icon {
+   font-size: 30px;
+}

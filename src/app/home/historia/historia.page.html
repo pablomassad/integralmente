@@ -14,7 +14,7 @@
          minima nostrum atque optio corrupti aspernatur, quas expedita tempore corporis consectetur ipsam animi
          deserunt. Fuga, laudantium.
       </div> -->
-      <div *ngFor="let s of sessions | searchInfo: criteria" (click)="gotoDetail(p)" class="historyCards">
+      <div *ngFor="let s of sessions | searchInfo: criteria" (click)="gotoSession(s)" class="historyCards">
          <div class="txtFecha">{{s.fecha | date:'dd/MM/yyyy - HH:mm'}}</div>
          <div class="txtObs">
             {{s.observaciones}}

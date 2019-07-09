@@ -15,12 +15,14 @@ export class HomePage implements OnInit {
       private globalSrv: GlobalService
    ) {
       console.log('HomePage constructor')
+      this.userPhoto = "assets/users/pato.jpg"  //"assets/images/anonymous.png"
    }
 
    ngOnInit(){
       this.globalSrv.getItem('patient').then(x=>{
          this.patient = x
-         this.userPhoto = this.patient.foto  //"assets/images/anonymous.png"
+         if (!this.patient.foto)
+            this.patient.foto = "assets/images/anonymous.png"
       })
    }
 

@@ -13,7 +13,7 @@
 </ion-header>
 <div class="grdPatient" *ngIf="patient">
    <ion-avatar class="avatar">
-      <img [src]="userPhoto">
+      <img [src]="patient.foto">
    </ion-avatar>
    <div style="padding-left: 10px">{{patient.apellido}}, {{patient.nombres}}</div>
 </div>

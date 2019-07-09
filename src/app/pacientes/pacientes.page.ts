@@ -3,6 +3,7 @@ import { GlobalService } from 'fwk4-services';
 import { Router } from '@angular/router'
 import * as moment from 'moment'
 import { ActionSheetController } from '@ionic/angular';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
    selector: 'app-pacientes',
@@ -18,22 +19,20 @@ export class PacientesPage implements OnInit {
    constructor(
       private actionSheetController: ActionSheetController,
       private router:Router,
+      private afs: AngularFirestore,
       private globalSrv: GlobalService
    ) {
       console.log('PacientesPage constructor')
       this.userPhoto = "assets/users/pato.jpg" //"assets/images/anonymous.png"
    }
 
-   ngOnInit() {
-      this.patients = this.getPatientsByProfessional(1)
+   async ngOnInit() {
+      this.afs.collection('pacientes').valueChanges().subscribe(ps=>{
+         this.patients = ps // this.getPatientsByProfessional(1)
+      }) 
    }
-
-   addPatient(){
-      this.router.navigate(['/ficha'])
-   }
-
    removePatient(p){
-      
+      this.afs.collection('pacientes').doc(p.id).delete()
    }
    async openMenuSheet() {
       const actionSheet = await this.actionSheetController.create({

@@ -61,7 +61,10 @@ export class FichaPage implements OnInit {
       return edad + " años"
    }
    save() {
-      this.afs.doc('patients/' + this.patient.id).set(this.patient, { merge: true })
+      if (this.patient.id)
+         this.afs.collection('pacientes').doc(this.patient.id).set(this.patient, { merge: true })
+      else
+         this.afs.collection('pacientes').add(this.patient)      
    }
    viewFile(url) {
       //this.iab.open(url)
