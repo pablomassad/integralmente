@@ -7,23 +7,25 @@ Login/Register
 
 --------------------------------------------------------
 Pacientes
-   Layout Styles
-   Agregar Paciente
+   [OK] Layout Styles
+   [OK] Agregar Paciente
 
 --------------------------------------------------------
 Ficha 
    Layout Styles
    Cambiar foto web/mobile
    Firebase Storage
+   ABM
 
 --------------------------------------------------------
 Historia Clinica
    Layout Styles
+   ABM 
 
 --------------------------------------------------------
 Documentacion
    Layout Styles
-
+   Listado total de adjuntos de todas las sessiones x paciente
 
 --------------------------------------------------------
 Facturas / Facturacion

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FbsService } from 'src/app/fbs.service'
+import { FbsService, Upload } from 'src/app/fbs.service'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { ImagePicker } from '@ionic-native/image-picker/ngx'
 import { Platform } from '@ionic/angular'
@@ -9,6 +9,8 @@ import { concat } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { GlobalService } from 'fwk4-services'
 import * as moment from 'moment'
+import * as firebase from "firebase"
+
 
 @Component({
    selector: 'app-ficha',
@@ -21,11 +23,13 @@ export class FichaPage implements OnInit {
    public hasBaseDropZoneOver: boolean = false;
 
    patient: any
-   isMobile:boolean = false
-   fechaNacimiento:any
+   isMobile: boolean = false
+   fechaNacimiento: any
+   fileToUpload: File = null
+   avatarFile:Upload
 
    constructor(
-      private globalSrv:GlobalService,
+      private globalSrv: GlobalService,
       private http: HttpClient,
       private platform: Platform,
       private imagePicker: ImagePicker,
@@ -37,74 +41,50 @@ export class FichaPage implements OnInit {
 
    async ngOnInit() {
       this.patient = await this.globalSrv.getItem('patient')
-      this.fechaNacimiento = moment(this.patient.nacimiento).format("DD/MM/YYYY");
+      this.fechaNacimiento = moment(this.patient.nacimiento).format("DD/MM/YYYY")
       this.isMobile = this.platform.is('cordova')
    }
-   changePhoto() {
-      const data = {}
+   handleAvatar(files: FileList) {
+      this.fileToUpload = files.item(0)
+      this.avatarFile = new Upload(this.fileToUpload)
+      this.fbsSrv.pushUpload(this.patient.dni, this.avatarFile).then(sn =>{
+         sn.ref.getDownloadURL().then(url=>{
+            this.patient.foto = url
+            this.saveToDB()
+         })
+      })
+   }
+   evalEdad() {
+      const today = moment()
+      const cumple = moment(this.fechaNacimiento)
+      const edad = today.diff(cumple, 'y')
+      return edad + " años"
+   }
+   async save() {
+      this.patient.nacimiento = moment(this.fechaNacimiento).valueOf()
+      this.saveToDB()
+   }
 
+   private async saveToDB(){
+      if (this.patient.id)
+         await this.afs.collection('pacientes').doc(this.patient.id).set(this.patient, { merge: true })
+      else
+         await this.afs.collection('pacientes').add(this.patient)
+   }
+
+
+
+
+
+
+   private changePhoto() {
       if (this.isMobile) {
          this.pickImageFromMobile()
       }
       else {
          this.pickImageFromBrowser()
       }
-
-
-      // this.fbsSrv.uploadToStorage(data).then().then(x => {
-      //    console.log('metadata: ', x)
-      //    this.fbsSrv.storeInfoToDatabase(x.metadata)
-      // })
    }
-   evalEdad(){
-      const today = moment()
-      const cumple = moment(this.fechaNacimiento)
-      const edad = today.diff(cumple, 'y')
-      return edad + " años"
-   }
-   save() {
-      this.patient.nacimiento = moment(this.fechaNacimiento).valueOf()
-      if (this.patient.id)
-         this.afs.collection('pacientes').doc(this.patient.id).set(this.patient, { merge: true })
-      else
-         this.afs.collection('pacientes').add(this.patient)      
-   }
-   viewFile(url) {
-      //this.iab.open(url)
-   }
-   fileOverBase(event): void {
-      this.hasBaseDropZoneOver = event;
-   }
-   getFiles(): FileLikeObject[] {
-      return this.fileUploader.queue.map((fileItem) => {
-         return fileItem.file
-      })
-   }
-   uploadFiles() {
-      let files = this.getFiles();
-      let requests = [];
-
-      files.forEach((file) => {
-         let formData = new FormData()
-         formData.append('file', file.rawFile, file.name)
-         requests.push(this.uploadFormData(formData))
-      })
-
-      concat(...requests).subscribe(
-         (res) => {
-            console.log(res)
-         },
-         (err) => {
-            console.log(err)
-         }
-      )
-   }
-
-   DJANGO_API_SERVER: string = "http://localhost:8000"
-   public uploadFormData(formData) {
-      return this.http.post<any>(`${this.DJANGO_API_SERVER}/upload/`, formData);
-   }
-
    private pickImageFromMobile() {
       const options = {
          // Android only. Max images to be selected, defaults to 15. If this is set to 1, upon
@@ -135,6 +115,54 @@ export class FichaPage implements OnInit {
       }, (err) => { });
    }
    private pickImageFromBrowser() {
+
+   }
+   private viewFile(url) {
+      //this.iab.open(url)
+   }
+   private fileOverBase(event): void {
+      this.hasBaseDropZoneOver = event;
+   }
+   private getFiles(): FileLikeObject[] {
+      return this.fileUploader.queue.map((fileItem) => {
+         return fileItem.file
+      })
+   }
+   private uploadFiles() {
+      let files = this.getFiles();
+      let requests = [];
+
+      files.forEach((file) => {
+         let formData = new FormData()
+         formData.append('file', file.rawFile, file.name)
+         //requests.push(this.uploadFormData(formData))
+      })
+
+      concat(...requests).subscribe(
+         (res) => {
+            console.log(res)
+         },
+         (err) => {
+            console.log(err)
+         }
+      )
+   }
+   private uploadImage(imageURI, randomId) {
+      return new Promise<any>((resolve, reject) => {
+         let storageRef = firebase.storage().ref();
+         let imageRef = storageRef.child('image').child(randomId);
+         this.encodeImageUri(imageURI, function (image64) {
+            imageRef.putString(image64, 'data_url')
+               .then(snapshot => {
+                  snapshot.ref.getDownloadURL()
+                     .then(res => resolve(res))
+               }, err => {
+                  reject(err);
+               })
+         })
+      })
+   }
+   private encodeImageUri(a, b) {
 
    }
 }

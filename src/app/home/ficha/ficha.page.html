@@ -8,13 +8,14 @@
                </div>
                <label for="photoEdit" *ngIf="!isMobile">
                   <div class="editFoto">
-                     WEB CH
+                     WEB CH 
                   </div>
                </label>
             </ion-avatar>
-            <input type="file" style="display: none" id="photoEdit" />
+            <input type="file" style="display: none" id="photoEdit" (change)="handleAvatar($event.target.files)"/>
          </div>
          <div class="det1">
+            <div *ngIf="avatarFile"> ({{avatarFile.progress}}%) </div>
             <div class="grdItem">
                <div class="campo">
                   Nombres:

@@ -1,4 +1,4 @@
-<ion-content *ngIf="session">
+<ion-content *ngIf="patient">
    <h2 class="sessionTitle">{{patient.apellido}}, {{patient.nombres}}</h2>
    <div class="sessionFrame">
       <!-- <div class="txtFecha">{{s.fecha | date:'dd/MM/yyyy - HH:mm'}}</div> -->
@@ -6,18 +6,18 @@
          <div class="campo">
             Fecha:
          </div>
-         <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="session.fecha" class="dato datePicker">
+         <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fechaSesion" class="dato datePicker">
          </ion-datetime>
       </div>
 
       <div class="campo">Observaciones</div>
-      <textarea rows="4" cols="40" wrap="hard" class="txtArea">
-         {{s.observaciones}}
+      <textarea (change)="onObsChanged($event)" rows="4" cols="40" labels="notes" wrap="virtual" class="txtArea">
+         {{session.observaciones}}
       </textarea>
 
       <div class="campo">Notas</div>
-      <textarea rows="4" cols="40" wrap="hard" class="txtArea">
-            {{s.notas}}
+      <textarea (change)="onNotasChanged($event)" rows="4" cols="40" wrap="hard" class="txtArea">
+            {{session.notas}}
       </textarea>  
       
       <div class="campo">Adjuntos</div>   

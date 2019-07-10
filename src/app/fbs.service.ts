@@ -1,28 +1,39 @@
 import { Injectable } from '@angular/core'
-import { Firebase } from '@ionic-native/firebase/ngx'
-import { Platform } from '@ionic/angular'
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore'
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage'
-
+import * as firebase from "firebase"
 
 @Injectable({
    providedIn: 'root'
 })
 export class FbsService {
 
+   private uploadTask: firebase.storage.UploadTask
+
    constructor(
-      private afStorage: AngularFireStorage,
-      private platform: Platform) {
+      private afStorage: AngularFireStorage) {
       console.log('FbsService constructor')
    }
 
-   getFiles(){
+   pushUpload(dni, upload:Upload){
+      const newName = upload.file.name //`${new Date().getTime()}`
+      const stPath = dni+'/'+newName
+      let storageRef = firebase.storage().ref()
+      this.uploadTask = storageRef.child(stPath).put(upload.file)
 
+      this.uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot)=>{
+         upload.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      }, error =>{
+         console.log('upload avatar error: ', error)
+      })
+      return this.uploadTask
    }
-   uploadToStorage(information): AngularFireUploadTask{
-      let newName = `${new Date().getTime()}.txt`
-      return this.afStorage.ref(`patients/${newName}`).putString(information)
+   deleteFileStorage(dni, name:string){
+      const storageRef = firebase.storage().ref()
+      const stPath = dni+'/'+name
+      storageRef.child(stPath).delete()
    }
+
    storeInfoToDatabase(metaInfo){
       let toSave = {
          created:metaInfo.timeCreated,
@@ -36,5 +47,18 @@ export class FbsService {
       let key = file.key
       let storagePath = file.fullPath
       this.afStorage.ref(storagePath).delete()
+   }
+}
+
+export class Upload{
+   $key:string
+   file:File
+   name:string
+   url:string
+   progress:number
+   createdAt: Date = new Date()
+
+   constructor(file:File){
+      this.file = file
    }
 }
