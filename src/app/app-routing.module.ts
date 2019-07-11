@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-   { path: '', redirectTo: 'menu', pathMatch: 'full' },
+   { path: '', redirectTo: 'menu/pacientes', pathMatch: 'full' },
    { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
    { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
    { path: 'menu', loadChildren: './menu/menu.module#MenuPageModule' }

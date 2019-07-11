@@ -1,32 +1,47 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, OnDestroy } from '@angular/core'
 import { GlobalService } from 'fwk4-services'
 import { ModalController, NavParams } from '@ionic/angular'
 import { AngularFirestore } from '@angular/fire/firestore'
 import * as moment from 'moment'
+import { FbsService } from 'src/app/fbs.service'
+import { Subscription } from 'rxjs'
+
 
 @Component({
    selector: 'app-sesion',
    templateUrl: './sesion.page.html',
    styleUrls: ['./sesion.page.scss'],
 })
-export class SesionPage implements OnInit {
+export class SesionPage implements OnInit, OnDestroy {
    patient:any
    session: any
    fechaSesion:any
+   attachments:any
+   fileToUpload: File = null
+
+   sub: Subscription
 
    constructor(
       private navParams: NavParams,
       private modalController: ModalController,
       private globalSrv: GlobalService,
-      private afs: AngularFirestore
+      private afs: AngularFirestore,
+      private fbsSrv: FbsService
    ) {
       console.log('SesionPage constructor')
    }
 
    async ngOnInit() {
+      this.patient = await this.globalSrv.getItem('patient')
       this.session = this.navParams.get('sessionDetail')
       this.fechaSesion = moment(this.session.fecha).format("DD/MM/YYYY")
-      this.patient = await this.globalSrv.getItem('patient')
+      const path = 'pacientes/'+this.patient.id+'/sesiones/'+this.session.id+'/adjuntos'
+      this.sub = this.afs.collection(path).valueChanges().subscribe(ats=>{
+         this.attachments = ats
+      })
+   }
+   ngOnDestroy(){
+      this.sub.unsubscribe()
    }
 
    onObsChanged(ev){
@@ -35,6 +50,15 @@ export class SesionPage implements OnInit {
    onNotasChanged(ev){
       this.session.notas = ev.target.value
    }
+   addAttachment(){
+
+   }
+   handleAvatar(files: FileList) {
+      this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj=>{
+         this.saveAttachment(obj)
+      })
+   }
+
    async save() {
       this.session.fecha = moment(this.fechaSesion).valueOf()
       if (this.session.id)
@@ -46,5 +70,12 @@ export class SesionPage implements OnInit {
    }
    cancel() {
       this.modalController.dismiss()
+   }
+   async saveAttachment(obj){
+      const sessionPath = 'pacientes/'+this.patient.id+'/sesiones/'+this.session.id+'/adjuntos'
+      await this.afs.collection(sessionPath).add(obj)
+
+      const patientAttachmentsPath = 'pacientes/'+this.patient.id+'/adjuntos'
+      await this.afs.collection(patientAttachmentsPath).add(obj)
    }
 }

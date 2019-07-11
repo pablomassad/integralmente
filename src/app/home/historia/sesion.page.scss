@@ -22,7 +22,7 @@
 
 .datePicker {
    padding:8px;
-   width: 100px;
+   width: 180px;
 }
 
 .txtArea {
@@ -34,3 +34,32 @@
    border: 1px solid gray;
    background: var(--light);
 }
+
+.grdAttachToolbar{
+   display: grid;
+   grid-template-columns: 1fr 50px;
+   align-items: center;
+}
+
+
+.btnAddAdjunto {
+   border: none;
+   outline: none;
+   margin: 10px;
+   background: #5491ff;
+   color: white;
+   font-size: 20px;
+   font-weight: bold;
+   width: 110px;
+   border-radius: 50%;
+   box-shadow: var(--shadow);
+   align-items: center;
+   justify-items: center;
+}
+
+.btnAddAdjunto:active {
+   background-color: #3e4d8e;
+   box-shadow: none;
+   transform: translateY(2px);
+}
+

@@ -15,6 +15,53 @@ export class FbsService {
       console.log('FbsService constructor')
    }
 
+   showAllFiles(dni){
+      // Create a reference under which you want to list
+      var listRef = this.afStorage.storage.ref().child(dni.toString());
+
+      // Find all the prefixes and items.
+      var pr = listRef.listAll().then(function(res) {
+         res.prefixes.forEach((folderRef)=> {
+            console.log(folderRef)
+            // All the prefixes under listRef.
+            // You may call listAll() recursively on them.
+         })
+         res.items.forEach((itemRef)=> {
+            console.log(itemRef)
+         })
+      }).catch(function(error) {
+         console.log(error)
+      })
+      return pr
+   }
+   listFiles(dni){
+      //let storageRef = firebase.storage().ref().child(dni.toString())
+      let storageRef = firebase.storage().ref().child(dni.toString())
+      const res = storageRef.listAll().then(x=>{
+         var rta = x
+         console.log(rta)
+      })
+   }
+
+   uploadFile(file:File, id:string){
+      return new Promise(async (resolve, reject)=>{
+         try {
+            const attachment = new Upload(file)
+            const sn = await this.pushUpload(id, attachment)
+            const url = await sn.ref.getDownloadURL()
+            const res = {
+               url: url,
+               fecha: new Date().getTime(),
+               nombre:'',
+               extension:''
+            }
+            resolve(res)
+         } catch (error) {
+            console.log(error)
+            reject(error)
+         }
+      })
+   }
    pushUpload(dni, upload:Upload){
       const newName = upload.file.name //`${new Date().getTime()}`
       const stPath = dni+'/'+newName
@@ -27,6 +74,12 @@ export class FbsService {
          console.log('upload avatar error: ', error)
       })
       return this.uploadTask
+   }
+   uploadPic(dni, upload){
+      const newName = upload.file.name //`${new Date().getTime()}`
+      const stPath = dni+'/'+newName
+      const uploadTask = this.afStorage.upload(stPath, upload.file)
+      return uploadTask
    }
    deleteFileStorage(dni, name:string){
       const storageRef = firebase.storage().ref()

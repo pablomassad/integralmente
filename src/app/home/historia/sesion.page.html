@@ -6,7 +6,7 @@
          <div class="campo">
             Fecha:
          </div>
-         <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fechaSesion" class="dato datePicker">
+         <ion-datetime displayFormat="DD/MM/YYYY - HH:mm" [(ngModel)]="fechaSesion" class="dato datePicker">
          </ion-datetime>
       </div>
 
@@ -16,16 +16,11 @@
       </textarea>
 
       <div class="campo">Notas</div>
-      <textarea (change)="onNotasChanged($event)" rows="4" cols="40" wrap="hard" class="txtArea">
+      <textarea (change)="onNotasChanged($event)" wrap="hard" class="txtArea">
             {{session.notas}}
-      </textarea>  
-      
-      <div class="campo">Adjuntos</div>   
-      <div *ngFor="let a of session.adjuntos">
-         <div>a.nombre</div>
-      </div>   
-   </div>
-   <div class="pie">
+      </textarea>
+
+      <div class="pie">
          <div class="grdPie">
             <div class="btnFoot" (click)="cancel()">
                <ion-icon name="close"></ion-icon>
@@ -38,5 +33,28 @@
             </div>
          </div>
       </div>
+   </div>
 
+   <div class="sessionFrame">
+      <div class="grdAttachToolbar">
+         <div class="campo">Adjuntos</div>
+         <div>
+            <label for="attachment">
+               <div class="btnAddAdjunto" (click)="addAttachment()">
+                  <ion-icon name="add"></ion-icon>
+               </div>
+            </label>
+            <input type="file" style="display: none" id="attachment" (change)="handleFile($event.target.files)" />
+         </div>
+      </div>
+      <div class="grdAttachments">
+         <div *ngFor="let a of attachments" class="attachmentBox">
+            <div>
+               <img class="thumbnail" [src]="a.url">
+            </div>
+            <div class="filename">a.nombre</div>
+            <div class="createdAt">{{a.fecha | date:'dd/MM/yyyy - HH:mm'}}</div>
+         </div>
+      </div>
+   </div>
 </ion-content>
