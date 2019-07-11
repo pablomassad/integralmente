@@ -40,7 +40,54 @@
    grid-template-columns: 1fr 50px;
    align-items: center;
 }
+.grdAttachments{
+   display: grid;
+   grid-gap: 10px;
+   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+   -webkit-box-align: center;
+   align-items: center;
+   justify-items: center;
+}
 
+.fileAttr{
+   font-size: 12px;
+}
+
+.attachmentBox{
+   background: var(--light);
+   border-radius: 10px;
+   box-shadow: inset 1px 1px 2px;
+   padding: 10px;
+   width: 140px;
+   height: 115px;
+   text-align: center;
+}
+.thumbnail{
+   height: 60px;
+   width: 60px;
+}
+.btnClose{
+   margin-top: -105px;
+   margin-left: 95px;
+   position: absolute;
+   border: none;
+   outline: none;
+   background: #333d50;
+   color: white;
+   font-size: 20px;
+   font-weight: bold;
+   width: 30px;
+   border-radius: 50%;
+   box-shadow: var(--shadow);
+   -webkit-box-align: center;
+   padding-top: 3px;
+}
+
+.btnClose:active {
+   background-color: #000000;
+   box-shadow: none;
+   transform: translateY(2px);
+}
 
 .btnAddAdjunto {
    border: none;
@@ -48,13 +95,14 @@
    margin: 10px;
    background: #5491ff;
    color: white;
-   font-size: 20px;
+   font-size: 30px;
    font-weight: bold;
-   width: 110px;
+   width: 40px;
+   height: 40px;
+   padding-top: 5px;
+   text-align: center;
    border-radius: 50%;
    box-shadow: var(--shadow);
-   align-items: center;
-   justify-items: center;
 }
 
 .btnAddAdjunto:active {

@@ -43,17 +43,17 @@ export class FbsService {
       })
    }
 
-   uploadFile(file: File, id: string): Promise<Attachment> {
+   uploadFile(file: File, id: string): Promise<any> {
       return new Promise(async (resolve, reject) => {
          try {
             const attachment = new Upload(file)
             const sn = await this.pushUpload(id, attachment)
             const url = await sn.ref.getDownloadURL()
-            const res = new Attachment()
-            res.url = url
-            res.nombre = sn.ref.name,
-            res.extension = sn.ref.name.substr(sn.ref.name.indexOf('.'))
-
+            const res = new Object()
+            res['fecha'] = new Date().getTime()
+            res['url'] = url
+            res['nombre'] = sn.ref.name,
+            res['extension'] = sn.ref.name.substr(sn.ref.name.indexOf('.')+1)
             resolve(res)
          } catch (error) {
             console.log(error)
@@ -90,13 +90,6 @@ export class FbsService {
       let storagePath = file.fullPath
       this.afStorage.ref(storagePath).delete()
    }
-}
-
-export class Attachment {
-   fecha: Date = new Date()
-   url: string
-   nombre: string
-   extension: string
 }
 
 export class Upload {
