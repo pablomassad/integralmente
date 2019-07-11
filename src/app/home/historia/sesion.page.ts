@@ -53,7 +53,7 @@ export class SesionPage implements OnInit, OnDestroy {
    addAttachment(){
 
    }
-   handleAvatar(files: FileList) {
+   handleFile(files: FileList) {
       this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj=>{
          this.saveAttachment(obj)
       })

@@ -25,8 +25,6 @@ export class FichaPage implements OnInit {
    patient: any
    isMobile: boolean = false
    fechaNacimiento: any
-   fileToUpload: File = null
-   avatarFile:Upload
 
    constructor(
       private globalSrv: GlobalService,
@@ -44,14 +42,12 @@ export class FichaPage implements OnInit {
       this.fechaNacimiento = moment(this.patient.nacimiento).format("DD/MM/YYYY")
       this.isMobile = this.platform.is('cordova')
    }
-   handleAvatar(files: FileList) {
-      this.fileToUpload = files.item(0)
-      this.avatarFile = new Upload(this.fileToUpload)
-      this.fbsSrv.pushUpload(this.patient.dni, this.avatarFile).then(sn =>{
-         sn.ref.getDownloadURL().then(url=>{
-            this.patient.foto = url
-            this.saveToDB()
-         })
+   async handleAvatar(files: FileList) {
+      await this.fbsSrv.deleteFileStorage(this.patient.dni, this.patient.fotoNombre)
+      await this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj=>{
+         this.patient.foto = obj.url
+         this.patient.fotoNombre = obj.nombre
+         this.saveToDB()
       })
    }
    evalEdad() {
