@@ -13,7 +13,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class PacientesPage implements OnInit {
 
    userPhoto: any
-
+   criteria:string
    patients: any = []
 
    constructor(

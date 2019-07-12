@@ -12,6 +12,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class HistoriaPage implements OnInit {
    patient: any
    sessions: any = []
+   criteria:string
 
    constructor(
       private modalController: ModalController,

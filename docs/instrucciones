@@ -2,3 +2,8 @@ npm install @angular/fire firebase --save
 
 npm install --save @ionic-native/ionic-webview
 
+
+deploy HOST Firebase
+- copiar environments a prod
+- ionic build --prod --service-worker
+
