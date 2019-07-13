@@ -1,9 +1,11 @@
 <ion-content>
    <div class="backImg">
       <div class="loginFrame">
-         <form class="form backForm" [formGroup]="validations_form" (ngSubmit)="tryEmailLogin(validations_form.value)" *ngIf="(user.displayName == '')">
+
+         <form class="form backForm" [formGroup]="validations_form" (ngSubmit)="tryEmailLogin(validations_form.value)"
+            *ngIf="(user.displayName == '')">
             <div class="formTitle">
-               Integralmente
+               <img src="assets/images/integralmenteET.png" class="logo">
             </div>
 
             <input type="text" formControlName="email" placeholder="Correo electrónico" formControlName="email">
@@ -16,7 +18,8 @@
                </ng-container>
             </div>
 
-            <input type="password" formControlName="password" class="form-controll" placeholder="Contraseña" formControlName="password">
+            <input type="password" formControlName="password" class="form-controll" placeholder="Contraseña"
+               formControlName="password">
             <div class="validation-errors">
                <ng-container *ngFor="let validation of validation_messages.password">
                   <div class="error-message"
@@ -28,11 +31,12 @@
 
 
             <div class="grdButtons">
-               <button class="btns btnLogin btnSignIn" type="submit" (click)="tryEmailLogin()" [disabled]="!validations_form.valid">Ingresar</button>
+               <button class="btns btnLogin btnSignIn" type="submit" (click)="tryEmailLogin()"
+                  [disabled]="!validations_form.valid">Ingresar</button>
                <button class="btns btnLogin btnSignUp" type="submit" (click)="goRegisterPage()">Registrarse</button>
             </div>
 
-            <label class="error-message">{{errorMessage}}</label>            
+            <label class="error-message">{{errorMessage}}</label>
          </form>
       </div>
    </div>

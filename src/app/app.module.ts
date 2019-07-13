@@ -19,7 +19,6 @@ import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/fi
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import { AngularFireDatabaseModule } from '@angular/fire/database'
 import { AngularFireStorageModule } from '@angular/fire/storage'
-import { Firebase } from '@ionic-native/firebase/ngx'
 
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 import { FileUploadModule } from 'ng2-file-upload'
@@ -50,7 +49,6 @@ import { HttpClientModule } from '@angular/common/http';
       StatusBar,
       SplashScreen,
       ImagePicker,
-      Firebase,
       InAppBrowser,
       FileOpener,
       WebView,

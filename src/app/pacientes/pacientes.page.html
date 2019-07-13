@@ -18,29 +18,34 @@
       <ion-label position="floating">Ingrese datos del paciente</ion-label>
       <ion-input type="text" [(ngModel)]="criteria" class="filterInput"></ion-input>
    </ion-item>
-   <ion-list>
-      <ion-item-sliding *ngFor="let p of patients | searchInfo: criteria" (click)="gotoPatient(p)">
-         <ion-item>
-            <ion-avatar slot="start" class="foto">
-               <img [src]="p.foto">
-            </ion-avatar>
-            <ion-label>
-               <h2>{{p.apellido}}, {{p.nombres}}</h2>
-               <h3>{{evalEdad(p.nacimiento)}}, {{p.obrasocial}}</h3>
-               <p>{{p.atencion}}</p>
-            </ion-label>
-         </ion-item>
-         <ion-item-options side="end">
-            <ion-item-option (click)="removePatient(p)"  color="danger">
-               <div class="grdRemove">
-                     <ion-icon name="trash"></ion-icon>
-                     <div>Eliminar</div> 
-               </div>
-            </ion-item-option>
-         </ion-item-options>
-      </ion-item-sliding>
-   </ion-list>
-
+   <ion-grid>
+      <ion-row>
+         <ion-col size-sm="12" size-lg="6">
+            <ion-list>
+               <ion-item-sliding *ngFor="let p of patients | searchInfo: criteria" (click)="gotoPatient(p)">
+                  <ion-item>
+                     <ion-avatar slot="start" class="foto">
+                        <img [src]="p.foto">
+                     </ion-avatar>
+                     <ion-label>
+                        <h2>{{p.apellido}}, {{p.nombres}}</h2>
+                        <h3>{{evalEdad(p.nacimiento)}}, {{p.obrasocial}}</h3>
+                        <p>{{p.atencion}}</p>
+                     </ion-label>
+                  </ion-item>
+                  <ion-item-options side="end">
+                     <ion-item-option (click)="removePatient(p)" color="danger">
+                        <div class="grdRemove">
+                           <ion-icon name="trash"></ion-icon>
+                           <div>Eliminar</div>
+                        </div>
+                     </ion-item-option>
+                  </ion-item-options>
+               </ion-item-sliding>
+            </ion-list>
+         </ion-col>
+      </ion-row>
+   </ion-grid>
    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button (click)="gotoPatient({})">
          <ion-icon name="add"></ion-icon>

@@ -11,34 +11,40 @@
       </div>
    </ion-toolbar>
 </ion-header>
-<div class="grdPatient" *ngIf="patient">
-   <ion-avatar class="avatar">
-      <img [src]="patient.foto">
-   </ion-avatar>
-   <div style="padding-left: 10px">{{patient.apellido}}, {{patient.nombres}}</div>
-</div>
-<div>
-   <ion-tabs class="categories">
-      <ion-tab-bar slot="top" class="tabsShadow">
-         <ion-tab-button tab="ficha">
-            <ion-icon name="person"></ion-icon>
-            <ion-label>Ficha</ion-label>
-         </ion-tab-button>
+<ion-grid class="grdPatient" *ngIf="patient">
+   <ion-row>
+      <ion-col>
+         <ion-avatar class="avatar">
+            <img [src]="patient.foto">
+         </ion-avatar>
+      </ion-col>
+      <ion-col>
+         <div>{{patient.apellido}}, {{patient.nombres}}</div>
+      </ion-col>
+   </ion-row>
+   <ion-row>
+      <ion-tabs class="categories">
+         <ion-tab-bar slot="top" class="tabsShadow">
+            <ion-tab-button tab="ficha">
+               <ion-icon name="person"></ion-icon>
+               <ion-label>Ficha</ion-label>
+            </ion-tab-button>
 
-         <ion-tab-button tab="historia">
-            <ion-icon name="albums"></ion-icon>
-            <ion-label>Historia</ion-label>
-         </ion-tab-button>
+            <ion-tab-button tab="historia">
+               <ion-icon name="albums"></ion-icon>
+               <ion-label>Historia</ion-label>
+            </ion-tab-button>
 
-         <ion-tab-button tab="docs">
-            <ion-icon name="attach"></ion-icon>
-            <ion-label>Documentacion</ion-label>
-         </ion-tab-button>
+            <ion-tab-button tab="docs">
+               <ion-icon name="attach"></ion-icon>
+               <ion-label>Documentacion</ion-label>
+            </ion-tab-button>
 
-         <ion-tab-button tab="facturas">
-            <ion-icon name="filing"></ion-icon>
-            <ion-label>Facturas</ion-label>
-         </ion-tab-button>
-      </ion-tab-bar>
-   </ion-tabs>
-</div>
+            <ion-tab-button tab="facturas">
+               <ion-icon name="filing"></ion-icon>
+               <ion-label>Facturas</ion-label>
+            </ion-tab-button>
+         </ion-tab-bar>
+      </ion-tabs>
+   </ion-row>
+</ion-grid>

@@ -7,3 +7,5 @@ deploy HOST Firebase
 - copiar environments a prod
 - ionic build --prod --service-worker
 
+
+sudo chown -R $(whoami) .

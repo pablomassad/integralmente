@@ -1,15 +1,15 @@
 <ion-split-pane>
    <ion-menu contentId="content">
-      <ion-header>
+      <ion-header  style="height: 64px;">
          <ion-toolbar>
             <ion-title>MENU</ion-title>
          </ion-toolbar>
       </ion-header>
 
-      <ion-content>
-         <ion-list>
-            <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
-               <ion-item [routerLink]="p.url" routerDirection="root" [class.active-item]="selectedPath === p.url">
+      <ion-content color="white">
+         <ion-list style="--background: white;background:white">
+            <ion-menu-toggle auto-hide="false" *ngFor="let p of pages" style="--background: white;">
+               <ion-item style="--background: white;" [routerLink]="p.url" routerDirection="root" [class.active-item]="selectedPath === p.url">
                   {{p.title}}
                </ion-item>
             </ion-menu-toggle>
