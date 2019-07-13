@@ -11,7 +11,7 @@
             <ion-menu-toggle auto-hide="false" *ngFor="let p of pages" style="--background: white;">
                <ion-item style="--background: white;" [routerLink]="p.url" routerDirection="root" [class.active-item]="selectedPath === p.url">
                   {{p.title}}
-               </ion-item>
+               </ion-item> 
             </ion-menu-toggle>
          </ion-list>
       </ion-content>

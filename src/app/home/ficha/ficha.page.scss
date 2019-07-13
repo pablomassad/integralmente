@@ -5,9 +5,15 @@
    padding: 10px 0px;
 }
 
+ion-col.photo-col {
+   flex: 0 0 4px;
+   padding: 0;
+   margin-right: 10px;
+}
 
-.datePicker, .lblEdad{
-   padding:8px;
+.datePicker,
+.lblEdad {
+   padding: 8px;
    width: 100px;
 }
 
@@ -36,19 +42,6 @@
    overflow: hidden;
 }
 
-.det1 {
-   grid-area: det1;
-   // display: grid;
-   // grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-
-.det2 {
-   grid-area: det2;
-   // display: grid;
-   //grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
-}
-
-
 .editFoto {
    background: black;
    color: white;
@@ -65,8 +58,6 @@
    padding: 5px;
    box-shadow: 2px 2px 5px #bdbdbd;
    background: #bdbdbd;
-   display: grid;
-   justify-items: auto;
    border-radius: 10px;
 }
 
