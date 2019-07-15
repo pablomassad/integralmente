@@ -1,13 +1,12 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import { NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
+import { RouteReuseStrategy } from '@angular/router'
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular'
+import { SplashScreen } from '@ionic-native/splash-screen/ngx'
+import { StatusBar } from '@ionic-native/status-bar/ngx'
 
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
-import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { WebView } from '@ionic-native/ionic-webview/ngx'
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,12 +20,16 @@ import { AngularFireDatabaseModule } from '@angular/fire/database'
 import { AngularFireStorageModule } from '@angular/fire/storage'
 
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
-import { FileUploadModule } from 'ng2-file-upload'
-import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx'
+import { FileChooser } from '@ionic-native/file-chooser/ngx'
 
 import { environment } from 'src/environments/environment'
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http'
 
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx'
+import { File } from '@ionic-native/file/ngx'
+
+// INSTALAR PLUGIN => cordova-plugin-document-viewer
 
 @NgModule({
    declarations: [AppComponent],
@@ -34,7 +37,6 @@ import { HttpClientModule } from '@angular/common/http';
    imports: [
       HttpClientModule,
       BrowserModule, 
-      FileUploadModule,
       IonicModule.forRoot(), 
       IonicStorageModule.forRoot(),
       FormsModule,
@@ -48,9 +50,11 @@ import { HttpClientModule } from '@angular/common/http';
    providers: [
       StatusBar,
       SplashScreen,
-      ImagePicker,
+      Camera,
       InAppBrowser,
+      FileChooser,
       FileOpener,
+      File,
       WebView,
       { provide: FirestoreSettingsToken, useValue: {} },
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

@@ -5,7 +5,7 @@
                <div slot="start">
                   <ion-avatar class="fichaAvatar">
                      <img [src]="patient.foto">
-                     <div class="editFoto" *ngIf="isMobile">
+                     <div class="editFoto" *ngIf="isMobile" (click)="chooseFile()">
                         CAMBIAR
                      </div>
                      <label for="photoEdit" *ngIf="!isMobile">

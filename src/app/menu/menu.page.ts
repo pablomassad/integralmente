@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterEvent } from '@angular/router';
+import { Component, OnInit } from '@angular/core'
+import { Router, RouterEvent } from '@angular/router'
+import { GlobalService } from 'fwk4-services'
 
 @Component({
    selector: 'app-menu',
@@ -7,6 +8,8 @@ import { Router, RouterEvent } from '@angular/router';
    styleUrls: ['./menu.page.scss'],
 })
 export class MenuPage implements OnInit {
+
+   isMobile:boolean = false
 
    pages = [
       {
@@ -25,6 +28,7 @@ export class MenuPage implements OnInit {
 
    selectedPath = '/menu/pacientes'
 
+
    constructor(
       private router: Router
    ) { 
@@ -39,5 +43,4 @@ export class MenuPage implements OnInit {
 
    ngOnInit() {
    }
-
 }

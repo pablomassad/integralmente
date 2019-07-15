@@ -22,8 +22,8 @@ export class HistoriaPage implements OnInit {
       console.log('HistoriaPage constructor')
    }
 
-   async ngOnInit() {
-      this.patient = await this.globalSrv.getItem('patient')
+   ngOnInit() {
+      this.patient = this.globalSrv.getItemRAM('patient')
       this.afs.collection('pacientes').doc(this.patient.id).collection('sesiones').valueChanges({ idField: 'id' }).subscribe(ses=>{
          this.sessions = ses 
       }) 

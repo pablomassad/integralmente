@@ -5,6 +5,8 @@ import { AngularFirestore } from '@angular/fire/firestore'
 import * as moment from 'moment'
 import { FbsService } from 'src/app/fbs.service'
 import { Subscription } from 'rxjs'
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import { File } from '@ionic-native/file/ngx';
 
 
 @Component({
@@ -18,6 +20,7 @@ export class SesionPage implements OnInit, OnDestroy {
    fechaSesion: any
    attachments: any
    sessionType: string = 'sessions'
+   isMobile:boolean
 
    private sub: Subscription
    private sessionsPath: string = ''
@@ -25,6 +28,8 @@ export class SesionPage implements OnInit, OnDestroy {
    private attachmentsPath: string = ''
 
    constructor(
+      private fileChooser: FileChooser,
+      private file: File,
       private alertCtrl: AlertController,
       private navParams: NavParams,
       private modalController: ModalController,
@@ -35,8 +40,9 @@ export class SesionPage implements OnInit, OnDestroy {
       console.log('SesionPage constructor')
    }
 
-   async ngOnInit() {
-      this.patient = await this.globalSrv.getItem('patient')
+   ngOnInit() {
+      this.isMobile = this.globalSrv.getItemRAM('isMobile')
+      this.patient = this.globalSrv.getItemRAM('patient')
       this.session = this.navParams.get('sessionDetail')
       this.fechaSesion = moment(this.session.fecha).format("DD/MM/YYYY")
 
@@ -68,6 +74,23 @@ export class SesionPage implements OnInit, OnDestroy {
       }
       filename = filename.substr(0, maxLen) + (n.length > maxLen ? '...' : '');
       return filename + '.' + ext;
+   }
+   chooseFile(){
+      this.fileChooser.open().then(uri=>{
+         this.file.resolveLocalFilesystemUrl(uri).then(ff=>{
+            let dirPath = ff.nativeURL
+            let dirPathSegments = dirPath.split('/')
+            dirPathSegments.pop()
+            dirPath = dirPathSegments.join('/')
+
+            this.file.readAsArrayBuffer(dirPath,ff.name).then(buffer=>{
+               this.fbsSrv.uploadFileBuffer(buffer, this.patient.dni).then(obj=>{
+                  obj['idSesion'] = this.session.id
+                  this.saveAttachment(obj)
+               })
+            })
+         })
+      })
    }
    handleFile(files: FileList) {
       this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj => {

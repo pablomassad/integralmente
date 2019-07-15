@@ -31,7 +31,7 @@ export class DocsPage implements OnInit {
    }
 
    async ngOnInit() {
-      this.patient = await this.globalSrv.getItem('patient')
+      this.patient = this.globalSrv.getItemRAM('patient')
 
       this.attachmentsPath = 'pacientes/'+this.patient.id+'/adjuntos'
 

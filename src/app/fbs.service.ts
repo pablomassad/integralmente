@@ -42,12 +42,14 @@ export class FbsService {
          console.log(rta)
       })
    }
-
-   uploadFile(file: File, id: string): Promise<any> {
+   uploadFileBuffer(buffer, id){
+      let blob = new Blob([buffer])
+      return this.uploadFile(blob, id)
+   }
+   uploadFile(file, id: string): Promise<any> {
       return new Promise(async (resolve, reject) => {
          try {
-            const attachment = new Upload(file)
-            const sn = await this.pushUpload(id, attachment)
+            const sn = await this.pushUpload(file, id)
             const url = await sn.ref.getDownloadURL()
             const res = new Object()
             res['url'] = url
@@ -60,35 +62,38 @@ export class FbsService {
          }
       })
    }
-   pushUpload(dni, upload: Upload) {
-      const newName = upload.file.name //`${new Date().getTime()}`
-      const stPath = dni + '/' + newName
+   private pushUpload(file, id) {
+      const stPath = id + '/' + file.name 
       let storageRef = firebase.storage().ref()
-      this.uploadTask = storageRef.child(stPath).put(upload.file)
+      this.uploadTask = storageRef.child(stPath).put(file)
 
       this.uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
-         upload.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+         //attachment.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
       }, error => {
-         console.log('upload avatar error: ', error)
+         console.log('upload file error: ', error)
       })
       return this.uploadTask
-   }
-   uploadPic(dni, upload) {
-      const newName = upload.file.name //`${new Date().getTime()}`
-      const stPath = dni + '/' + newName
-      const uploadTask = this.afStorage.upload(stPath, upload.file)
-      return uploadTask
    }
    deleteFileStorage(id, name: string) {
       const storageRef = firebase.storage().ref()
       const stPath = id + '/' + name
       storageRef.child(stPath).delete()
    }
-   deleteFile(file) {
-      let key = file.key
-      let storagePath = file.fullPath
-      this.afStorage.ref(storagePath).delete()
-   }
+
+
+
+   // uploadPic(dni, upload) {
+   //    const newName = upload.file.name //`${new Date().getTime()}`
+   //    const stPath = dni + '/' + newName
+   //    const uploadTask = this.afStorage.upload(stPath, upload.file)
+   //    return uploadTask
+   // }
+
+   // deleteFile(file) {
+   //    let key = file.key
+   //    let storagePath = file.fullPath
+   //    this.afStorage.ref(storagePath).delete()
+   // }
 }
 
 export class Upload {

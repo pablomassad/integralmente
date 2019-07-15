@@ -19,11 +19,9 @@ export class HomePage implements OnInit {
    }
 
    ngOnInit(){
-      this.globalSrv.getItem('patient').then(x=>{
-         this.patient = x
-         if (!this.patient.foto)
-            this.patient.foto = "assets/images/anonymous.png"
-      })
+      this.patient = this.globalSrv.getItemRAM('patient')
+      if (!this.patient.foto)
+         this.patient.foto = "assets/images/anonymous.png"
    }
 
    access(act) {
