@@ -1,19 +1,41 @@
-.sessionFrame {
-   box-shadow: 0 0 3px;
-   background: var(--medium);
-   border-radius: 20px;
-   margin: 10px;
-   overflow-y: auto;
-   // height: 78vh;
-   padding: 20px 10px;
+
+.segment{
+   margin-bottom: -16px;
+}
+.sessionTitle {
+   color: gray;
+   padding-left: 10px;
    color: var(--dark);
+   font-size: 20px;
+   font-weight: bold;
+   text-shadow: 1px 1px 1px #c8c8c8;
 }
 
-.sessionTitle{
-   color: gray;
-   text-align: center;
-   text-shadow: 1px 1px 1px black;
+.btnSegment {
+   background: #b0b0b0;
+   color: var(--light) !important;
+   font-size: 13px;
+   border-radius: 20px 20px 0 0;
+   margin: 15px 5px;
+   box-shadow: inset 2px 2px 3px grey;
 }
+
+.segment-button-checked{
+   color: var(--dark) !important;
+   background: var(--medium);
+   box-shadow: 0 -2px 8px grey;
+   font-size: 15px;
+}
+.segment-md .segment-button.segment-activated {
+   border-color: #1e6bab;
+   opacity: 1;
+   color: black;
+   font-size: 16px;
+   font-weight: bold;
+   background: #90a7bb;
+}
+
+
 
 .campo {
    width: auto;
@@ -21,7 +43,7 @@
 }
 
 .datePicker {
-   padding:8px;
+   padding: 8px;
    width: 180px;
 }
 
@@ -33,81 +55,5 @@
    padding: 4px;
    border: 1px solid gray;
    background: var(--light);
-}
-
-.grdAttachToolbar{
-   display: grid;
-   grid-template-columns: 1fr 50px;
-   align-items: center;
-}
-.grdAttachments{
-   display: grid;
-   grid-gap: 10px;
-   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-   -webkit-box-align: center;
-   align-items: center;
-   justify-items: center;
-}
-
-.fileAttr{
-   font-size: 12px;
-}
-
-.attachmentBox{
-   background: var(--light);
-   border-radius: 10px;
-   box-shadow: inset 1px 1px 2px;
-   padding: 10px;
-   width: 140px;
-   height: 115px;
-   text-align: center;
-}
-.thumbnail{
-   height: 60px;
-   width: 60px;
-}
-.btnClose{
-   margin-top: -115px;
-   margin-left: 105px;
-   position: absolute;
-   border: none;
-   outline: none;
-   background: #333d50;
-   color: white;
-   font-size: 20px;
-   font-weight: bold;
-   width: 30px;
-   border-radius: 50%;
-   box-shadow: var(--shadow);
-   -webkit-box-align: center;
-   padding-top: 3px;
-}
-
-.btnClose:active {
-   background-color: #000000;
-   box-shadow: none;
-   transform: translateY(2px);
-}
-
-.btnAddAdjunto {
-   border: none;
-   outline: none;
-   margin: 10px;
-   background: #5491ff;
-   color: white;
-   font-size: 30px;
-   font-weight: bold;
-   width: 40px;
-   height: 40px;
-   padding-top: 5px;
-   text-align: center;
-   border-radius: 50%;
-   box-shadow: var(--shadow);
-}
-
-.btnAddAdjunto:active {
-   background-color: #3e4d8e;
-   box-shadow: none;
-   transform: translateY(2px);
 }
 

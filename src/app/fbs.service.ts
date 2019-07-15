@@ -50,7 +50,6 @@ export class FbsService {
             const sn = await this.pushUpload(id, attachment)
             const url = await sn.ref.getDownloadURL()
             const res = new Object()
-            res['fecha'] = new Date().getTime()
             res['url'] = url
             res['nombre'] = sn.ref.name,
             res['extension'] = sn.ref.name.substr(sn.ref.name.indexOf('.')+1)

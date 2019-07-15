@@ -1,22 +1,22 @@
    <ion-content>
-      <ion-grid class="tabWrapper" *ngIf="patient">
-         <ion-row class="retrato ion-align-items-center ion-justify-content-start">
-            <ion-col class="photo-col">
-               <ion-avatar class="fichaAvatar">
-                  <img [src]="patient.foto">
-                  <div class="editFoto" *ngIf="isMobile">
-                     CAMBIAR
-                  </div>
-                  <label for="photoEdit" *ngIf="!isMobile">
-                     <div class="editFoto">
-                        WEB CH
+      <ion-grid *ngIf="patient">
+         <ion-row >
+            <ion-toolbar>
+               <div slot="start">
+                  <ion-avatar class="fichaAvatar">
+                     <img [src]="patient.foto">
+                     <div class="editFoto" *ngIf="isMobile">
+                        CAMBIAR
                      </div>
-                  </label>
-               </ion-avatar>
-               <input type="file" style="display: none" id="photoEdit" (change)="handleAvatar($event.target.files)" />
-            </ion-col>
-            <ion-col>
-               <!-- <div *ngIf="avatarFile"> ({{avatarFile.progress}}%) </div> -->
+                     <label for="photoEdit" *ngIf="!isMobile">
+                        <div class="editFoto">
+                           WEB CH
+                        </div>
+                     </label>
+                  </ion-avatar>
+                  <input type="file" style="display: none" id="photoEdit"
+                     (change)="handleAvatar($event.target.files)" />
+               </div>
                <ion-grid>
                   <ion-row>
                      <ion-col class="grdItem">
@@ -33,7 +33,7 @@
                      </ion-col>
                   </ion-row>
                </ion-grid>
-            </ion-col>
+            </ion-toolbar>
          </ion-row>
          <ion-row>
             <ion-col class="grdItem">
@@ -146,19 +146,52 @@
             </ion-grid>
          </ion-row>
          <ion-row>
-            <div class="pie">
-               <div class="grdPie">
-                  <div class="btnFoot" (click)="cancel()">
-                     <ion-icon name="close"></ion-icon>
-                     <p>Cancelar</p>
-                  </div>
-                  <div></div>
-                  <div class="btnFoot" (click)="save()">
-                     <ion-icon name="save"></ion-icon>
-                     <p>Guardar</p>
-                  </div>
+            <ion-toolbar class="backFooter">
+               <div slot="start" class="btnFoot" (click)="cancel()">
+                  <ion-icon name="close"></ion-icon>
+                  <p>Cancelar</p>
                </div>
-            </div>
+               <div slot="end" class="btnFoot" (click)="save()">
+                  <ion-icon name="save"></ion-icon>
+                  <p>Guardar</p>
+               </div>
+            </ion-toolbar>
          </ion-row>
       </ion-grid>
    </ion-content>
+
+
+<!-- 
+   <ion-col class="photo-col">
+         <ion-avatar class="fichaAvatar">
+            <img [src]="patient.foto">
+            <div class="editFoto" *ngIf="isMobile">
+               CAMBIAR
+            </div>
+            <label for="photoEdit" *ngIf="!isMobile">
+               <div class="editFoto">
+                  WEB CH
+               </div>
+            </label>
+         </ion-avatar>
+         <input type="file" style="display: none" id="photoEdit" (change)="handleAvatar($event.target.files)" />
+      </ion-col>
+      <ion-col>
+         <div *ngIf="avatarFile"> ({{avatarFile.progress}}%) </div>
+         <ion-grid>
+            <ion-row>
+               <ion-col class="grdItem">
+                  <div class="campo">
+                     Nombres:
+                  </div>
+                  <input type="text" class="dato" [(ngModel)]="patient.nombres">
+               </ion-col>
+               <ion-col class="grdItem">
+                  <div class="campo">
+                     Apellido:
+                  </div>
+                  <input type="text" class="dato" [(ngModel)]="patient.apellido">
+               </ion-col>
+            </ion-row>
+         </ion-grid>
+      </ion-col> -->

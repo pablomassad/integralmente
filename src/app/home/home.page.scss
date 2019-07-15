@@ -1,8 +1,4 @@
-ion-col.photo-col {
-   flex: 0 0 4px;
-   padding: 0;
-   margin-right: 10px;
-}
+
 
 .avatar {
    justify-self: center;
@@ -11,9 +7,9 @@ ion-col.photo-col {
    margin-top: 5px;
 }
 
-
 .categories {
    top: 75px;
+   height: calc(100vh - 135px);
 }
 
 .tabsShadow {
@@ -26,6 +22,7 @@ ion-col.photo-col {
    font-size: 20px;
    font-weight: bold;
    text-shadow: 1px 1px 1px white;
+   padding-left: 20px;
 }
 
 .grdPatient {

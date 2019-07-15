@@ -1,8 +1,10 @@
-.tabWrapper {
-   background: var(--light);
-   overflow-y: auto;
-   height: 78vh;
-   padding: 10px 0px;
+
+
+
+ion-col.photo-col {
+   flex: 0 0 4px;
+   padding: 0;
+   margin-right: 10px;
 }
 
 .btnEntrevista {
@@ -26,15 +28,13 @@
    text-shadow: 1px 1px 5px;
 }
 
-.newSession{
-   margin-bottom: 140px;
-}
 .historyCards {
    background: var(--medium);
    border-radius: 5px;
    box-shadow: 1px 1px 4px;
    padding: 5px;
    margin: 10px 5px;
+   color: var(--dark);
 }
 .txtFecha{
    font-size: 15px;

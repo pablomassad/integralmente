@@ -1,27 +1,54 @@
 <ion-content>
-   <div class="tabWrapper">
-      <ion-item>
-         <ion-icon name="search" class="filterIcon" slot="start"></ion-icon>
-         <ion-label position="floating">Criterio de búsqueda</ion-label>
-         <ion-input type="text" [(ngModel)]="criteria" class="filterInput"></ion-input>
-         <button class="btnEntrevista" slot="end">
-            <ion-icon name="contacts"></ion-icon>
-         </button>
-      </ion-item>
-      <!-- <div class="txtObs">
-         Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni totam nulla doloremque neque tempora architecto
-         voluptatibus nemo. Ex voluptates, similique aliquam temporibus cupiditate ut exercitationem debitis cumque ab
-         minima nostrum atque optio corrupti aspernatur, quas expedita tempore corporis consectetur ipsam animi
-         deserunt. Fuga, laudantium.
-      </div> -->
-      <div *ngFor="let s of sessions | searchInfo: criteria" (click)="gotoSession(s)" class="historyCards">
-         <div class="txtFecha">{{s.fecha | date:'dd/MM/yyyy - HH:mm'}}</div>
-         <div class="txtObs">
-            {{s.observaciones}}
-         </div>
-      </div>
+   <ion-grid>
+      <ion-row class="ion-align-items-center ion-justify-content-start">
+         <ion-toolbar>
+            <ion-icon slot="start" name="search" class="filterIcon"></ion-icon>
+            <ion-item>
+               <ion-label position="floating">Criterio de búsqueda</ion-label>
+               <ion-input type="text" [(ngModel)]="criteria" class="filterInput"></ion-input>
+            </ion-item>
+            <button slot="end" class="btnEntrevista">
+               <ion-icon name="contacts"></ion-icon>
+            </button>
+         </ion-toolbar>
+      </ion-row>
+      <ion-row>
+         <ion-col>
+            <div *ngFor="let s of sessions | searchInfo: criteria" (click)="gotoSession(s)" class="historyCards">
+               <div class="txtFecha">{{s.fecha | date:'dd/MM/yyyy - HH:mm'}}</div>
+               <div class="txtObs">
+                  {{s.observaciones}}
+               </div>
+            </div>
+         </ion-col>
+      </ion-row>
+   </ion-grid>
 
-      <!-- <ion-list>
+   <ion-fab vertical="bottom" horizontal="end">
+      <ion-fab-button (click)="gotoSession({})">
+         <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+   </ion-fab>
+</ion-content>
+
+
+         <!-- <ion-col class="photo-col">
+            <ion-icon name="search" class="filterIcon"></ion-icon>
+         </ion-col>
+         <ion-col>
+            <ion-item>
+               <ion-label position="floating">Criterio de búsqueda</ion-label>
+               <ion-input type="text" [(ngModel)]="criteria" class="filterInput"></ion-input>
+            </ion-item>
+         </ion-col>
+         <ion-col class="photo-col">
+            <button class="btnEntrevista">
+               <ion-icon name="contacts"></ion-icon>
+            </button>
+         </ion-col> -->
+
+         
+<!-- <ion-list>
          <ion-item-sliding *ngFor="let s of sessions | searchInfo: criteria" (click)="gotoDetail(p)">
             <ion-item>
                <ion-label>
@@ -42,12 +69,3 @@
             </ion-item-options>
          </ion-item-sliding>
       </ion-list> -->
-
-   </div>
-
-   <ion-fab vertical="bottom" horizontal="end" class="newSession">
-      <ion-fab-button (click)="gotoSession({})">
-         <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-   </ion-fab>
-</ion-content>

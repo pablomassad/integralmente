@@ -31,10 +31,6 @@ img{
    max-width: 100%;
 }
 
-.wrapper{
-   display: grid;
-}
-
 .grdHeader{
    z-index: 1000;
    display: grid;
@@ -72,8 +68,8 @@ img{
    width: 100%;
 }
 
-.pie {
-   background: var(--light);
+.backFooter {
+   padding-top: 10px;
 }
 
 .grdPie {
@@ -109,4 +105,90 @@ img{
 .btnFoot p {
    font-size: 1rem;
 }
+
+
+.sessionFrame {
+   box-shadow: 0 4px 4px grey;
+   background: var(--medium);
+   border-radius: 0 0 20px 20px;
+   margin: 0 6px;
+   overflow-y: auto;
+   padding: 20px 10px;
+   color: var(--dark);
+}
+.grdAttachments {
+   display: grid;
+   grid-gap: 15px;
+   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+   -webkit-box-align: center;
+   align-items: center;
+   justify-items: center;
+}
+
+.attachmentBox {
+   background: var(--light);
+   border-radius: 10px;
+   box-shadow: inset 1px 1px 2px;
+   padding: 10px;
+   width: 140px;
+   height: 115px;
+   text-align: center;
+}
+
+.thumbnail {
+   height: 60px;
+   width: 60px;
+}
+.fileAttr {
+   font-size: 12px;
+}
+
+.btnClose {
+   margin-top: -115px;
+   margin-left: 111px;
+   position: absolute;
+   border: none;
+   outline: none;
+   background: #88a4b9;
+   color: white;
+   font-size: 15px;
+   font-weight: bold;
+   width: 25px;
+   border-radius: 50%;
+   box-shadow: var(--shadow);
+   -webkit-box-align: center;
+   padding-top: 3px;
+}
+
+.btnClose:active {
+   background-color: #000000;
+   box-shadow: none;
+   transform: translateY(2px);
+}
+
+.btnAddAdjunto {
+   border: none;
+   outline: none;
+   margin: 10px;
+   background: #5491ff;
+   color: white;
+   font-size: 30px;
+   font-weight: bold;
+   width: 60px;
+   height: 60px;
+   padding-top: 15px;
+   text-align: center;
+   border-radius: 50%;
+   box-shadow: var(--shadow);
+}
+
+.btnAddAdjunto:active {
+   background-color: #3e4d8e;
+   box-shadow: none;
+   transform: translateY(2px);
+}
+
+
+
+
 

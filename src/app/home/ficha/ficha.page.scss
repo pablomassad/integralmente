@@ -1,39 +1,26 @@
-.tabWrapper {
-   background: var(--light);
-   overflow-y: auto;
-   height: 78vh;
-   padding: 10px 0px;
-}
-
-ion-col.photo-col {
-   flex: 0 0 4px;
-   padding: 0;
-   margin-right: 10px;
-}
 
 .datePicker,
 .lblEdad {
    padding: 8px;
-   width: 100px;
+   width: 120px;
 }
 
 
-.container {
-   height: calc(100vh-200px);
-   color: var(--dark);
-   display: grid;
-   grid-template-columns: 1fr 1fr 1fr 1fr;
-   grid-template-rows: auto 1fr 100px;
-   grid-template-areas:
-      'retrato det1  det1   det1'
-      'det2    det2  det2   det2'
-      'pie     pie   pie    pie';
-}
+// .container {
+//    height: calc(100vh-200px);
+//    color: var(--dark);
+//    display: grid;
+//    grid-template-columns: 1fr 1fr 1fr 1fr;
+//    grid-template-rows: auto 1fr 100px;
+//    grid-template-areas:
+//       'retrato det1  det1   det1'
+//       'det2    det2  det2   det2'
+//       'pie     pie   pie    pie';
+// }
 
-
-.retrato {
-   grid-area: retrato;
-}
+// .retrato {
+//    grid-area: retrato;
+// }
 
 .fichaAvatar {
    box-shadow: 2px 2px 10px black;

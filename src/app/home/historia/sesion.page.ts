@@ -13,15 +13,16 @@ import { Subscription } from 'rxjs'
    styleUrls: ['./sesion.page.scss'],
 })
 export class SesionPage implements OnInit, OnDestroy {
-   patient:any
+   patient: any
    session: any
-   fechaSesion:any
-   attachments:any
+   fechaSesion: any
+   attachments: any
+   sessionType: string = 'sessions'
 
    private sub: Subscription
-   private sessionsPath:string = ''
-   private sessionAttachmentsPath:string = ''
-   private attachmentsPath:string = ''
+   private sessionsPath: string = ''
+   private sessionAttachmentsPath: string = ''
+   private attachmentsPath: string = ''
 
    constructor(
       private alertCtrl: AlertController,
@@ -39,66 +40,80 @@ export class SesionPage implements OnInit, OnDestroy {
       this.session = this.navParams.get('sessionDetail')
       this.fechaSesion = moment(this.session.fecha).format("DD/MM/YYYY")
 
-      this.attachmentsPath = 'pacientes/'+this.patient.id+'/adjuntos'
-      this.sessionAttachmentsPath = 'pacientes/'+this.patient.id+'/sesiones/'+this.session.id+'/adjuntos'
+      this.attachmentsPath = 'pacientes/' + this.patient.id + '/adjuntos'
+      this.sessionAttachmentsPath = 'pacientes/' + this.patient.id + '/sesiones/' + this.session.id + '/adjuntos'
 
-      this.sub = this.afs.collection(this.sessionAttachmentsPath).valueChanges({idField:'id'}).subscribe(ats=>{
+      this.sub = this.afs.collection(this.sessionAttachmentsPath).valueChanges({ idField: 'id' }).subscribe(ats => {
          this.attachments = ats
       })
    }
-   ngOnDestroy(){
+   ngOnDestroy() {
       this.sub.unsubscribe()
    }
-   onObsChanged(ev){
+   onSegmentChanged(ev) {
+      this.sessionType = ev.target.value
+   }
+   onObsChanged(ev) {
       this.session.observaciones = ev.target.value
    }
-   onNotasChanged(ev){
+   onNotasChanged(ev) {
       this.session.notas = ev.target.value
    }
+   shortName(n) {
+      const maxLen = 13
+      var ext = n.substring(n.lastIndexOf(".") + 1, n.length).toLowerCase();
+      var filename = n.replace('.' + ext, '');
+      if (filename.length <= maxLen) {
+         return n;
+      }
+      filename = filename.substr(0, maxLen) + (n.length > maxLen ? '...' : '');
+      return filename + '.' + ext;
+   }
    handleFile(files: FileList) {
-      this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj=>{
+      this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj => {
+         obj['idSesion'] = this.session.id
          this.saveAttachment(obj)
       })
    }
-   isImage(ext){
+   isImage(ext) {
       let flag = false
-      if ((ext == 'png')||(ext == 'jpg')||(ext == 'jpeg')||(ext == 'gif'))
+      if ((ext == 'png') || (ext == 'jpg') || (ext == 'jpeg') || (ext == 'gif'))
          flag = true
       return flag
    }
-   openFile(url){
+   openFile(url) {
       window.open(url, '_blank')
    }
    async removeFile(adj) {
       const alert = await this.alertCtrl.create({
-        header: 'Confirma borrado',
-        message: 'Esta seguro?',
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: (blah) => {
-              console.log('Confirm Cancel');
+         header: 'Confirma borrado',
+         message: 'Esta seguro?',
+         buttons: [
+            {
+               text: 'Cancel',
+               role: 'cancel',
+               cssClass: 'secondary',
+               handler: (blah) => {
+                  console.log('Confirm Cancel');
+               }
+            }, {
+               text: 'Okay',
+               handler: async () => {
+                  console.log('Confirm Okay')
+                  this.fbsSrv.deleteFileStorage(this.patient.dni, adj.nombre)
+                  await this.afs.doc(this.sessionAttachmentsPath + '/' + adj.id).delete()
+                  await this.afs.doc(this.attachmentsPath + '/' + adj.id).delete()
+               }
             }
-          }, {
-            text: 'Okay',
-            handler: async () => {
-              console.log('Confirm Okay')
-              this.fbsSrv.deleteFileStorage(this.patient.dni, adj.nombre)
-              await this.afs.doc(this.sessionAttachmentsPath+'/'+adj.id).delete()
-              await this.afs.doc(this.attachmentsPath+'/'+adj.id).delete()
-            }
-          }
-        ]
+         ]
       })
       await alert.present();
-    }
+   }
 
    async save() {
       this.session.fecha = moment(this.fechaSesion).valueOf()
       if (this.session.id)
-         await this.afs.doc(this.sessionsPath+'/'+this.session.id).set(this.session, { merge: true })
+         await this.afs.doc(this.sessionsPath + '/' + this.session.id).set(this.session, { merge: true })
       else
          await this.afs.collection(this.sessionsPath).add(this.session)
 
@@ -107,8 +122,9 @@ export class SesionPage implements OnInit, OnDestroy {
    cancel() {
       this.modalController.dismiss()
    }
-   async saveAttachment(obj:object){
-      await this.afs.collection(this.sessionAttachmentsPath).add(obj)
-      await this.afs.collection(this.attachmentsPath).add(obj)
+   async saveAttachment(obj: object) {
+      const id = new Date().getTime().toString()
+      await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(obj)
+      await this.afs.collection(this.attachmentsPath).doc(id).set(obj)
    }
 }
