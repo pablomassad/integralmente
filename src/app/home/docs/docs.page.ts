@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs'
 import { FbsService } from 'src/app/fbs.service'
 import { AlertController } from '@ionic/angular'
 import { Chooser } from '@ionic-native/chooser/ngx'
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 
 
 @Component({
@@ -26,6 +27,7 @@ export class DocsPage implements OnInit {
    private attachmentsPath: string = ''
 
    constructor(
+      private iab: InAppBrowser,
       private chooser: Chooser,
       private alertCtrl: AlertController,
       private globalSrv: GlobalService,
@@ -78,7 +80,7 @@ export class DocsPage implements OnInit {
       return flag
    }
    openFile(url) {
-      window.open(url, '_blank')
+      this.iab.create(url, '_system')
    }
    async removeFile(adj) {
       const alert = await this.alertCtrl.create({

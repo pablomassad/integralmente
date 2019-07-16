@@ -6,6 +6,7 @@ import * as moment from 'moment'
 import { FbsService } from 'src/app/fbs.service'
 import { Subscription } from 'rxjs'
 import { Chooser } from '@ionic-native/chooser/ngx'
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 
 
 @Component({
@@ -27,6 +28,7 @@ export class SesionPage implements OnInit, OnDestroy {
    private attachmentsPath: string = ''
 
    constructor(
+      private iab: InAppBrowser,
       private chooser: Chooser,
       private alertCtrl: AlertController,
       private navParams: NavParams,
@@ -42,10 +44,11 @@ export class SesionPage implements OnInit, OnDestroy {
       this.isMobile = this.globalSrv.getItemRAM('isMobile')
       this.patient = this.globalSrv.getItemRAM('patient')
       this.session = this.navParams.get('sessionDetail')
-      this.fechaSesion = moment(this.session.fecha).format("DD/MM/YYYY")
+      this.fechaSesion = moment(this.session.fecha).format("MM/DD/YYYY")
 
       this.attachmentsPath = 'pacientes/' + this.patient.id + '/adjuntos'
-      this.sessionAttachmentsPath = 'pacientes/' + this.patient.id + '/sesiones/' + this.session.id + '/adjuntos'
+      this.sessionsPath = 'pacientes/' + this.patient.id + '/sesiones/'
+      this.sessionAttachmentsPath = this.sessionsPath + this.session.id + '/adjuntos'
 
       this.fbsSrv.startSpinner()
       this.sub = this.afs.collection(this.sessionAttachmentsPath).valueChanges({ idField: 'id' }).subscribe(ats => {
@@ -96,7 +99,7 @@ export class SesionPage implements OnInit, OnDestroy {
       return flag
    }
    openFile(url) {
-      window.open(url, '_blank')
+      this.iab.create(url, '_system')
    }
    async removeFile(adj) {
       const alert = await this.alertCtrl.create({
@@ -128,8 +131,8 @@ export class SesionPage implements OnInit, OnDestroy {
 
    async save() {
       this.session.fecha = moment(this.fechaSesion).valueOf()
-      if (this.session.id)
-         await this.afs.doc(this.sessionsPath + '/' + this.session.id).set(this.session, { merge: true })
+      if (this.session['id'] != undefined)
+         await this.afs.doc(this.sessionsPath + this.session.id).set(this.session, { merge: true })
       else
          await this.afs.collection(this.sessionsPath).add(this.session)
 

@@ -39,17 +39,18 @@ ion-col.photo-col {
 .txtFecha{
    font-size: 15px;
    font-weight: bold;
+   color:var(--dark);
 }
 
-.txtObs {
+.obsPanel {
    color: #555;
    width: 100%;
    word-wrap: break-word;
    text-align: justify;
-   padding: 4px;
-   border:1px solid gray;
-   // box-shadow: inset 1px 1px 1px black;
-   // margin: 5px;
+   padding: 5px;
+   background: var(--light);
+   box-shadow: inset 1px 1px 4px;
+   border-radius: 5px;
 }
 
 .grdRemove {

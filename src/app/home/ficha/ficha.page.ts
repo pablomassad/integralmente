@@ -30,7 +30,7 @@ export class FichaPage implements OnInit {
 
    ngOnInit() {
       this.patient = this.globalSrv.getItemRAM('patient')
-      this.fechaNacimiento = moment(this.patient.nacimiento).format("DD/MM/YYYY")
+      this.fechaNacimiento = moment(this.patient.nacimiento).format("MM/DD/YYYY")
       this.isMobile = this.globalSrv.getItemRAM('isMobile')
    }
    async handleAvatar(files: FileList) {

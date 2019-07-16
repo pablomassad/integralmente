@@ -1,5 +1,5 @@
 <ion-content>
-   <div class="sessionFrame grdAttachments">
+   <div class="attachmentsFrame grdAttachments" *ngIf="attachments">
       <div *ngFor="let a of attachments" class="attachmentBox" (click)="openFile(a.url)">
          <div *ngIf="isImage(a.extension)">
             <img class="thumbnail" [src]="a.url">

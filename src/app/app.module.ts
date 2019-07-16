@@ -27,7 +27,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 import { FileOpener } from '@ionic-native/file-opener/ngx'
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx'
 import { File } from '@ionic-native/file/ngx'
-import { Chooser } from '@ionic-native/chooser/ngx';
+import { Chooser } from '@ionic-native/chooser/ngx'
 
 // INSTALAR PLUGIN => cordova-plugin-document-viewer
 

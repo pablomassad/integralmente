@@ -21,12 +21,12 @@
    </ion-toolbar>
 
    <ion-grid class="sessionFrame" *ngIf="sessionType=='sessions'">
-      <!-- <div class="txtFecha">{{s.fecha | date:'dd/MM/yyyy - HH:mm'}}</div> -->
       <ion-row class="grdItem">
          <div class="campo">
             Fecha:
          </div>
-         <ion-datetime displayFormat="DD/MM/YYYY - HH:mm" [(ngModel)]="fechaSesion" class="dato datePicker">
+         <ion-datetime monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Set, Oct, Nov, Dic"
+         displayFormat="DD MMM YYYY" placeholder="Ingrese fecha" [(ngModel)]="fechaSesion" class="dato datePicker">
          </ion-datetime>
       </ion-row>
 
@@ -58,7 +58,7 @@
       </ion-row>
    </ion-grid>
 
-   <div class="sessionFrame grdAttachments" *ngIf="sessionType=='attachments'">
+   <div class="sessionFrame grdAttachments" *ngIf="sessionType=='attachments' && attachments">
       <div *ngFor="let a of attachments" class="attachmentBox" (click)="openFile(a.url)">
          <div *ngIf="isImage(a.extension)">
             <img class="thumbnail" [src]="a.url">

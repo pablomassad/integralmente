@@ -40,7 +40,8 @@
                <div class="campo">
                   Fecha Nac.:
                </div>
-               <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fechaNacimiento" class="dato datePicker">
+               <ion-datetime monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Set, Oct, Nov, Dic"
+               displayFormat="DD MMM YYYY" [(ngModel)]="fechaNacimiento" class="dato datePicker">
                </ion-datetime>
             </ion-col>
             <ion-col class="grdItem">
@@ -159,39 +160,3 @@
          </ion-row>
       </ion-grid>
    </ion-content>
-
-
-<!-- 
-   <ion-col class="photo-col">
-         <ion-avatar class="fichaAvatar">
-            <img [src]="patient.foto">
-            <div class="editFoto" *ngIf="isMobile">
-               CAMBIAR
-            </div>
-            <label for="photoEdit" *ngIf="!isMobile">
-               <div class="editFoto">
-                  WEB CH
-               </div>
-            </label>
-         </ion-avatar>
-         <input type="file" style="display: none" id="photoEdit" (change)="handleAvatar($event.target.files)" />
-      </ion-col>
-      <ion-col>
-         <div *ngIf="avatarFile"> ({{avatarFile.progress}}%) </div>
-         <ion-grid>
-            <ion-row>
-               <ion-col class="grdItem">
-                  <div class="campo">
-                     Nombres:
-                  </div>
-                  <input type="text" class="dato" [(ngModel)]="patient.nombres">
-               </ion-col>
-               <ion-col class="grdItem">
-                  <div class="campo">
-                     Apellido:
-                  </div>
-                  <input type="text" class="dato" [(ngModel)]="patient.apellido">
-               </ion-col>
-            </ion-row>
-         </ion-grid>
-      </ion-col> -->
