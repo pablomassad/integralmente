@@ -76,10 +76,12 @@
 
    <ion-fab vertical="bottom" horizontal="end" *ngIf="sessionType=='attachments'">
       <ion-fab-button>
-         <div class="btnAddAdjunto"  *ngIf="isMobile" (click)="chooseFile()">
-            <ion-icon name="add"></ion-icon>
-         </div>
-         <label for="attachment"  *ngIf="!isMobile">
+         <label *ngIf="isMobile">
+            <div class="btnAddAdjunto" (click)="chooseFile()">
+               <ion-icon name="add"></ion-icon>
+            </div>
+         </label>
+         <label for="attachment" *ngIf="!isMobile">
             <div class="btnAddAdjunto">
                <ion-icon name="add"></ion-icon>
             </div>
@@ -87,15 +89,4 @@
          <input type="file" style="display: none" id="attachment" (change)="handleFile($event.target.files)" />
       </ion-fab-button>
    </ion-fab>
-
-   <!-- 
-      <div >
-         <label  for="attachment">
-            <div class="btnAddAdjunto">
-               <ion-icon name="add"></ion-icon>
-            </div>
-         </label>
-         <input type="file" style="display: none" id="attachment" (change)="handleFile($event.target.files)" />
-      </div>
-   -->
 </ion-content>

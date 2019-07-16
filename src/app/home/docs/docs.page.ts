@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { GlobalService } from 'fwk4-services';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Subscription } from 'rxjs';
-import { FbsService } from 'src/app/fbs.service';
-import { AlertController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core'
+import { GlobalService } from 'fwk4-services'
+import { AngularFirestore } from '@angular/fire/firestore'
+import { Subscription } from 'rxjs'
+import { FbsService } from 'src/app/fbs.service'
+import { AlertController } from '@ionic/angular'
+import { Chooser } from '@ionic-native/chooser/ngx'
 
 
 @Component({
@@ -13,15 +14,19 @@ import { AlertController } from '@ionic/angular';
 })
 export class DocsPage implements OnInit {
 
-   patient:any
-   attachments:any
-   
-   private sub: Subscription
-   private attachmentsPath:string
-   private sessionAttachmentsPath:string
+   patient: any
+   session: any
+   attachments: any
+   isMobile: boolean
 
+
+   private sub: Subscription
+   private sessionsPath: string = ''
+   private sessionAttachmentsPath: string
+   private attachmentsPath: string = ''
 
    constructor(
+      private chooser: Chooser,
       private alertCtrl: AlertController,
       private globalSrv: GlobalService,
       private afs: AngularFirestore,
@@ -31,15 +36,15 @@ export class DocsPage implements OnInit {
    }
 
    async ngOnInit() {
+      this.isMobile = this.globalSrv.getItemRAM('isMobile')
       this.patient = this.globalSrv.getItemRAM('patient')
+      this.attachmentsPath = 'pacientes/' + this.patient.id + '/adjuntos'
 
-      this.attachmentsPath = 'pacientes/'+this.patient.id+'/adjuntos'
-
-      this.sub = this.afs.collection(this.attachmentsPath).valueChanges({idField:'id'}).subscribe(ats=>{
+      this.sub = this.afs.collection(this.attachmentsPath).valueChanges({ idField: 'id' }).subscribe(ats => {
          this.attachments = ats
       })
    }
-   ngOnDestroy(){
+   ngOnDestroy() {
       this.sub.unsubscribe()
    }
    shortName(n) {
@@ -52,56 +57,65 @@ export class DocsPage implements OnInit {
       filename = filename.substr(0, maxLen) + (n.length > maxLen ? '...' : '');
       return filename + '.' + ext;
    }
+   chooseFile() {
+      this.chooser.getFile('*/*').then(f => {
+         this.fbsSrv.startSpinner()
+         this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
+            this.saveAttachment(obj)
+         })
+      })
+   }
    handleFile(files: FileList) {
-      this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj=>{
+      this.fbsSrv.startSpinner()
+      this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj => {
          this.saveAttachment(obj)
       })
    }
-   isImage(ext){
+   isImage(ext) {
       let flag = false
-      if ((ext == 'png')||(ext == 'jpg')||(ext == 'jpeg')||(ext == 'gif'))
+      if ((ext == 'png') || (ext == 'jpg') || (ext == 'jpeg') || (ext == 'gif'))
          flag = true
       return flag
    }
-   openFile(url){
+   openFile(url) {
       window.open(url, '_blank')
    }
    async removeFile(adj) {
       const alert = await this.alertCtrl.create({
-        header: 'Confirma borrado',
-        message: 'Esta seguro?',
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: (blah) => {
-              console.log('Confirm Cancel');
+         header: 'Confirma borrado',
+         message: 'Esta seguro?',
+         buttons: [
+            {
+               text: 'Cancel',
+               role: 'cancel',
+               cssClass: 'secondary',
+               handler: (blah) => {
+                  console.log('Confirm Cancel');
+               }
+            }, {
+               text: 'Okay',
+               handler: async () => {
+                  console.log('Confirm Okay')
+                  this.fbsSrv.deleteFileStorage(this.patient.dni, adj.nombre)
+
+                  if (adj.idSession) {
+                     this.sessionAttachmentsPath = 'pacientes/' + this.patient.id + '/sesiones/' + adj.idSesion + '/adjuntos'
+                     await this.afs.doc(this.sessionAttachmentsPath + '/' + adj.id).delete()
+                  }
+                  await this.afs.doc(this.attachmentsPath + '/' + adj.id).delete()
+               }
             }
-          }, {
-            text: 'Okay',
-            handler: async () => {
-              console.log('Confirm Okay')
-              this.fbsSrv.deleteFileStorage(this.patient.dni, adj.nombre)
-              
-              if (adj.idSession){
-               this.sessionAttachmentsPath = 'pacientes/'+this.patient.id+'/sesiones/'+adj.idSesion+'/adjuntos'
-               await this.afs.doc(this.sessionAttachmentsPath+'/'+adj.id).delete()
-              }
-              await this.afs.doc(this.attachmentsPath+'/'+adj.id).delete()
-            }
-          }
-        ]
+         ]
       })
       await alert.present();
-    }
+   }
 
 
-   async saveAttachment(adj:any){
+   async saveAttachment(adj: any) {
       const id = new Date().getTime().toString()
-      if (adj.idSesion){
-         this.sessionAttachmentsPath = 'pacientes/'+this.patient.id+'/sesiones/'+adj.idSesion+'/adjuntos'
-         await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(adj)   
+      if (adj.idSesion) {
+         this.sessionAttachmentsPath = 'pacientes/' + this.patient.id + '/sesiones/' + adj.idSesion + '/adjuntos'
+         await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(adj)
       }
       await this.afs.collection(this.attachmentsPath).doc(id).set(adj)
    }

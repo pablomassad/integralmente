@@ -22,7 +22,6 @@ export class FichaPage implements OnInit {
    constructor(
       private globalSrv: GlobalService,
       private chooser: Chooser,
-      private file:File,
       private afs: AngularFirestore,
       private fbsSrv: FbsService
    ) {
@@ -35,34 +34,20 @@ export class FichaPage implements OnInit {
       this.isMobile = this.globalSrv.getItemRAM('isMobile')
    }
    async handleAvatar(files: FileList) {
+      this.fbsSrv.startSpinner()
       await this.fbsSrv.deleteFileStorage(this.patient.dni, this.patient.fotoNombre)
       await this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj=>{
          this.saveToDB(obj)
       })
+      this.fbsSrv.stopSpinner()
    }
    chooseFile(){
-      this.chooser.getFile('ok').then(f => {
+      this.chooser.getFile('*/*').then(f => {
+         this.fbsSrv.startSpinner()
          this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
             this.saveToDB(obj)
          })
       })
-
-      // this.fileChooser.open().then(uri=>{
-      //    this.file.resolveLocalFilesystemUrl(uri).then(ff=>{
-      //       let dirPath = ff.nativeURL
-      //       let dirPathSegments = dirPath.split('/')
-      //       dirPathSegments.pop()
-      //       dirPath = dirPathSegments.join('/')
-
-      //       this.file.readAsArrayBuffer(dirPath,ff.name).then(buffer=>{
-      //          this.fbsSrv.uploadFileBuffer(buffer, this.patient.dni).then(obj=>{
-      //             this.patient.foto = obj.url
-      //             this.patient.fotoNombre = obj.nombre
-      //             this.saveToDB()
-      //          })
-      //       })
-      //    })
-      // })
    }
    evalEdad() {
       const today = moment()
@@ -71,8 +56,9 @@ export class FichaPage implements OnInit {
       return edad + " años"
    }
    async save() {
+      this.fbsSrv.startSpinner()
       this.patient.nacimiento = moment(this.fechaNacimiento).valueOf()
-      this.saveToDB()
+      await this.saveToDB()
    }
 
    private async saveToDB(obj?:any){
@@ -85,5 +71,7 @@ export class FichaPage implements OnInit {
          await this.afs.collection('pacientes').doc(this.patient.id).set(this.patient, { merge: true })
       else
          await this.afs.collection('pacientes').add(this.patient)
+
+      this.fbsSrv.stopSpinner()
    }
 }

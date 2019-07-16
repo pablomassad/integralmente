@@ -47,8 +47,10 @@ export class SesionPage implements OnInit, OnDestroy {
       this.attachmentsPath = 'pacientes/' + this.patient.id + '/adjuntos'
       this.sessionAttachmentsPath = 'pacientes/' + this.patient.id + '/sesiones/' + this.session.id + '/adjuntos'
 
+      this.fbsSrv.startSpinner()
       this.sub = this.afs.collection(this.sessionAttachmentsPath).valueChanges({ idField: 'id' }).subscribe(ats => {
          this.attachments = ats
+         this.fbsSrv.stopSpinner()
       })
    }
    ngOnDestroy() {
@@ -74,29 +76,15 @@ export class SesionPage implements OnInit, OnDestroy {
       return filename + '.' + ext;
    }
    chooseFile() {
-      this.chooser.getFile('ok').then(f => {
+      this.chooser.getFile('*/*').then(f => {
+         this.fbsSrv.startSpinner()
          this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
             this.saveAttachment(obj)
          })
       })
-
-      // this.fileChooser.open().then(uri=>{
-      //    this.file.resolveLocalFilesystemUrl(uri).then(ff=>{
-      //       let dirPath = ff.nativeURL
-      //       let dirPathSegments = dirPath.split('/')
-      //       dirPathSegments.pop()
-      //       dirPath = dirPathSegments.join('/')
-
-      //       this.file.readAsArrayBuffer(dirPath,ff.name).then(buffer=>{
-      //          this.fbsSrv.uploadFileBuffer(buffer, this.patient.dni).then(obj=>{
-      //             obj['idSesion'] = this.session.id
-      //             this.saveAttachment(obj)
-      //          })
-      //       })
-      //    })
-      // })
    }
    handleFile(files: FileList) {
+      this.fbsSrv.startSpinner()
       this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj => {
          this.saveAttachment(obj)
       })
@@ -126,9 +114,11 @@ export class SesionPage implements OnInit, OnDestroy {
                text: 'Okay',
                handler: async () => {
                   console.log('Confirm Okay')
+                  this.fbsSrv.startSpinner()
                   this.fbsSrv.deleteFileStorage(this.patient.dni, adj.nombre)
                   await this.afs.doc(this.sessionAttachmentsPath + '/' + adj.id).delete()
                   await this.afs.doc(this.attachmentsPath + '/' + adj.id).delete()
+                  this.fbsSrv.stopSpinner()
                }
             }
          ]
@@ -153,5 +143,6 @@ export class SesionPage implements OnInit, OnDestroy {
       const id = new Date().getTime().toString()
       await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(obj)
       await this.afs.collection(this.attachmentsPath).doc(id).set(obj)
+      this.fbsSrv.stopSpinner()
    }
 }

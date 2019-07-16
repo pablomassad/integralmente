@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { GlobalService } from 'fwk4-services';
+import { Component, OnInit } from '@angular/core'
+import { GlobalService } from 'fwk4-services'
 import { Router } from '@angular/router'
 import * as moment from 'moment'
-import { ActionSheetController } from '@ionic/angular';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { ActionSheetController } from '@ionic/angular'
+import { AngularFirestore } from '@angular/fire/firestore'
+import { FbsService } from '../fbs.service'
 
 @Component({
    selector: 'app-pacientes',
@@ -20,19 +21,24 @@ export class PacientesPage implements OnInit {
       private actionSheetController: ActionSheetController,
       private router:Router,
       private afs: AngularFirestore,
-      private globalSrv: GlobalService
+      private globalSrv: GlobalService,
+      private fbsSrv: FbsService
    ) {
       console.log('PacientesPage constructor')
       this.userPhoto = "assets/users/pato.jpg" //"assets/images/anonymous.png"
    }
 
    async ngOnInit() {
+      this.fbsSrv.startSpinner()
       this.afs.collection('pacientes').valueChanges({ idField: 'id' }).subscribe(ps=>{
          this.patients = ps 
+         this.fbsSrv.stopSpinner()
       }) 
    }
-   removePatient(p){
-      this.afs.collection('pacientes').doc(p.id).delete()
+   async removePatient(p){
+      this.fbsSrv.startSpinner()
+      await this.afs.collection('pacientes').doc(p.id).delete()
+      this.fbsSrv.stopSpinner()
    }
    async openMenuSheet() {
       const actionSheet = await this.actionSheetController.create({

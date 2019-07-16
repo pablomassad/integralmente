@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore'
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage'
 import * as firebase from "firebase"
+import { LoadingController } from '@ionic/angular'
 
 @Injectable({
    providedIn: 'root'
@@ -9,8 +10,10 @@ import * as firebase from "firebase"
 export class FbsService {
 
    private uploadTask: firebase.storage.UploadTask
-
+   private loading:any
+   
    constructor(
+      private loadingCtrl: LoadingController,
       private afStorage: AngularFireStorage) {
       console.log('FbsService constructor')
    }
@@ -42,7 +45,7 @@ export class FbsService {
          console.log(rta)
       })
    }
-   uploadFileBuffer(f, id){
+   uploadFileBuffer(f, id) {
       let blob = new Blob([f.data])
       return this.uploadFile(blob, id)
    }
@@ -50,13 +53,13 @@ export class FbsService {
       return new Promise(async (resolve, reject) => {
          try {
             let data = (file instanceof File) ? file : file.data
-            const stPath = id + '/' + file.name 
+            const stPath = id + '/' + file.name
             const sn = await this.pushUpload(data, stPath)
             const url = await sn.ref.getDownloadURL()
             const res = new Object()
             res['url'] = url
             res['nombre'] = sn.ref.name,
-            res['extension'] = sn.ref.name.substr(sn.ref.name.indexOf('.')+1)
+               res['extension'] = sn.ref.name.substr(sn.ref.name.indexOf('.') + 1)
             resolve(res)
          } catch (error) {
             console.log(error)
@@ -81,6 +84,18 @@ export class FbsService {
       storageRef.child(stPath).delete()
    }
 
+
+
+   async startSpinner() {
+      this.loading = await this.loadingCtrl.create({
+         spinner: "bubbles",
+         message: 'cargando...'
+      })
+      await this.loading.present()
+   }
+   stopSpinner(){
+      this.loading.dismiss()
+   }
 
 
    // uploadPic(dni, upload) {

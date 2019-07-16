@@ -1,4 +1,3 @@
-
 <ion-content>
    <div class="sessionFrame grdAttachments">
       <div *ngFor="let a of attachments" class="attachmentBox" (click)="openFile(a.url)">
@@ -16,12 +15,17 @@
       </div>
    </div>
 
-   <ion-fab vertical="bottom" horizontal="end" >
+   <ion-fab vertical="bottom" horizontal="end">
       <ion-fab-button>
-         <label for="attachment">
+         <label *ngIf="isMobile">
+            <div class="btnAddAdjunto" (click)="chooseFile()">
+               <ion-icon name="add"></ion-icon>
+            </div>
+         </label>
+         <label for="attachment" *ngIf="!isMobile">
             <div class="btnAddAdjunto">
                <ion-icon name="add"></ion-icon>
-            </div> 
+            </div>
          </label>
          <input type="file" style="display: none" id="attachment" (change)="handleFile($event.target.files)" />
       </ion-fab-button>
