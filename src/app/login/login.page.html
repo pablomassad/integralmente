@@ -2,13 +2,13 @@
    <div class="backImg">
       <div class="loginFrame">
 
-         <form class="form backForm" [formGroup]="validations_form" (ngSubmit)="tryEmailLogin(validations_form.value)"
+         <form [formGroup]="validations_form" class="form backForm" (ngSubmit)="tryEmailLogin(validations_form.value)"
             *ngIf="(user.displayName == '')">
             <div class="formTitle">
                <img src="assets/images/integralmenteET.png" class="logo">
             </div>
 
-            <input type="text" formControlName="email" placeholder="Correo electrónico" formControlName="email">
+            <input formControlName="email" type="text" placeholder="Correo electrónico" >
             <div class="validation-errors">
                <ng-container *ngFor="let validation of validation_messages.email">
                   <div class="error-message"
@@ -18,8 +18,7 @@
                </ng-container>
             </div>
 
-            <input type="password" formControlName="password" class="form-controll" placeholder="Contraseña"
-               formControlName="password">
+            <input formControlName="password" type="password" class="form-controll" placeholder="Contraseña">
             <div class="validation-errors">
                <ng-container *ngFor="let validation of validation_messages.password">
                   <div class="error-message"
@@ -29,11 +28,12 @@
                </ng-container>
             </div>
 
+            <!-- <input type="text" class="form-controll" [ngModelOptions]="{standalone: true}" placeholder="nombre usuario" [(ngModel)]="nombres"> -->
+
 
             <div class="grdButtons">
-               <button class="btns btnLogin btnSignIn" type="submit" (click)="tryEmailLogin()"
-                  [disabled]="!validations_form.valid">Ingresar</button>
-               <button class="btns btnLogin btnSignUp" type="submit" (click)="goRegisterPage()">Registrarse</button>
+               <button [disabled]="!validations_form.valid" (click)="tryEmailLogin()" type="submit" class="btns btnLogin btnSignIn" >Ingresar</button>
+               <button (click)="goRegisterPage()" type="submit" class="btns btnLogin btnSignUp">Registrarse</button>
             </div>
 
             <label class="error-message">{{errorMessage}}</label>
@@ -41,49 +41,6 @@
       </div>
    </div>
 </ion-content>
-
-
-<!-- <ion-header>
-   <ion-toolbar color="primary">
-      <ion-title>Log In</ion-title>
-   </ion-toolbar>
-</ion-header> -->
-
-<!-- <ion-content padding class="form-content">
-   <form class="form" [formGroup]="validations_form" (ngSubmit)="tryEmailLogin(validations_form.value)">
-      <ion-item>
-         <ion-label position="floating" color="primary">Email</ion-label>
-         <ion-input type="text" formControlName="email"></ion-input>
-      </ion-item>
-      <div class="validation-errors">
-         <ng-container *ngFor="let validation of validation_messages.email">
-            <div class="error-message"
-               *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
-               {{ validation.message }}
-            </div>
-         </ng-container>
-      </div>
-      <ion-item>
-         <ion-label position="floating" color="primary">Password</ion-label>
-         <ion-input type="password" formControlName="password"></ion-input>
-      </ion-item>
-      <div class="validation-errors">
-         <ng-container *ngFor="let validation of validation_messages.password">
-            <div class="error-message"
-               *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
-               {{ validation.message }}
-            </div>
-         </ng-container>
-      </div>
-      <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Log In
-      </ion-button>
-      <label class="error-message">{{errorMessage}}</label>
-   </form>
-
-   <p class="go-to-register">
-      No account yet? <a (click)="goRegisterPage()">Create an account.</a>
-   </p>
-</ion-content> -->
 
 
 

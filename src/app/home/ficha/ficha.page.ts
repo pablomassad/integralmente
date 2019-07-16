@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { FbsService, Upload } from 'src/app/fbs.service'
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { GlobalService } from 'fwk4-services'
 import * as moment from 'moment'
-import * as firebase from "firebase"
-import { File } from '@ionic-native/file/ngx'
 import { Chooser } from '@ionic-native/chooser/ngx'
 
 
@@ -14,12 +13,23 @@ import { Chooser } from '@ionic-native/chooser/ngx'
    styleUrls: ['./ficha.page.scss'],
 })
 export class FichaPage implements OnInit {
+   validations_form: FormGroup
+
+   validation_messages = {
+      'nombres': [
+         { type: 'required', message: 'Los nombres son requeridos' }
+      ],
+      'apellido': [
+         { type: 'required', message: 'El apellido es requerido' }
+      ]
+   }
 
    patient: any
    isMobile: boolean = false
    fechaNacimiento: any
 
    constructor(
+      private formBuilder: FormBuilder,
       private globalSrv: GlobalService,
       private chooser: Chooser,
       private afs: AngularFirestore,
@@ -29,6 +39,17 @@ export class FichaPage implements OnInit {
    }
 
    ngOnInit() {
+      this.validations_form = this.formBuilder.group({
+         nombres: new FormControl('',
+            Validators.compose([
+               Validators.required
+            ])),
+         apellido: new FormControl('',
+            Validators.compose([
+               Validators.required
+            ]))
+      })
+
       this.patient = this.globalSrv.getItemRAM('patient')
       this.fechaNacimiento = moment(this.patient.nacimiento).format("MM/DD/YYYY")
       this.isMobile = this.globalSrv.getItemRAM('isMobile')
@@ -36,12 +57,12 @@ export class FichaPage implements OnInit {
    async handleAvatar(files: FileList) {
       this.fbsSrv.startSpinner()
       await this.fbsSrv.deleteFileStorage(this.patient.dni, this.patient.fotoNombre)
-      await this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj=>{
+      await this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj => {
          this.saveToDB(obj)
       })
       this.fbsSrv.stopSpinner()
    }
-   chooseFile(){
+   chooseFile() {
       this.chooser.getFile('*/*').then(f => {
          this.fbsSrv.startSpinner()
          this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
@@ -61,10 +82,10 @@ export class FichaPage implements OnInit {
       await this.saveToDB()
    }
 
-   private async saveToDB(obj?:any){
-      if (obj){
+   private async saveToDB(obj?: any) {
+      if (obj) {
          this.patient.foto = obj.url
-         this.patient.fotoNombre = obj.nombre   
+         this.patient.fotoNombre = obj.nombre
       }
 
       if (this.patient.id)

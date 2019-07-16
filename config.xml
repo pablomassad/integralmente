@@ -108,6 +108,7 @@
     </plugin>
     <plugin name="cordova-plugin-file" spec="^6.0.2" />
     <plugin name="cordova-plugin-chooser" spec="^1.2.5" />
-    <engine name="android" spec="7.1.4" />
     <plugin name="cordova-plugin-inappbrowser" spec="^3.1.0" />
+    <engine name="android" spec="7.1.4" />
+    <engine name="ios" spec="4.5.5" />
 </widget>

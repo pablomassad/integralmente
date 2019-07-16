@@ -11,20 +11,21 @@ import { GlobalService, ApplicationService } from 'fwk4-services'
    styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
-   loginForm: FormGroup
+   nombres:string;
 
    validations_form: FormGroup
-   errorMessage: string = ''
 
    validation_messages = {
       'email': [
          { type: 'required', message: 'El correo electrónico es requerido' },
+         { type: 'minlength', message: 'El correo electrónico debe tener al menos 5 caracteres' },
+         { type: 'maxlength', message: 'El correo electrónico no puede superar los 50 caracteres' },
          { type: 'pattern', message: 'Por favor ingrese un email correcto' }
       ],
       'password': [
          { type: 'required', message: 'Contraseña requerida' },
-         { type: 'minlength', message: 'La contraseña debe tener al menos 5 caracteres' }
+         { type: 'minlength', message: 'La contraseña debe tener al menos 5 caracteres' },
+         { type: 'maxlength', message: 'La contraseña no puede superar los 20 caracteres' }
       ]
    }
 
@@ -45,24 +46,25 @@ export class LoginPage implements OnInit {
       //    console.log('current user: ', u)
       // })
 
-      this.loginForm = new FormGroup({
-         email: new FormControl('', Validators.required),
-         password: new FormControl('', Validators.required),
-      })
-
       this.validations_form = this.formBuilder.group({
-         email: new FormControl('', Validators.compose([
-           Validators.required,
-           Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-         ])),
-         password: new FormControl('', Validators.compose([
-           Validators.minLength(5),
-           Validators.required
-         ])),
-       });
+         email: new FormControl('',
+            Validators.compose([
+               Validators.required,
+               Validators.minLength(5),
+               Validators.maxLength(50),
+               Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+            ])),
+         password: new FormControl('',
+            Validators.compose([
+               Validators.minLength(5),
+               Validators.maxLength(20),
+               Validators.required
+            ])),
+      })
    }
 
    async tryEmailLogin(value) {
+      console.log('form data: ', value)
       // this.user = await this.authSrv.doLogin(value)
       this.goMenu()
    }
@@ -73,7 +75,6 @@ export class LoginPage implements OnInit {
 
    private goMenu() {
       this.globalSrv.setItem('user', this.user)
-      this.route.navigate(['/menu'])
+      this.route.navigate(['/menu/pacientes'])
    }
-
 }
