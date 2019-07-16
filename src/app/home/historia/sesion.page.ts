@@ -5,8 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore'
 import * as moment from 'moment'
 import { FbsService } from 'src/app/fbs.service'
 import { Subscription } from 'rxjs'
-import { FileChooser } from '@ionic-native/file-chooser/ngx';
-import { File } from '@ionic-native/file/ngx';
+import { Chooser } from '@ionic-native/chooser/ngx'
 
 
 @Component({
@@ -20,7 +19,7 @@ export class SesionPage implements OnInit, OnDestroy {
    fechaSesion: any
    attachments: any
    sessionType: string = 'sessions'
-   isMobile:boolean
+   isMobile: boolean
 
    private sub: Subscription
    private sessionsPath: string = ''
@@ -28,8 +27,7 @@ export class SesionPage implements OnInit, OnDestroy {
    private attachmentsPath: string = ''
 
    constructor(
-      private fileChooser: FileChooser,
-      private file: File,
+      private chooser: Chooser,
       private alertCtrl: AlertController,
       private navParams: NavParams,
       private modalController: ModalController,
@@ -66,7 +64,7 @@ export class SesionPage implements OnInit, OnDestroy {
       this.session.notas = ev.target.value
    }
    shortName(n) {
-      const maxLen = 13
+      const maxLen = 12
       var ext = n.substring(n.lastIndexOf(".") + 1, n.length).toLowerCase();
       var filename = n.replace('.' + ext, '');
       if (filename.length <= maxLen) {
@@ -75,26 +73,31 @@ export class SesionPage implements OnInit, OnDestroy {
       filename = filename.substr(0, maxLen) + (n.length > maxLen ? '...' : '');
       return filename + '.' + ext;
    }
-   chooseFile(){
-      this.fileChooser.open().then(uri=>{
-         this.file.resolveLocalFilesystemUrl(uri).then(ff=>{
-            let dirPath = ff.nativeURL
-            let dirPathSegments = dirPath.split('/')
-            dirPathSegments.pop()
-            dirPath = dirPathSegments.join('/')
-
-            this.file.readAsArrayBuffer(dirPath,ff.name).then(buffer=>{
-               this.fbsSrv.uploadFileBuffer(buffer, this.patient.dni).then(obj=>{
-                  obj['idSesion'] = this.session.id
-                  this.saveAttachment(obj)
-               })
-            })
+   chooseFile() {
+      this.chooser.getFile('ok').then(f => {
+         this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
+            this.saveAttachment(obj)
          })
       })
+
+      // this.fileChooser.open().then(uri=>{
+      //    this.file.resolveLocalFilesystemUrl(uri).then(ff=>{
+      //       let dirPath = ff.nativeURL
+      //       let dirPathSegments = dirPath.split('/')
+      //       dirPathSegments.pop()
+      //       dirPath = dirPathSegments.join('/')
+
+      //       this.file.readAsArrayBuffer(dirPath,ff.name).then(buffer=>{
+      //          this.fbsSrv.uploadFileBuffer(buffer, this.patient.dni).then(obj=>{
+      //             obj['idSesion'] = this.session.id
+      //             this.saveAttachment(obj)
+      //          })
+      //       })
+      //    })
+      // })
    }
    handleFile(files: FileList) {
       this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj => {
-         obj['idSesion'] = this.session.id
          this.saveAttachment(obj)
       })
    }
@@ -146,6 +149,7 @@ export class SesionPage implements OnInit, OnDestroy {
       this.modalController.dismiss()
    }
    async saveAttachment(obj: object) {
+      obj['idSesion'] = this.session.id
       const id = new Date().getTime().toString()
       await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(obj)
       await this.afs.collection(this.attachmentsPath).doc(id).set(obj)

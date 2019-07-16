@@ -4,8 +4,8 @@ import { AngularFirestore } from '@angular/fire/firestore'
 import { GlobalService } from 'fwk4-services'
 import * as moment from 'moment'
 import * as firebase from "firebase"
-import { FileChooser } from '@ionic-native/file-chooser/ngx';
-import { File } from '@ionic-native/file/ngx';
+import { File } from '@ionic-native/file/ngx'
+import { Chooser } from '@ionic-native/chooser/ngx'
 
 
 @Component({
@@ -21,7 +21,7 @@ export class FichaPage implements OnInit {
 
    constructor(
       private globalSrv: GlobalService,
-      private fileChooser: FileChooser,
+      private chooser: Chooser,
       private file:File,
       private afs: AngularFirestore,
       private fbsSrv: FbsService
@@ -37,28 +37,32 @@ export class FichaPage implements OnInit {
    async handleAvatar(files: FileList) {
       await this.fbsSrv.deleteFileStorage(this.patient.dni, this.patient.fotoNombre)
       await this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj=>{
-         this.patient.foto = obj.url
-         this.patient.fotoNombre = obj.nombre
-         this.saveToDB()
+         this.saveToDB(obj)
       })
    }
    chooseFile(){
-      this.fileChooser.open().then(uri=>{
-         this.file.resolveLocalFilesystemUrl(uri).then(ff=>{
-            let dirPath = ff.nativeURL
-            let dirPathSegments = dirPath.split('/')
-            dirPathSegments.pop()
-            dirPath = dirPathSegments.join('/')
-
-            this.file.readAsArrayBuffer(dirPath,ff.name).then(buffer=>{
-               this.fbsSrv.uploadFileBuffer(buffer, this.patient.dni).then(obj=>{
-                  this.patient.foto = obj.url
-                  this.patient.fotoNombre = obj.nombre
-                  this.saveToDB()
-               })
-            })
+      this.chooser.getFile('ok').then(f => {
+         this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
+            this.saveToDB(obj)
          })
       })
+
+      // this.fileChooser.open().then(uri=>{
+      //    this.file.resolveLocalFilesystemUrl(uri).then(ff=>{
+      //       let dirPath = ff.nativeURL
+      //       let dirPathSegments = dirPath.split('/')
+      //       dirPathSegments.pop()
+      //       dirPath = dirPathSegments.join('/')
+
+      //       this.file.readAsArrayBuffer(dirPath,ff.name).then(buffer=>{
+      //          this.fbsSrv.uploadFileBuffer(buffer, this.patient.dni).then(obj=>{
+      //             this.patient.foto = obj.url
+      //             this.patient.fotoNombre = obj.nombre
+      //             this.saveToDB()
+      //          })
+      //       })
+      //    })
+      // })
    }
    evalEdad() {
       const today = moment()
@@ -71,7 +75,12 @@ export class FichaPage implements OnInit {
       this.saveToDB()
    }
 
-   private async saveToDB(){
+   private async saveToDB(obj?:any){
+      if (obj){
+         this.patient.foto = obj.url
+         this.patient.fotoNombre = obj.nombre   
+      }
+
       if (this.patient.id)
          await this.afs.collection('pacientes').doc(this.patient.id).set(this.patient, { merge: true })
       else

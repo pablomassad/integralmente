@@ -42,14 +42,16 @@ export class FbsService {
          console.log(rta)
       })
    }
-   uploadFileBuffer(buffer, id){
-      let blob = new Blob([buffer])
+   uploadFileBuffer(f, id){
+      let blob = new Blob([f.data])
       return this.uploadFile(blob, id)
    }
    uploadFile(file, id: string): Promise<any> {
       return new Promise(async (resolve, reject) => {
          try {
-            const sn = await this.pushUpload(file, id)
+            let data = (file instanceof File) ? file : file.data
+            const stPath = id + '/' + file.name 
+            const sn = await this.pushUpload(data, stPath)
             const url = await sn.ref.getDownloadURL()
             const res = new Object()
             res['url'] = url
@@ -62,10 +64,9 @@ export class FbsService {
          }
       })
    }
-   private pushUpload(file, id) {
-      const stPath = id + '/' + file.name 
+   private pushUpload(data, stPath) {
       let storageRef = firebase.storage().ref()
-      this.uploadTask = storageRef.child(stPath).put(file)
+      this.uploadTask = storageRef.child(stPath).put(data)
 
       this.uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
          //attachment.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100

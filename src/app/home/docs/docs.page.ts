@@ -43,7 +43,7 @@ export class DocsPage implements OnInit {
       this.sub.unsubscribe()
    }
    shortName(n) {
-      const maxLen = 13
+      const maxLen = 12
       var ext = n.substring(n.lastIndexOf(".") + 1, n.length).toLowerCase();
       var filename = n.replace('.' + ext, '');
       if (filename.length <= maxLen) {
