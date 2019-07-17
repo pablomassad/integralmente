@@ -10,7 +10,7 @@ import { Chooser } from '@ionic-native/chooser/ngx'
 @Component({
    selector: 'app-ficha',
    templateUrl: './ficha.page.html',
-   styleUrls: ['./ficha.page.scss'],
+   styleUrls: ['./ficha.page.scss', '../../buttons.scss'],
 })
 export class FichaPage implements OnInit {
    validations_form: FormGroup
@@ -53,6 +53,11 @@ export class FichaPage implements OnInit {
       this.patient = this.globalSrv.getItemRAM('patient')
       this.fechaNacimiento = moment(this.patient.nacimiento).format("MM/DD/YYYY")
       this.isMobile = this.globalSrv.getItemRAM('isMobile')
+
+      this.validations_form.setValue({ 
+         nombres: this.patient.nombres, 
+         apellido:this.patient.apellido
+      })
    }
    async handleAvatar(files: FileList) {
       this.fbsSrv.startSpinner()
@@ -76,8 +81,10 @@ export class FichaPage implements OnInit {
       const edad = today.diff(cumple, 'y')
       return edad + " años"
    }
-   async save() {
+   async save(val) {
       this.fbsSrv.startSpinner()
+      this.patient.nombres = val.nombres
+      this.patient.apellido = val.apellido
       this.patient.nacimiento = moment(this.fechaNacimiento).valueOf()
       await this.saveToDB()
    }

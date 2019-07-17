@@ -8,7 +8,7 @@
                <img src="assets/images/integralmenteET.png" class="logo">
             </div>
 
-            <input formControlName="email" type="text" placeholder="Correo electrónico" >
+            <input formControlName="email" type="text" placeholder="Correo electrónico">
             <div class="validation-errors">
                <ng-container *ngFor="let validation of validation_messages.email">
                   <div class="error-message"
@@ -28,12 +28,9 @@
                </ng-container>
             </div>
 
-            <!-- <input type="text" class="form-controll" [ngModelOptions]="{standalone: true}" placeholder="nombre usuario" [(ngModel)]="nombres"> -->
-
-
             <div class="grdButtons">
-               <button [disabled]="!validations_form.valid" (click)="tryEmailLogin()" type="submit" class="btns btnLogin btnSignIn" >Ingresar</button>
-               <button (click)="goRegisterPage()" type="submit" class="btns btnLogin btnSignUp">Registrarse</button>
+               <button [disabled]="!validations_form.valid" (click)="tryEmailLogin()" type="submit" class="glass" >Ingresar</button>
+               <button (click)="goRegisterPage()" type="submit" class="glass">Registrarse</button>
             </div>
 
             <label class="error-message">{{errorMessage}}</label>

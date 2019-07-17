@@ -43,7 +43,7 @@
                               <div class="campo">
                                  Apellido:
                               </div>
-                              <input formControlName="apellido" type="text" class="dato">
+                              <input formControlName="apellido"type="text" class="dato">
                            </div>
                            <div class="validation-errors">
                               <ng-container *ngFor="let validation of validation_messages.apellido">
@@ -172,11 +172,11 @@
          </ion-row>
          <ion-row>
             <ion-toolbar class="backFooter">
-               <div slot="start" class="btnFoot" (click)="cancel()">
+               <button slot="start" class="glass" (click)="cancel()">
                   <ion-icon name="close"></ion-icon>
                   <p>Cancelar</p>
-               </div>
-               <button slot="end" class="btnFoot" [disabled]="!validations_form.valid" (click)="save()" type="submit">
+               </button>
+               <button slot="end" class="glass" [disabled]="!validations_form.valid" (click)="save()" type="submit">
                   <ion-icon name="save"></ion-icon>
                   <p>Guardar</p>
                </button>

@@ -8,11 +8,9 @@ import { GlobalService, ApplicationService } from 'fwk4-services'
 @Component({
    selector: 'app-login',
    templateUrl: './login.page.html',
-   styleUrls: ['./login.page.scss'],
+   styleUrls: ['./login.page.scss', '../buttons.scss'],
 })
 export class LoginPage implements OnInit {
-   nombres:string;
-
    validations_form: FormGroup
 
    validation_messages = {
@@ -61,6 +59,7 @@ export class LoginPage implements OnInit {
                Validators.required
             ])),
       })
+      //this.validations_form.setValue({ password: 'xxxxx', email: 'pepepe@gmail.com' });
    }
 
    async tryEmailLogin(value) {

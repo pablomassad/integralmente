@@ -7,7 +7,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 @Component({
    selector: 'app-historia',
    templateUrl: './historia.page.html',
-   styleUrls: ['./historia.page.scss'],
+   styleUrls: ['./historia.page.scss', '../../buttons.scss'],
 })
 export class HistoriaPage implements OnInit {
    patient: any

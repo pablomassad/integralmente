@@ -9,7 +9,7 @@ import { FbsService } from '../fbs.service'
 @Component({
    selector: 'app-pacientes',
    templateUrl: './pacientes.page.html',
-   styleUrls: ['./pacientes.page.scss'],
+   styleUrls: ['./pacientes.page.scss', '../buttons.scss'],
 })
 export class PacientesPage implements OnInit {
 
