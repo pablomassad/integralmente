@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { Routes, RouterModule } from '@angular/router'
 import { IonicModule } from '@ionic/angular'
+import { OrderModule } from 'ngx-order-pipe'
 
 import { HistoriaPage } from './historia.page'
 import { Fwk4PipesModule } from 'fwk4-pipes'
@@ -21,6 +22,7 @@ const routes: Routes = [
       CommonModule,
       FormsModule,
       IonicModule,
+      OrderModule,
       RouterModule.forChild(routes)
    ],
    entryComponents:[

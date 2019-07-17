@@ -14,7 +14,7 @@
       </ion-row>
       <ion-row>
          <ion-col>
-            <div *ngFor="let s of sessions | searchInfo: criteria" (click)="gotoSession(s)" class="historyCards">
+            <div *ngFor="let s of sessions | orderBy:'fecha':true | searchInfo: criteria" (click)="gotoSession(s)" class="historyCards">
                <div class="txtFecha">{{s.fecha | date:'dd MMM yyyy'}}</div>
                <div class="obsPanel">
                   {{s.observaciones}}

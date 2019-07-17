@@ -172,13 +172,13 @@
          </ion-row>
          <ion-row>
             <ion-toolbar class="backFooter">
-               <button slot="start" class="glass" (click)="cancel()">
+               <button slot="start" class="glass glFlex" (click)="cancel()" >
                   <ion-icon name="close"></ion-icon>
-                  <p>Cancelar</p>
+                  <div>Cancelar</div>
                </button>
-               <button slot="end" class="glass" [disabled]="!validations_form.valid" (click)="save()" type="submit">
+               <button slot="end" class="glass glFlex" [disabled]="!validations_form.valid" (click)="save()" type="submit">
                   <ion-icon name="save"></ion-icon>
-                  <p>Guardar</p>
+                  <div>Guardar</div>
                </button>
             </ion-toolbar>
          </ion-row>

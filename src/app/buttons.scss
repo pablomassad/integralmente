@@ -166,6 +166,11 @@ button:focus {
    border-radius: 50%;
    padding:0px;
 }
+.glFlex{
+   display: flex;
+   align-items: center;
+   margin: 0 20px 20px;
+}
 .glRound::after{
    border-radius: 50%;
    height: 22%;

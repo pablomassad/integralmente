@@ -54,10 +54,12 @@ export class FichaPage implements OnInit {
       this.fechaNacimiento = moment(this.patient.nacimiento).format("MM/DD/YYYY")
       this.isMobile = this.globalSrv.getItemRAM('isMobile')
 
-      this.validations_form.setValue({ 
-         nombres: this.patient.nombres, 
-         apellido:this.patient.apellido
-      })
+      if (this.patient.id){
+         this.validations_form.setValue({ 
+            nombres: this.patient.nombres, 
+            apellido:this.patient.apellido
+         })
+      }
    }
    async handleAvatar(files: FileList) {
       this.fbsSrv.startSpinner()
