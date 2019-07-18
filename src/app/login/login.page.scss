@@ -16,7 +16,7 @@
    box-shadow: 0 0 40px #444;
    max-width: 500px;
    width: 90%;
-   height: 500px;
+   height: 550px;
    position: absolute;
    margin: auto;
    top: 0;
@@ -80,12 +80,6 @@
    grid-gap: 20px;
 }
 
-
-
-.error-message
-{
- color: var(--ion-color-danger);
-}
 
 .go-to-register
 {

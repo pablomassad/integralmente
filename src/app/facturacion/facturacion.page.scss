@@ -1,0 +1,53 @@
+.facFrame{
+   border-radius: 10px;
+   box-shadow: inset 1px 1px 3px;
+   background: var(--light);
+   color:var(--dark);
+   overflow-y: auto;
+}
+
+// ion-item-sliding ion-item-options ion-item{
+//    font-size: 2vw;
+// }
+ion-item-sliding ion-item-options ion-item-option ion-icon{
+   font-size: 4vw;
+}
+
+.monto{
+   font-size: 3.2vw;
+   font-weight: bold;
+   text-align: center;
+}
+.facFecha{
+   font-size: 2.4vw;
+   padding: 0;
+}
+.facOS{
+   font-size: 2.4vw;
+   padding: 0;
+   text-align: right;
+}
+.facMonto{
+   padding: 0;
+   text-align: center;
+   font-weight: bold;
+   font-size: 3vw;
+}
+
+
+
+
+
+.field{
+   font-size: 12px;
+}
+
+.glFac{
+   border-radius: 50%;
+   width: 30px;
+   height: 30px;
+}
+
+.glState{
+   background:blue;
+}

@@ -1,9 +1,10 @@
 APK
-   Styles Splash Screen and LOGO
+   [OK] Styles Splash Screen and LOGO
 
 --------------------------------------------------------
 Login/Register
-   Styles
+   Pagina de register completa
+   Logout
 
 --------------------------------------------------------
 Pacientes
@@ -12,20 +13,20 @@ Pacientes
 
 --------------------------------------------------------
 Ficha 
-   Layout Styles
-   Cambiar foto web/mobile
-   Firebase Storage
-   ABM
+   [OK] Layout Styles
+   [OK] Cambiar foto web/mobile
+   [OK] Firebase Storage
+   [OK] ABM
 
 --------------------------------------------------------
 Historia Clinica
-   Layout Styles
-   ABM 
+   [OK] Layout Styles
+   [OK] ABM 
 
 --------------------------------------------------------
 Documentacion
-   Layout Styles
-   Listado total de adjuntos de todas las sessiones x paciente
+   [OK] Layout Styles
+   [OK] Listado total de adjuntos de todas las sessiones x paciente
 
 --------------------------------------------------------
 Facturas / Facturacion
