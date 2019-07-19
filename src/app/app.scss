@@ -51,6 +51,22 @@ img{
 }
 
 
+.filterIcon{
+   font-size: 55px;
+   box-shadow: 1px 1px 3px;
+   border-radius: 50%;
+   padding: 5px;
+   margin: 10px 15px 10px 0px;
+}
+
+.txtCriteria{
+   font-size: 20px;
+   color:var(--dark)
+}
+
+.filterInput{
+   
+}
 
 .grdItem {
    display: flex;

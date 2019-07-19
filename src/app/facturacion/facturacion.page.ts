@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Component, OnInit } from '@angular/core'
+import { ModalController } from '@ionic/angular'
+import { AngularFirestore } from '@angular/fire/firestore'
+import { FacturaPage } from './factura.page'
 
 @Component({
    selector: 'app-facturacion',
@@ -11,11 +12,29 @@ export class FacturacionPage implements OnInit {
    facturasPendientes: any = []
    facturasCobradas: any = []
 
+   totalPendientes:number = 0
+   totalCobradas:number = 0
+
+   criteria:string = "OSDE"
+   
    constructor(
       private modalController: ModalController,
       private afs: AngularFirestore,
    ) {
       console.log('FacturacionPage constructor')
+   }
+
+   filterCriteria(arr:any[], totField:string){
+      const res = arr.filter(item => {
+         if (!this.criteria) this.criteria = ""
+         let str = JSON.stringify(item).toLowerCase()
+         const idx = str.indexOf(this.criteria.toLowerCase())
+         return (idx !== -1)
+      })
+      this[totField] = res.reduce((total, item)=> {
+         return total + item['monto'];
+      },0)
+      return res
    }
 
    ngOnInit() {
@@ -30,6 +49,17 @@ export class FacturacionPage implements OnInit {
       //    this.facturasCobradas = ses 
       // }) 
    }
+
+   async gotoFactura(fac) {
+      const modal = await this.modalController.create({
+         component: FacturaPage,
+         componentProps: {
+            'facturaDetail':fac
+          }
+      })
+      return await modal.present()
+   }
+
 
    private getFacturasPendientesMock() {
       const arr = [

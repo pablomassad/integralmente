@@ -7,28 +7,32 @@ import { IonicModule } from '@ionic/angular'
 import { Fwk4PipesModule } from 'fwk4-pipes'
 import { OrderModule } from 'ngx-order-pipe'
 
-import { FacturacionPage } from './facturacion.page';
+import { FacturacionPage } from './facturacion.page'
+import { FacturaPage } from './factura.page'
 
 const routes: Routes = [
-  {
-    path: '',
-    component: FacturacionPage
-  }
+   {
+      path: '',
+      component: FacturacionPage
+   }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    OrderModule,
-    Fwk4PipesModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [FacturacionPage]
+   imports: [
+      CommonModule,
+      FormsModule,
+      OrderModule,
+      Fwk4PipesModule,
+      IonicModule,
+      RouterModule.forChild(routes)
+   ],
+   entryComponents: [
+      FacturaPage
+   ],
+   declarations: [FacturacionPage, FacturaPage]
 })
 export class FacturacionPageModule {
-   constructor(){
+   constructor() {
       console.log('FacturacionPageModule constructor')
    }
 }

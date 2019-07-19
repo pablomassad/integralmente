@@ -1,26 +1,15 @@
-<ion-header>
+<ion-header *ngIf="factura">
    <ion-toolbar>
       <ion-buttons slot="start">
-         <ion-back-button defaultHref="/menu/home/historia" (click)="cancel()"></ion-back-button>
+         <ion-back-button defaultHref="/menu/facturacion" (click)="cancel()"></ion-back-button>
       </ion-buttons>
-      <div class="sessionTitle" *ngIf="patient">{{patient.apellido}}, {{patient.nombres}}</div>
+      <div class="sessionTitle" *ngIf="!factura.id">Nueva factura</div>
+      <div class="sessionTitle" *ngIf="factura.id">Editar factura</div>
    </ion-toolbar>
 </ion-header>
-<ion-content *ngIf="session">
-   <ion-toolbar>
-      <ion-segment (ionChange)="onSegmentChanged($event)" value="sessions" class="segment">
-         <ion-segment-button layout="icon-start" value="sessions" class="btnSegment">
-            <ion-label>Sesiones</ion-label>
-            <ion-icon name="albums"></ion-icon>
-         </ion-segment-button>
-         <ion-segment-button layout="icon-start" value="attachments" class="btnSegment">
-            <ion-label>Adjuntos</ion-label>
-            <ion-icon name="attach"></ion-icon>
-         </ion-segment-button>
-      </ion-segment>
-   </ion-toolbar>
+<ion-content *ngIf="factura">
 
-   <ion-grid class="sessionFrame" *ngIf="sessionType=='sessions'">
+   <ion-grid class="sessionFrame" >
       <ion-row class="grdItem">
          <div class="campo">
             Fecha:
@@ -58,7 +47,7 @@
       </ion-row>
    </ion-grid>
 
-   <div class="sessionFrame grdAttachments" *ngIf="sessionType=='attachments' && attachments">
+   <div class="sessionFrame grdAttachments">
       <div *ngFor="let a of attachments" class="attachmentBox" (click)="openFile(a.url)">
          <div *ngIf="isImage(a.extension)">
             <img class="thumbnail" [src]="a.url">
@@ -74,16 +63,16 @@
       </div>
    </div>
 
-   <ion-fab vertical="bottom" horizontal="end" *ngIf="sessionType=='attachments'" class="glass glRound" style="position: absolute">
+   <ion-fab vertical="bottom" horizontal="end" class="glass glRound" style="position: absolute">
       <ion-fab-button>
          <label *ngIf="isMobile">
             <div class="btnAddAdjunto" (click)="chooseFile()">
-               <ion-icon name="add"></ion-icon>
+               <ion-icon name="attach"></ion-icon>
             </div>
          </label>
          <label for="attachment" *ngIf="!isMobile">
             <div class="btnAddAdjunto">
-               <ion-icon name="add"></ion-icon>
+               <ion-icon name="attach"></ion-icon>
             </div>
          </label>
          <input type="file" style="display: none" id="attachment" (change)="handleFile($event.target.files)" />

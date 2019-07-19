@@ -8,16 +8,21 @@
 </ion-header>
 
 <ion-content>
+   <ion-item>
+      <ion-icon name="person" class="filterIcon" slot="start"></ion-icon>
+      <ion-label position="floating" class="txtCriteria">Ingrese filtro</ion-label>
+      <ion-input type="text" [(ngModel)]="criteria" class="filterInput"></ion-input>
+   </ion-item>
    <ion-grid>
       <ion-row>
          <ion-col class="facFrame">
             <ion-list>
                <ion-list-header>
-                     <ion-label class="monto">Pendientes: </ion-label>
-                     <ion-label class="monto">$52000</ion-label>
+                  <ion-label class="monto">Pendientes: </ion-label>
+                  <ion-label class="monto" style="color:red">${{totalPendientes}}</ion-label>
                </ion-list-header>
-
-               <ion-item-sliding *ngFor="let fac of facturasPendientes | orderBy:'fecha':true | searchInfo: criteria">
+               <ion-item-sliding
+                  *ngFor="let fac of filterCriteria(facturasPendientes, 'totalPendientes') | orderBy:'fecha':true"  (click)="gotoFactura(fac)">
                   <ion-item-options side="start">
                      <ion-item-option color="primary">
                         <ion-icon slot="top" name="download"></ion-icon>
@@ -29,18 +34,22 @@
                      </ion-item-option>
                   </ion-item-options>
                   <ion-item>
-                     <ion-grid>
-                        <ion-row>
+                     <ion-grid no-padding>
+                        <ion-row align-items-center justify-content-center>
+                           <ion-col size="1">
+                              <ion-icon name="more" class="grabIcon"></ion-icon>
+                           </ion-col>
                            <ion-col class="facFecha">
                               <div>{{fac.fecha | date:'dd/MM/yy'}}</div>
                            </ion-col>
                            <ion-col class="facOS">
-                              <div >{{fac.obrasocial}}</div>
+                              <div>{{fac.obrasocial}}</div>
                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                           <ion-col class="facMonto">
+                           <ion-col class="facMonto" justify-self-right>
                               <div>${{fac.monto}}</div>
+                           </ion-col>
+                           <ion-col size="1">
+                              <ion-icon name="more" class="grabIcon"></ion-icon>
                            </ion-col>
                         </ion-row>
                      </ion-grid>
@@ -80,11 +89,12 @@
          <ion-col class="facFrame">
             <ion-list>
                <ion-list-header>
-                     <ion-label class="monto">Cobradas: </ion-label>
-                  <div class="monto">$52000</div>
+                  <ion-label class="monto">Cobradas: </ion-label>
+                  <div class="monto" style="color:green">$52000</div>
                </ion-list-header>
 
-               <ion-item-sliding *ngFor="let fac of facturasPendientes | orderBy:'fecha':true | searchInfo: criteria">
+               <ion-item-sliding
+                  *ngFor="let fac of filterCriteria(facturasCobradas, 'totalCobradas') | orderBy:'fecha':true">
                   <ion-item-options side="start">
                      <ion-item-option color="danger">
                         <ion-icon slot="top" name="arrow-round-back"></ion-icon>
@@ -92,18 +102,22 @@
                      </ion-item-option>
                   </ion-item-options>
                   <ion-item>
-                     <ion-grid>
-                        <ion-row>
+                     <ion-grid no-padding>
+                        <ion-row align-items-center justify-content-center>
+                           <ion-col size="1">
+                              <ion-icon name="more" class="grabIcon"></ion-icon>
+                           </ion-col>
                            <ion-col class="facFecha">
                               <div>{{fac.fecha | date:'dd/MM/yy'}}</div>
                            </ion-col>
                            <ion-col class="facOS">
                               <div>{{fac.obrasocial}}</div>
                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                           <ion-col class="facMonto">
+                           <ion-col class="facMonto" justify-self-right>
                               <div>${{fac.monto}}</div>
+                           </ion-col>
+                           <ion-col size="1">
+                              <ion-icon name="more" class="grabIcon"></ion-icon>
                            </ion-col>
                         </ion-row>
                      </ion-grid>
@@ -123,4 +137,10 @@
          </ion-col>
       </ion-row>
    </ion-grid>
+
+   <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="glass glRound" style="position: absolute;">
+      <ion-fab-button (click)="gotoFactura({})">
+         <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+   </ion-fab>
 </ion-content>

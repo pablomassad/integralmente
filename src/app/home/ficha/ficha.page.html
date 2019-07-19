@@ -176,7 +176,7 @@
                   <ion-icon name="close"></ion-icon>
                   <div>Cancelar</div>
                </button>
-               <button slot="end" class="glass glFlex" [disabled]="!validations_form.valid" (click)="save()" type="submit">
+               <button slot="end" class="glass glFlex" [disabled]="!validations_form.valid" (click)="save(validations_form.value)" type="submit">
                   <ion-icon name="save"></ion-icon>
                   <div>Guardar</div>
                </button>

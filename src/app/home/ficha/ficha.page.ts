@@ -83,6 +83,9 @@ export class FichaPage implements OnInit {
       const edad = today.diff(cumple, 'y')
       return edad + " años"
    }
+   cancel(){
+      
+   }
    async save(val) {
       this.fbsSrv.startSpinner()
       this.patient.nombres = val.nombres
