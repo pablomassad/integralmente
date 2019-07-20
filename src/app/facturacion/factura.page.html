@@ -3,34 +3,55 @@
       <ion-buttons slot="start">
          <ion-back-button defaultHref="/menu/facturacion" (click)="cancel()"></ion-back-button>
       </ion-buttons>
-      <div class="sessionTitle" *ngIf="!factura.id">Nueva factura</div>
-      <div class="sessionTitle" *ngIf="factura.id">Editar factura</div>
+      <div class="toolbarTitle" *ngIf="!factura.id">Nueva factura</div>
+      <div class="toolbarTitle" *ngIf="factura.id">Editar factura</div>
    </ion-toolbar>
 </ion-header>
 <ion-content *ngIf="factura">
-
-   <ion-grid class="sessionFrame" >
+   <ion-grid class="facturaFrame">
       <ion-row class="grdItem">
          <div class="campo">
             Fecha:
          </div>
          <ion-datetime monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Set, Oct, Nov, Dic"
-         displayFormat="DD MMM YYYY" placeholder="Ingrese fecha" [(ngModel)]="fechaSesion" class="dato datePicker">
+            displayFormat="DD MMM YYYY" placeholder="Ingrese fecha" [(ngModel)]="fechaFactura" class="dato datePicker">
          </ion-datetime>
+         <ion-col class="grdItem">
+            <div class="campo">
+               Obra Social:
+            </div>
+            <input type="text" class="dato" [(ngModel)]="factura.obrasocial">
+         </ion-col>
+         <ion-col class="grdItem">
+            <div class="campo">
+               Monto:
+            </div>
+            <input type="text" class="dato" [(ngModel)]="factura.monto">
+         </ion-col>
       </ion-row>
 
       <ion-row>
          <div class="campo">Observaciones</div>
          <textarea (change)="onObsChanged($event)" rows="4" cols="40" labels="notes" wrap="virtual" class="txtArea">
-               {{session.observaciones}}
-            </textarea>
+                  {{factura.observaciones}}
+               </textarea>
       </ion-row>
-
       <ion-row>
-         <div class="campo">Notas</div>
-         <textarea (change)="onNotasChanged($event)" wrap="hard" class="txtArea">
-                  {{session.notas}}
-            </textarea>
+         <ion-col>
+            <div>
+               <label *ngIf="isMobile">
+                  <div class="btnAddAdjunto" (click)="chooseFile()">
+                     <ion-icon name="attach"></ion-icon>
+                  </div>
+               </label>
+               <label for="attachment" *ngIf="!isMobile">
+                  <div class="btnAddAdjunto">
+                     <ion-icon name="attach"></ion-icon>
+                  </div>
+               </label>
+               <input type="file" style="display: none" id="attachment" (change)="handleFile($event.target.files)" />
+            </div>
+         </ion-col>
       </ion-row>
 
       <ion-row>
@@ -46,36 +67,4 @@
          </ion-toolbar>
       </ion-row>
    </ion-grid>
-
-   <div class="sessionFrame grdAttachments">
-      <div *ngFor="let a of attachments" class="attachmentBox" (click)="openFile(a.url)">
-         <div *ngIf="isImage(a.extension)">
-            <img class="thumbnail" [src]="a.url">
-         </div>
-         <div *ngIf="!isImage(a.extension)">
-            <img class="thumbnail" src="assets/images/bluebutton.png">
-         </div>
-         <div class="fileAttr">{{shortName(a.nombre)}}</div>
-         <div class="fileAttr">{{a.id | date:'dd/MM/yyyy - HH:mm'}}</div>
-         <div class="btnClose" (click)="removeFile(a);$event.stopPropagation()">
-            <ion-icon name="close"></ion-icon>
-         </div>
-      </div>
-   </div>
-
-   <ion-fab vertical="bottom" horizontal="end" class="glass glRound" style="position: absolute">
-      <ion-fab-button>
-         <label *ngIf="isMobile">
-            <div class="btnAddAdjunto" (click)="chooseFile()">
-               <ion-icon name="attach"></ion-icon>
-            </div>
-         </label>
-         <label for="attachment" *ngIf="!isMobile">
-            <div class="btnAddAdjunto">
-               <ion-icon name="attach"></ion-icon>
-            </div>
-         </label>
-         <input type="file" style="display: none" id="attachment" (change)="handleFile($event.target.files)" />
-      </ion-fab-button>
-   </ion-fab>
 </ion-content>

@@ -3,7 +3,7 @@
       <ion-buttons slot="start">
          <ion-back-button defaultHref="/menu/home/historia" (click)="cancel()"></ion-back-button>
       </ion-buttons>
-      <div class="sessionTitle" *ngIf="patient">{{patient.apellido}}, {{patient.nombres}}</div>
+      <div class="toolbarTitle" *ngIf="patient">{{patient.apellido}}, {{patient.nombres}}</div>
    </ion-toolbar>
 </ion-header>
 <ion-content *ngIf="session">
@@ -74,7 +74,7 @@
       </div>
    </div>
 
-   <ion-fab vertical="bottom" horizontal="end" *ngIf="sessionType=='attachments'" class="glass glRound" style="position: absolute">
+   <ion-fab vertical="bottom" horizontal="end" *ngIf="sessionType=='attachments'" class="glass glRound" style="position: fixed">
       <ion-fab-button>
          <label *ngIf="isMobile">
             <div class="btnAddAdjunto" (click)="chooseFile()">

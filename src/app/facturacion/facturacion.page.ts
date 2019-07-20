@@ -63,25 +63,25 @@ export class FacturacionPage implements OnInit {
 
    private getFacturasPendientesMock() {
       const arr = [
-         { fecha: 1563374931927, monto: 3500, obrasocial: 'OSDE', estado: 'pendiente' },
-         { fecha: 1563374921927, monto: 9500, obrasocial: 'OSDE', estado: 'pendiente' },
-         { fecha: 1563374531927, monto: 1100, obrasocial: 'IOMA', estado: 'pendiente' },
-         { fecha: 1563374431927, monto: 1500, obrasocial: 'Swiss', estado: 'pendiente' },
-         { fecha: 1563374331927, monto: 4500, obrasocial: 'Swiss', estado: 'pendiente' },
-         { fecha: 1563374231927, monto: 6100, obrasocial: 'IOMA', estado: 'pendiente' },
-         { fecha: 1563374131927, monto: 1500, obrasocial: 'IOMA', estado: 'pendiente' },
-         { fecha: 1563373931927, monto: 3400, obrasocial: 'OSDE', estado: 'pendiente' },
-         { fecha: 1563373131927, monto: 3900, obrasocial: 'OSDE', estado: 'pendiente' },
+         { id:'14343432aaa', fecha: 1563374931927, monto: 3500, obrasocial: 'OSDE', estado: 'pendiente' },
+         { id:'24343432aaa', fecha: 1563374821927, monto: 9500, obrasocial: 'OSDE', estado: 'pendiente' },
+         { id:'34343432aaa', fecha: 1563364531927, monto: 1100, obrasocial: 'IOMA', estado: 'pendiente' },
+         { id:'44343432aaa', fecha: 1563364431927, monto: 1500, obrasocial: 'Swiss', estado: 'pendiente' },
+         { id:'54343432aaa', fecha: 1563354331927, monto: 4500, obrasocial: 'Swiss', estado: 'pendiente' },
+         { id:'64343432aaa', fecha: 1563344231927, monto: 6100, obrasocial: 'IOMA', estado: 'pendiente' },
+         { id:'74343432aaa', fecha: 1562334131927, monto: 1500, obrasocial: 'IOMA', estado: 'pendiente' },
+         { id:'84343432aaa', fecha: 1561323931927, monto: 3400, obrasocial: 'OSDE', estado: 'pendiente' },
+         { id:'94343432aaa', fecha: 1560313131927, monto: 3900, obrasocial: 'OSDE', estado: 'pendiente' },
       ]
       return arr
    }
    private getFacturasCobradasMock() {
       const arr = [
-         { fecha: 1563374931927, monto: 1100, obrasocial: 'OSDE', estado: 'cobrada' },
-         { fecha: 1563374921927, monto: 1500, obrasocial: 'OSDE', estado: 'cobrada' },
-         { fecha: 1563374831927, monto: 900, obrasocial: 'IOMA', estado: 'cobrada' },
-         { fecha: 1563374831927, monto: 800, obrasocial: 'Swiss', estado: 'cobrada' },
-         { fecha: 1563374831927, monto: 5400, obrasocial: 'Swiss', estado: 'cobrada' },
+         { id:'31343432aaa', fecha: 1563374831927, monto: 1100, obrasocial: 'OSDE', estado: 'cobrada' },
+         { id:'32343432aaa', fecha: 1563374621927, monto: 1500, obrasocial: 'OSDE', estado: 'cobrada' },
+         { id:'33343432aaa', fecha: 1563373831927, monto: 900, obrasocial: 'IOMA', estado: 'cobrada' },
+         { id:'34343432aaa', fecha: 1562372831927, monto: 800, obrasocial: 'Swiss', estado: 'cobrada' },
+         { id:'35343432aaa', fecha: 1560371831927, monto: 5400, obrasocial: 'Swiss', estado: 'cobrada' },
       ]
       return arr
    }

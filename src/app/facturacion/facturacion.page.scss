@@ -6,10 +6,15 @@
    overflow-y: auto;
 }
 
+.grabCol{
+   padding: 0px;
+   padding-left: 10px;
+   margin-left: -11px;
+}
 .grabIcon{
    color: var(--medium);
-   font-size: 50px;
-   margin: -10px -20px;
+   font-size: 40px;
+   margin: -10px -16px;
 }
 ion-item-sliding ion-item-options ion-item{
    font-size: 12px;
@@ -25,7 +30,7 @@ ion-item-sliding ion-item-options ion-item-option ion-icon{
 }
 .facFecha{
    font-size: 2.4vw;
-   padding: 0;
+   padding-left: 10px;
 }
 .facOS{
    font-size: 2.4vw;
@@ -33,7 +38,7 @@ ion-item-sliding ion-item-options ion-item-option ion-icon{
    text-align: center;
 }
 .facMonto{
-   padding: 0;
+   padding-right: 5px;
    text-align: right;
    font-weight: bold;
    font-size: 3vw;

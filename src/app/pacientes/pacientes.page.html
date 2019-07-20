@@ -10,18 +10,19 @@
    </ion-toolbar>
 </ion-header>
 
+<ion-item>
+   <ion-icon name="person" class="filterIcon" slot="start"></ion-icon>
+   <ion-label position="floating" class="txtCriteria">Ingrese datos del paciente</ion-label>
+   <ion-input type="text" [(ngModel)]="criteria" class="filterInput"></ion-input>
+</ion-item>
+
 <ion-content>
-   <ion-item>
-      <ion-icon name="person" class="filterIcon" slot="start"></ion-icon>
-      <ion-label position="floating" class="txtCriteria">Ingrese datos del paciente</ion-label>
-      <ion-input type="text" [(ngModel)]="criteria" class="filterInput"></ion-input>
-   </ion-item>
    <ion-grid>
       <ion-row>
          <ion-col size-sm="12" size-lg="6">
-            <ion-list>
-               <ion-item-sliding *ngFor="let p of patients | searchInfo: criteria" (click)="gotoPatient(p)">
-                  <ion-item>
+            <ion-list style="padding-bottom: 60px">
+               <ion-item-sliding *ngFor="let p of patients | searchInfo: criteria">
+                  <ion-item (click)="gotoPatient(p)">
                      <ion-avatar slot="start" class="foto">
                         <img [src]="p.foto">
                      </ion-avatar>
@@ -44,7 +45,7 @@
          </ion-col>
       </ion-row>
    </ion-grid>
-   <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="glass glRound" style="position: absolute;">
+   <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="glass glRound" style="position: fixed;">
       <ion-fab-button (click)="gotoPatient({})">
          <ion-icon name="add"></ion-icon>
       </ion-fab-button>

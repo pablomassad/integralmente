@@ -22,7 +22,7 @@
                   <ion-label class="monto" style="color:red">${{totalPendientes}}</ion-label>
                </ion-list-header>
                <ion-item-sliding
-                  *ngFor="let fac of filterCriteria(facturasPendientes, 'totalPendientes') | orderBy:'fecha':true"  (click)="gotoFactura(fac)">
+                  *ngFor="let fac of filterCriteria(facturasPendientes, 'totalPendientes') | orderBy:'fecha':true" >
                   <ion-item-options side="start">
                      <ion-item-option color="primary">
                         <ion-icon slot="top" name="download"></ion-icon>
@@ -33,10 +33,10 @@
                         Eliminar
                      </ion-item-option>
                   </ion-item-options>
-                  <ion-item>
-                     <ion-grid no-padding>
+                  <ion-item  (click)="gotoFactura(fac)" lines="none" no-padding style="border-top: 1px solid var(--dark);">
+                     <ion-grid>
                         <ion-row align-items-center justify-content-center>
-                           <ion-col size="1">
+                           <ion-col size="1" class="grabCol">
                               <ion-icon name="more" class="grabIcon"></ion-icon>
                            </ion-col>
                            <ion-col class="facFecha">
@@ -48,7 +48,7 @@
                            <ion-col class="facMonto" justify-self-right>
                               <div>${{fac.monto}}</div>
                            </ion-col>
-                           <ion-col size="1">
+                           <ion-col size="1"  class="grabCol">
                               <ion-icon name="more" class="grabIcon"></ion-icon>
                            </ion-col>
                         </ion-row>
@@ -101,10 +101,10 @@
                         Pendiente
                      </ion-item-option>
                   </ion-item-options>
-                  <ion-item>
-                     <ion-grid no-padding>
+                  <ion-item (click)="gotoFactura(fac)" lines="none" no-padding style="border-top: 1px solid var(--dark);">
+                     <ion-grid>
                         <ion-row align-items-center justify-content-center>
-                           <ion-col size="1">
+                           <ion-col size="1" class="grabCol">
                               <ion-icon name="more" class="grabIcon"></ion-icon>
                            </ion-col>
                            <ion-col class="facFecha">
@@ -116,7 +116,7 @@
                            <ion-col class="facMonto" justify-self-right>
                               <div>${{fac.monto}}</div>
                            </ion-col>
-                           <ion-col size="1">
+                           <ion-col size="1" class="grabCol">
                               <ion-icon name="more" class="grabIcon"></ion-icon>
                            </ion-col>
                         </ion-row>
@@ -138,7 +138,7 @@
       </ion-row>
    </ion-grid>
 
-   <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="glass glRound" style="position: absolute;">
+   <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="glass glRound" style="position: fixed;">
       <ion-fab-button (click)="gotoFactura({})">
          <ion-icon name="add"></ion-icon>
       </ion-fab-button>
