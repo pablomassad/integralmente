@@ -38,15 +38,19 @@
       </ion-row>
       <ion-row>
          <ion-col>
-            <div>
+            <div style="margin-top:20px;">
                <label *ngIf="isMobile">
-                  <div class="btnAddAdjunto" (click)="chooseFile()">
-                     <ion-icon name="attach"></ion-icon>
+                  <div class="glass glFlex" (click)="chooseFile()">
+                     <ion-icon name="attach" style="font-size: 20px;"></ion-icon>
+                     <div *ngIf="!factura.url">Adjuntar factura...</div>
+                     <div *ngIf="factura.url">{{factura.nombre}}</div>
                   </div>
                </label>
                <label for="attachment" *ngIf="!isMobile">
-                  <div class="btnAddAdjunto">
-                     <ion-icon name="attach"></ion-icon>
+                  <div class="glass glFlex" [ngClass]="{'facturaOK': (factura.url != undefined), 'facturaNO': (factura.url == undefined)}">
+                     <ion-icon name="attach" style="font-size: 20px"></ion-icon>
+                     <div *ngIf="!factura.url">Adjuntar factura...</div>
+                     <div *ngIf="factura.url">{{factura.nombre}}</div> 
                   </div>
                </label>
                <input type="file" style="display: none" id="attachment" (change)="handleFile($event.target.files)" />

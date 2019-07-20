@@ -50,14 +50,7 @@ export class DocsPage implements OnInit {
       this.sub.unsubscribe()
    }
    shortName(n) {
-      const maxLen = 12
-      var ext = n.substring(n.lastIndexOf(".") + 1, n.length).toLowerCase();
-      var filename = n.replace('.' + ext, '');
-      if (filename.length <= maxLen) {
-         return n;
-      }
-      filename = filename.substr(0, maxLen) + (n.length > maxLen ? '...' : '');
-      return filename + '.' + ext;
+      return this.fbsSrv.shortName(n)
    }
    chooseFile() {
       this.chooser.getFile('*/*').then(f => {

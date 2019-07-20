@@ -39,6 +39,18 @@
    color: var(--dark);
 }
 
+.facturaNO{
+   background-image: linear-gradient(#800000, #ce0202) !important;
+   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 -1px 0 rgba(255, 255, 255, 0.1) inset, 0 4px 0 #943333, 0 10px 10px rgba(0, 0, 0, 0.3) !important;
+   font-size: 16px !important;
+   font-weight: bold !important;
+}
+.facturaOK{
+   background-image: linear-gradient(#000502, #00be1a) !important;
+   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 -1px 0 rgba(255, 255, 255, 0.1) inset, 0 4px 0 #33945b, 0 10px 10px rgba(0, 0, 0, 0.3) !important;
+   font-size: 16px !important;
+   font-weight: bold !important;
+}
 
 
 

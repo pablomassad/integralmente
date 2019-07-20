@@ -18,6 +18,17 @@ export class FbsService {
       console.log('FbsService constructor')
    }
 
+   shortName(n) {
+      const maxLen = 12
+      var ext = n.substring(n.lastIndexOf(".") + 1, n.length).toLowerCase();
+      var filename = n.replace('.' + ext, '');
+      if (filename.length <= maxLen) {
+         return n;
+      }
+      filename = filename.substr(0, maxLen) + (n.length > maxLen ? '...' : '');
+      return filename + '.' + ext;
+   }
+   
    showAllFiles(dni) {
       // Create a reference under which you want to list
       var listRef = this.afStorage.storage.ref().child(dni.toString());
@@ -79,9 +90,17 @@ export class FbsService {
       return this.uploadTask
    }
    deleteFileStorage(id, name: string) {
-      const storageRef = firebase.storage().ref()
-      const stPath = id + '/' + name
-      storageRef.child(stPath).delete()
+      return new Promise((resolve, reject)=>{
+         const storageRef = firebase.storage().ref()
+         const stPath = id + '/' + name
+         try {
+            storageRef.child(stPath).delete()
+            resolve(true)
+         } catch (error) {
+            console.log('Error deleting factura: ', error)
+            resolve(false)
+         }
+      })
    }
 
 

@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core'
-import { ModalController } from '@ionic/angular'
+import { Component, OnInit, OnDestroy } from '@angular/core'
+import { ModalController, AlertController } from '@ionic/angular'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { FacturaPage } from './factura.page'
+import { equal } from 'assert';
+import { Subscription } from 'rxjs'
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
+import { FbsService } from 'src/app/fbs.service'
 
 @Component({
    selector: 'app-facturacion',
    templateUrl: './facturacion.page.html',
    styleUrls: ['./facturacion.page.scss', '../buttons.scss'],
 })
-export class FacturacionPage implements OnInit {
+export class FacturacionPage implements OnInit, OnDestroy {
    facturasPendientes: any = []
    facturasCobradas: any = []
 
@@ -16,8 +20,13 @@ export class FacturacionPage implements OnInit {
    totalCobradas:number = 0
 
    criteria:string = "OSDE"
+   subPend: Subscription
+   subCob: Subscription
    
    constructor(
+      private fbsSrv: FbsService,
+      private alertCtrl:AlertController,
+      private iab: InAppBrowser,
       private modalController: ModalController,
       private afs: AngularFirestore,
    ) {
@@ -38,16 +47,53 @@ export class FacturacionPage implements OnInit {
    }
 
    ngOnInit() {
-      this.facturasPendientes = this.getFacturasPendientesMock()
-      this.facturasCobradas = this.getFacturasCobradasMock()
+      this.subPend = this.afs.collection('facturas', ref => ref.where('estado', '==', 'pendientes')).valueChanges({ idField: 'id' }).subscribe(ses=>{
+         this.facturasPendientes = ses 
+      })
 
-      // this.afs.collection('facturas').ref.where('estado' == 'pendientes').valueChanges({ idField: 'id' }).subscribe(ses=>{
-      //    this.facturasPendientes = ses 
-      // })
+      this.subCob =  this.afs.collection('facturas', ref => ref.where('estado', '==', 'cobradas')).valueChanges({ idField: 'id' }).subscribe(ses=>{
+         this.facturasCobradas = ses 
+      }) 
+   }
+   ngOnDestroy(){
+      this.subPend.unsubscribe()
+      this.subCob.unsubscribe()
+   }
 
-      // this.afs.collection('facturas').ref.where('estado' == 'cobradas').valueChanges({ idField: 'id' }).subscribe(ses=>{
-      //    this.facturasCobradas = ses 
-      // }) 
+   openFile(fac){
+      this.iab.create(fac.url, '_system')
+   }
+   changeState(fac, state){
+      fac.estado = state
+   }
+   deleteFactura(fac){
+
+   }
+   async removeFile(fac) {
+      const alert = await this.alertCtrl.create({
+         header: 'Confirma borrado',
+         message: 'Esta seguro?',
+         buttons: [
+            {
+               text: 'Cancel',
+               role: 'cancel',
+               cssClass: 'secondary',
+               handler: (blah) => {
+                  console.log('Delete cancelled');
+               }
+            }, {
+               text: 'Okay',
+               handler: async () => {
+                  console.log('Delete confirmed')
+                  this.fbsSrv.startSpinner()
+                  await this.fbsSrv.deleteFileStorage('facturas', fac.nombre)
+                  await this.afs.doc('facturas/' + fac.id).delete()
+                  this.fbsSrv.stopSpinner()
+               }
+            }
+         ]
+      })
+      await alert.present()
    }
 
    async gotoFactura(fac) {

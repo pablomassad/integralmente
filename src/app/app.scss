@@ -81,14 +81,21 @@ img {
 }
 
 .txtCriteria {
-   font-size: 20px;
-   color: var(--dark)
+   font-size: 20px !important;
+   color: var(--dark) !important;
 }
 
 .filterInput {}
 
+// .grdItem {
+//    display: flex;
+//    align-items: center;
+//    margin: 5px;
+// }
+
 .grdItem {
-   display: flex;
+   display: grid;
+   grid-template-columns: 1fr 2fr;
    align-items: center;
    margin: 5px;
 }
@@ -101,7 +108,7 @@ img {
 
 .campo {
    font-weight: bold;
-   width: 237px;
+   // width: 237px;
    text-align: right;
    color: var(--dark);
 }
@@ -110,11 +117,12 @@ img {
    background: lightgray;
    box-shadow: inset 1px 1px 3px;
    border: none;
-   margin: 0px 10px;
+   margin: 0px 20px 0px 6px;
    border-radius: 5px;
    height: 40px;
    padding: 0px 10px;
    max-width: 250px;
+   min-width: 80px;
    width: 100%;
 }
 

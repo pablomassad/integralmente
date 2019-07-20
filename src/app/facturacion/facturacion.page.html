@@ -22,18 +22,19 @@
                   <ion-label class="monto" style="color:red">${{totalPendientes}}</ion-label>
                </ion-list-header>
                <ion-item-sliding
-                  *ngFor="let fac of filterCriteria(facturasPendientes, 'totalPendientes') | orderBy:'fecha':true" >
+                  *ngFor="let fac of filterCriteria(facturasPendientes, 'totalPendientes') | orderBy:'fecha':true">
                   <ion-item-options side="start">
-                     <ion-item-option color="primary">
+                     <ion-item-option color="primary" (click)="openFile(fac)">
                         <ion-icon slot="top" name="download"></ion-icon>
-                        Descargar
+                        Ver
                      </ion-item-option>
                      <ion-item-option color="warning">
-                        <ion-icon slot="top" name="trash"></ion-icon>
+                        <ion-icon slot="top" name="trash" (click)="deleteFactura(fac)"></ion-icon>
                         Eliminar
                      </ion-item-option>
                   </ion-item-options>
-                  <ion-item  (click)="gotoFactura(fac)" lines="none" no-padding style="border-top: 1px solid var(--dark);">
+                  <ion-item (click)="gotoFactura(fac)" lines="none" no-padding
+                     style="border-top: 1px solid var(--dark);">
                      <ion-grid>
                         <ion-row align-items-center justify-content-center>
                            <ion-col size="1" class="grabCol">
@@ -48,43 +49,20 @@
                            <ion-col class="facMonto" justify-self-right>
                               <div>${{fac.monto}}</div>
                            </ion-col>
-                           <ion-col size="1"  class="grabCol">
+                           <ion-col size="1" class="grabCol">
                               <ion-icon name="more" class="grabIcon"></ion-icon>
                            </ion-col>
                         </ion-row>
                      </ion-grid>
                   </ion-item>
                   <ion-item-options side="end">
-                     <ion-item-option color="success" side="end">
+                     <ion-item-option color="success" side="end" (click)="changeState(fac, 'Cobrada')">
                         <ion-icon slot="top" name="arrow-round-forward"></ion-icon>
                         Cobrada
                      </ion-item-option>
                   </ion-item-options>
                </ion-item-sliding>
             </ion-list>
-            <!-- <ion-grid class="facFrame">
-               <ion-row *ngFor="let fac of facturasPendientes | orderBy:'fecha':true | searchInfo: criteria">
-                  <ion-col class="field">
-                     {{fac.fecha | date:'dd/MM/yy'}}
-                  </ion-col>
-                  <ion-col class="field">
-                     {{fac.monto}}
-                  </ion-col>
-                  <ion-col class="field">
-                     {{fac.obrasocial}}
-                  </ion-col>
-                  <ion-col>
-                     <button class="glass glRound" (click)="openFile(fac)">
-                        <ion-icon name="download"></ion-icon>
-                     </button>
-                  </ion-col>
-                  <ion-col>
-                     <button class="glass glRound glState" (click)="changeState(fac, 'cobrada')">
-                        <ion-icon name="arrow-dropright"></ion-icon>
-                     </button>
-                  </ion-col>
-               </ion-row>
-            </ion-grid> -->
          </ion-col>
          <ion-col class="facFrame">
             <ion-list>
@@ -96,12 +74,13 @@
                <ion-item-sliding
                   *ngFor="let fac of filterCriteria(facturasCobradas, 'totalCobradas') | orderBy:'fecha':true">
                   <ion-item-options side="start">
-                     <ion-item-option color="danger">
+                     <ion-item-option color="danger" (click)="changeState(fac, 'Pendiente')">
                         <ion-icon slot="top" name="arrow-round-back"></ion-icon>
                         Pendiente
                      </ion-item-option>
                   </ion-item-options>
-                  <ion-item (click)="gotoFactura(fac)" lines="none" no-padding style="border-top: 1px solid var(--dark);">
+                  <ion-item (click)="gotoFactura(fac)" lines="none" no-padding
+                     style="border-top: 1px solid var(--dark);">
                      <ion-grid>
                         <ion-row align-items-center justify-content-center>
                            <ion-col size="1" class="grabCol">
@@ -123,11 +102,11 @@
                      </ion-grid>
                   </ion-item>
                   <ion-item-options side="end">
-                     <ion-item-option color="primary">
+                     <ion-item-option color="primary" (click)="openFile(fac)">
                         <ion-icon slot="top" name="download"></ion-icon>
                         Descargar
                      </ion-item-option>
-                     <ion-item-option color="warning">
+                     <ion-item-option color="warning" (click)="deleteFactura(fac)">
                         <ion-icon slot="top" name="trash"></ion-icon>
                         Eliminar
                      </ion-item-option>
