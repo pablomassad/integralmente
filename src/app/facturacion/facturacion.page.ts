@@ -93,7 +93,6 @@ export class FacturacionPage implements OnInit, OnDestroy {
       })
       await alert.present()
    }
-
    async gotoFactura(fac) {
       const modal = await this.modalController.create({
          component: FacturaPage,

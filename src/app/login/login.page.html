@@ -1,39 +1,43 @@
 <ion-content>
    <div class="backImg">
-      <div class="loginFrame">
-
-         <form [formGroup]="validations_form" class="form backForm" (ngSubmit)="tryEmailLogin(validations_form.value)"
-            *ngIf="(user.displayName == '')">
-            <div class="formTitle">
-               <img src="assets/images/integralmenteET.png" class="logo">
-            </div>
-
-            <input formControlName="email" type="text" placeholder="Correo electrónico">
-            <div class="validation-errors">
-               <ng-container *ngFor="let validation of validation_messages.email">
-                  <div class="error-message"
-                     *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
-                     {{ validation.message }}
+      <ion-grid class="loginFrame">
+         <ion-row>
+            <div class="loginPanel">
+               <!-- (ngSubmit)="tryEmailLogin(validations_form.value)" -->
+               <form [formGroup]="validations_form" class="form backForm" *ngIf="user"
+                  (ngSubmit)="tryEmailLogin(validations_form.value)">
+                  <div class="formTitle">
+                     <img src="assets/images/integralmenteET.png" class="logo">
                   </div>
-               </ng-container>
-            </div>
 
-            <input formControlName="password" type="password" class="form-controll" placeholder="Contraseña">
-            <div class="validation-errors">
-               <ng-container *ngFor="let validation of validation_messages.password">
-                  <div class="error-message"
-                     *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
-                     {{ validation.message }}
+                  <input formControlName="email" type="text" placeholder="Correo electrónico">
+                  <div class="validation-errors">
+                     <ng-container *ngFor="let validation of validation_messages.email">
+                        <div class="error-message"
+                           *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+                           {{ validation.message }}
+                        </div>
+                     </ng-container>
                   </div>
-               </ng-container>
-            </div>
 
-            <div class="grdButtons">
-               <button [disabled]="!validations_form.valid" (click)="tryEmailLogin()" type="submit" class="glass" >Ingresar</button>
-               <button (click)="goRegisterPage()" type="submit" class="glass">Registrarse</button>
+                  <input formControlName="password" type="password" class="form-controll" placeholder="Contraseña">
+                  <div class="validation-errors">
+                     <ng-container *ngFor="let validation of validation_messages.password">
+                        <div class="error-message"
+                           *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+                           {{ validation.message }}
+                        </div>
+                     </ng-container>
+                  </div>
+
+                  <button [disabled]="!validations_form.valid" type="submit" class="glass btnLogin">Ingresar</button>
+               </form>
             </div>
-         </form>
-      </div>
+         </ion-row>
+         <ion-row justify-content-center>
+            <button (click)="gotoRegister()" type="submit" class="glass btnRegister">Registrarse</button>
+         </ion-row>
+      </ion-grid>
    </div>
 </ion-content>
 

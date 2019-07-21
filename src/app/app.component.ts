@@ -2,8 +2,7 @@ import { Component } from '@angular/core'
 import { Platform } from '@ionic/angular'
 import { SplashScreen } from '@ionic-native/splash-screen/ngx'
 import { StatusBar } from '@ionic-native/status-bar/ngx'
-import { GlobalService } from 'fwk4-services';
-import { __core_private_testing_placeholder__ } from '@angular/core/testing';
+import { GlobalService } from 'fwk4-services'
 
 
 @Component({

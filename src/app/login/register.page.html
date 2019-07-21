@@ -1,0 +1,98 @@
+<ion-header>
+   <ion-toolbar>
+      <ion-buttons slot="start">
+         <ion-back-button defaultHref="/login" (click)="cancel()"></ion-back-button>
+      </ion-buttons>
+      <div class="toolbarTitle">Registración</div>
+   </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="form-content">
+
+   <form [formGroup]="validations_form" class="form backForm" (ngSubmit)="tryRegister(validations_form.value)">
+      <ion-grid>
+         <ion-row justify-content-center style="margin-bottom: 30px">
+            <ion-avatar class="fichaAvatar">
+               <img [src]="fotoUrl">
+               <div class="editFoto" *ngIf="isMobile" (click)="chooseFile()">
+                  CAMBIAR
+               </div>
+               <label for="photoEdit" *ngIf="!isMobile">
+                  <div class="editFoto">
+                     SUBIR
+                  </div>
+               </label>
+            </ion-avatar>
+            <input type="file" style="display: none" id="photoEdit" (change)="handleAvatar($event.target.files)" />
+         </ion-row>
+         <ion-row align-items-center justify-content-center>
+            <input formControlName="displayName" type="text" placeholder="Nombre de usuario">
+            <div class="validation-errors">
+               <ng-container *ngFor="let validation of validation_messages.displayName">
+                  <div class="error-message"
+                     *ngIf="validations_form.get('displayName').hasError(validation.type) && (validations_form.get('displayName').dirty || validations_form.get('displayName').touched)">
+                     {{ validation.message }}
+                  </div>
+               </ng-container>
+            </div>
+         </ion-row>
+         <ion-row align-items-center justify-content-center>
+            <input formControlName="email" type="text" placeholder="Correo electrónico">
+            <div class="validation-errors">
+               <ng-container *ngFor="let validation of validation_messages.email">
+                  <div class="error-message"
+                     *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+                     {{ validation.message }}
+                  </div>
+               </ng-container>
+            </div>
+         </ion-row>
+         <ion-row>
+            <input formControlName="password" type="password" class="form-controll" placeholder="Contraseña">
+            <div class="validation-errors">
+               <ng-container *ngFor="let validation of validation_messages.password">
+                  <div class="error-message"
+                     *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+                     {{ validation.message }}
+                  </div>
+               </ng-container>
+            </div>
+         </ion-row>
+      </ion-grid>
+
+      <ion-row align-items-center justify-content-center>
+         <button class="glass" expand="block" type="submit" [disabled]="!validations_form.valid">Registrarse</button>
+      </ion-row>
+   </form>
+
+</ion-content>
+
+
+<!--
+   Classes:
+   ========
+   toolbarTitle
+   backForm
+   fichaAvatar
+   editFoto
+   error-message
+   glass
+ * validation-errors
+
+
+   Bindings:
+   =========
+   validations_form
+   validation_messages
+   isMobile
+   user.url
+
+   Methods:
+   ========
+   cancel()
+   tryRegister()
+   chooseFile()
+   handleAvatar()
+
+
+-->

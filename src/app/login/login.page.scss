@@ -13,7 +13,6 @@
 }
 
 .loginFrame {
-   box-shadow: 0 0 40px #444;
    max-width: 500px;
    width: 90%;
    height: 550px;
@@ -23,12 +22,17 @@
    left: 0;
    right: 0;
    bottom: 0;
-   border-radius: 10px;
-   background: white;
 }
 // .loginFrame:before{
 //    filter: blur(10px);
 //  }
+.loginPanel{
+   box-shadow: 0 0 40px #444;
+   border-radius: 10px;
+   background: white;
+   height: 480px;
+   width: 100%;
+}
 
 .formTitle {
    color: #222;
@@ -36,58 +40,21 @@
    font-size: 40px;
    font-weight: bold;
    text-align: center;
-   padding: 30px 0px;
    text-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
 }
 
-.backForm {
-   padding: 20px;
+.btnLogin{
    width: 100%;
-   height: 100%;
-   position: absolute;
-   margin: auto;
-   top: 0;
-   left: 0;
-   right: 0;
-   bottom: 0;
+   margin-top: 30px;
 }
-
-.backForm input{
-   border: none;
-   box-shadow: 0 2px 15px grey;
-   outline: none;
-   height: 50px;
-   padding: 10px;
-   border-radius: 10px;
-   width: 100%;
-   margin:10px 0px;
-   background-color: transparent;
-   // background: transparent;
-   // --background: transparent;
+.btnRegister{
+   margin-top: 30px;
+   background: green !important;
+   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 -1px 0 rgba(255, 255, 255, 0.1) inset, 0 4px 0 #0f6331, 0 10px 10px rgba(0, 0, 0, 0.3) !important;
 }
-.backForm input::after {
-   background-color: transparent;
- }
-
-
-
-.grdButtons{
-   margin-top: 20px;
-   display: grid;
-   grid-template-columns: 1fr 1fr;
-   align-items: center;
-   grid-gap: 20px;
-}
-
-
 .go-to-register
 {
   text-align: center;
   margin-top: 20px;
-}
-
-.submit-btn
-{
-  margin-top: 40px;
 }
 

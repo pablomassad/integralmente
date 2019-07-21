@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
-import { UserModel, AuthService } from 'fwk4-authentication'
+import { AuthService } from 'fwk4-authentication'
 import { Router } from '@angular/router'
 import { GlobalService, ApplicationService } from 'fwk4-services'
+import { ModalController } from '@ionic/angular';
+import { RegisterPage } from './register.page';
 
 
 @Component({
@@ -27,22 +29,21 @@ export class LoginPage implements OnInit {
       ]
    }
 
-   user: UserModel = new UserModel()
-
    constructor(
-      // private authSrv: AuthService,
+      private authSrv: AuthService,
+      private modalController: ModalController,
       private route: Router,
-      private formBuilder: FormBuilder,
-      private globalSrv: GlobalService
+      private formBuilder: FormBuilder
    ) {
       console.log('LoginPage constructor')
    }
 
-   ngOnInit() {
-      // this.userSrv.getCurrentUser().then(u => {
-      //    this.user = u
-      //    console.log('current user: ', u)
-      // })
+   async ngOnInit() {
+      const usr = await this.authSrv.currentState()
+      if (usr.email != "") {
+         console.log('logged user: ', usr)
+         this.route.navigate(['/menu/pacientes'])
+      }
 
       this.validations_form = this.formBuilder.group({
          email: new FormControl('',
@@ -64,16 +65,15 @@ export class LoginPage implements OnInit {
 
    async tryEmailLogin(value) {
       console.log('form data: ', value)
-      // this.user = await this.authSrv.doLogin(value)
-      this.goMenu()
-   }
-
-   goRegisterPage() {
-      //this.route.navigate(['/register'])
-   }
-
-   private goMenu() {
-      this.globalSrv.setItem('user', this.user)
+      await this.authSrv.doLogin(value)
       this.route.navigate(['/menu/pacientes'])
+   }
+
+   async gotoRegister() {
+      const modal = await this.modalController.create({
+         component: RegisterPage,
+         componentProps: {}
+      })
+      return await modal.present()
    }
 }
