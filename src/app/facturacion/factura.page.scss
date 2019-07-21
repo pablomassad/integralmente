@@ -52,5 +52,44 @@
    font-weight: bold !important;
 }
 
+.facturaName{
+   font-size: 16px !important;
+}
+
+.switch{
+   margin-left: 10px;
+   box-shadow: inset 1px 1px 3px black;
+   -webkit-appearance: none;
+   height: 2rem;
+   width: 4rem;
+   background-color: red;
+   border-radius: 43px;
+   position: relative;
+   cursor: pointer;
+   &::after {
+     top: 4px;
+     left: 4px;
+     content: '';
+     width: 1.5rem;
+     height:1.5rem;
+     background-color:lightgray;
+     box-shadow: 1px 1px 5px black;
+     position: absolute;
+     border-radius: 100%;
+     transition: 1s;
+     border:none;
+   }
+   &:checked {
+     background-color: green;
+     &::after {
+       transform: translateX(2rem);
+     }
+   }
+   &:focus {
+     outline:none;
+   }
+ }
+ 
+
 
 

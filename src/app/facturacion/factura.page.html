@@ -10,12 +10,21 @@
 <ion-content *ngIf="factura">
    <ion-grid class="facturaFrame">
       <ion-row class="grdItem">
-         <div class="campo">
-            Fecha:
-         </div>
-         <ion-datetime monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Set, Oct, Nov, Dic"
-            displayFormat="DD MMM YYYY" placeholder="Ingrese fecha" [(ngModel)]="fechaFactura" class="dato datePicker">
-         </ion-datetime>
+
+         <ion-col class="grdItem">
+            <div class="campo">
+               {{factura.estado}}
+            </div>
+            <input class="switch" type="checkbox" (onChange)="changeState(ev)" />
+         </ion-col>
+         <ion-col class="grdItem">
+            <div class="campo">
+               Fecha:
+            </div>
+            <ion-datetime monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Set, Oct, Nov, Dic"
+               displayFormat="DD MMM YYYY" [(ngModel)]="fechaFactura" class="dato datePicker">
+            </ion-datetime>
+         </ion-col>
          <ion-col class="grdItem">
             <div class="campo">
                Obra Social:
@@ -40,17 +49,20 @@
          <ion-col>
             <div style="margin-top:20px;">
                <label *ngIf="isMobile">
-                  <div class="glass glFlex" (click)="chooseFile()">
-                     <ion-icon name="attach" style="font-size: 20px;"></ion-icon>
+                  <div class="glass glFlex facturaName"
+                     [ngClass]="{'facturaOK': (factura.url != undefined), 'facturaNO': (factura.url == undefined)}"
+                     (click)="chooseFile()">
+                     <ion-icon name="attach" style="font-size: 23px !important;"></ion-icon>
                      <div *ngIf="!factura.url">Adjuntar factura...</div>
                      <div *ngIf="factura.url">{{factura.nombre}}</div>
                   </div>
                </label>
                <label for="attachment" *ngIf="!isMobile">
-                  <div class="glass glFlex" [ngClass]="{'facturaOK': (factura.url != undefined), 'facturaNO': (factura.url == undefined)}">
-                     <ion-icon name="attach" style="font-size: 20px"></ion-icon>
+                  <div class="glass glFlex facturaName"
+                     [ngClass]="{'facturaOK': (factura.url != undefined), 'facturaNO': (factura.url == undefined)}">
+                     <ion-icon name="attach" style="font-size: 23px !important"></ion-icon>
                      <div *ngIf="!factura.url">Adjuntar factura...</div>
-                     <div *ngIf="factura.url">{{factura.nombre}}</div> 
+                     <div *ngIf="factura.url">{{factura.nombre}}</div>
                   </div>
                </label>
                <input type="file" style="display: none" id="attachment" (change)="handleFile($event.target.files)" />

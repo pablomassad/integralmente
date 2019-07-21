@@ -73,10 +73,15 @@ export class SesionPage implements OnInit, OnDestroy {
    }
    chooseFile() {
       this.chooser.getFile('*/*').then(f => {
-         this.fbsSrv.startSpinner()
-         this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
-            this.saveAttachment(obj)
-         })
+         if (f){
+            this.fbsSrv.startSpinner()
+            this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
+               this.saveAttachment(obj)
+            })
+         }
+      })
+      .catch(err=>{
+         this.fbsSrv.stopSpinner()
       })
    }
    handleFile(files: FileList) {

@@ -71,10 +71,15 @@ export class FichaPage implements OnInit {
    }
    chooseFile() {
       this.chooser.getFile('*/*').then(f => {
-         this.fbsSrv.startSpinner()
-         this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
-            this.saveToDB(obj)
-         })
+         if (f){
+            this.fbsSrv.startSpinner()
+            this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
+               this.saveToDB(obj)
+            })
+         }
+      })
+      .catch(err=>{
+         this.fbsSrv.stopSpinner()
       })
    }
    evalEdad() {

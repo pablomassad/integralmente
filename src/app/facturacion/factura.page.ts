@@ -19,8 +19,6 @@ export class FacturaPage implements OnInit, OnDestroy {
    isMobile: boolean
    fechaFactura:any
 
-   private sub: Subscription
-
    constructor(
       private iab: InAppBrowser,
       private chooser: Chooser,
@@ -37,14 +35,22 @@ export class FacturaPage implements OnInit, OnDestroy {
    ngOnInit() {
       this.isMobile = this.globalSrv.getItemRAM('isMobile')
       this.factura = this.navParams.get('facturaDetail')
-      // this.fechaFactura = moment(this.factura.fecha).format("MM/DD/YYYY")
+      this.fechaFactura = moment(this.factura.fecha).format("MM/DD/YYYY")
+      if (!this.factura['id']){
+         this.factura.estado = "Pendiente"
+      }
    }
    ngOnDestroy() {
-      this.sub.unsubscribe()
+   }
+   changeState(ev){
+      this.factura.estado = (ev == true)?'Cobrada':'Pendiente'
    }
    chooseFile() {
-      this.chooser.getFile('pdf').then(f => {
-         this.saveFactura(f)
+      this.chooser.getFile('*/*').then(f => {
+         if (f) this.saveFactura(f)
+      })
+      .catch(err=>{
+         this.fbsSrv.stopSpinner()
       })
    }
    handleFile(files: FileList) {

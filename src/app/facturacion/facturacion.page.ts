@@ -16,8 +16,8 @@ export class FacturacionPage implements OnInit, OnDestroy {
    facturasPendientes: any = []
    facturasCobradas: any = []
 
-   totalPendientes:number = 0
-   totalCobradas:number = 0
+   totalPendientes:number
+   totalCobradas:number
 
    criteria:string = "OSDE"
    subPend: Subscription
@@ -41,17 +41,17 @@ export class FacturacionPage implements OnInit, OnDestroy {
          return (idx !== -1)
       })
       this[totField] = res.reduce((total, item)=> {
-         return total + item['monto'];
-      },0)
+         return Number(total + item['monto']);
+      }, 0)
       return res
    }
 
    ngOnInit() {
-      this.subPend = this.afs.collection('facturas', ref => ref.where('estado', '==', 'pendientes')).valueChanges({ idField: 'id' }).subscribe(ses=>{
+      this.subPend = this.afs.collection('facturas', ref => ref.where('estado', '==', 'Pendiente')).valueChanges({ idField: 'id' }).subscribe(ses=>{
          this.facturasPendientes = ses 
       })
 
-      this.subCob =  this.afs.collection('facturas', ref => ref.where('estado', '==', 'cobradas')).valueChanges({ idField: 'id' }).subscribe(ses=>{
+      this.subCob =  this.afs.collection('facturas', ref => ref.where('estado', '==', 'Cobrada')).valueChanges({ idField: 'id' }).subscribe(ses=>{
          this.facturasCobradas = ses 
       }) 
    }
@@ -65,11 +65,9 @@ export class FacturacionPage implements OnInit, OnDestroy {
    }
    changeState(fac, state){
       fac.estado = state
+      this.afs.doc('facturas/'+fac.id).set(fac, { merge: true })
    }
-   deleteFactura(fac){
-
-   }
-   async removeFile(fac) {
+   async deleteFactura(fac) {
       const alert = await this.alertCtrl.create({
          header: 'Confirma borrado',
          message: 'Esta seguro?',

@@ -68,7 +68,7 @@
             <ion-list>
                <ion-list-header>
                   <ion-label class="monto">Cobradas: </ion-label>
-                  <div class="monto" style="color:green">$52000</div>
+                  <div class="monto" style="color:green">${{totalCobradas}}</div>
                </ion-list-header>
 
                <ion-item-sliding
@@ -104,7 +104,7 @@
                   <ion-item-options side="end">
                      <ion-item-option color="primary" (click)="openFile(fac)">
                         <ion-icon slot="top" name="download"></ion-icon>
-                        Descargar
+                        Ver
                      </ion-item-option>
                      <ion-item-option color="warning" (click)="deleteFactura(fac)">
                         <ion-icon slot="top" name="trash"></ion-icon>
