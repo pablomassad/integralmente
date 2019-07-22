@@ -5,6 +5,7 @@ import { Router } from '@angular/router'
 import { GlobalService, ApplicationService } from 'fwk4-services'
 import { ModalController } from '@ionic/angular';
 import { RegisterPage } from './register.page';
+import { FbsService } from '../fbs.service';
 
 
 @Component({
@@ -30,21 +31,13 @@ export class LoginPage implements OnInit {
    }
 
    constructor(
+      private fbsSrv: FbsService,
       private authSrv: AuthService,
       private modalController: ModalController,
       private route: Router,
       private formBuilder: FormBuilder
    ) {
       console.log('LoginPage constructor')
-   }
-
-   async ngOnInit() {
-      const usr = await this.authSrv.currentState()
-      if (usr.email != "") {
-         console.log('logged user: ', usr)
-         this.route.navigate(['/menu/pacientes'])
-      }
-
       this.validations_form = this.formBuilder.group({
          email: new FormControl('',
             Validators.compose([
@@ -61,6 +54,16 @@ export class LoginPage implements OnInit {
             ])),
       })
       //this.validations_form.setValue({ password: 'xxxxx', email: 'pepepe@gmail.com' });
+   }
+
+   async ngOnInit() {
+      this.fbsSrv.startSpinner()
+      let usr = await this.authSrv.currentState()
+      if (usr != null) {
+         console.log('logged user: ', usr)
+         this.route.navigate(['/menu/pacientes'])
+      }
+      this.fbsSrv.stopSpinner()
    }
 
    async tryEmailLogin(value) {

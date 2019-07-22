@@ -5,6 +5,7 @@ import * as moment from 'moment'
 import { ActionSheetController } from '@ionic/angular'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { FbsService } from '../fbs.service'
+import { AuthService } from 'fwk4-authentication';
 
 @Component({
    selector: 'app-pacientes',
@@ -14,13 +15,14 @@ import { FbsService } from '../fbs.service'
 export class PacientesPage implements OnInit {
 
    userPhoto: any
-   criteria:string
+   criteria: string
    patients: any = []
 
    constructor(
       private actionSheetController: ActionSheetController,
-      private router:Router,
+      private route: Router,
       private afs: AngularFirestore,
+      private authSrv: AuthService,
       private globalSrv: GlobalService,
       private fbsSrv: FbsService
    ) {
@@ -30,12 +32,12 @@ export class PacientesPage implements OnInit {
 
    async ngOnInit() {
       this.fbsSrv.startSpinner()
-      this.afs.collection('pacientes').valueChanges({ idField: 'id' }).subscribe(ps=>{
-         this.patients = ps 
+      this.afs.collection('pacientes').valueChanges({ idField: 'id' }).subscribe(ps => {
+         this.patients = ps
          this.fbsSrv.stopSpinner()
-      }) 
+      })
    }
-   async removePatient(p){
+   async removePatient(p) {
       this.fbsSrv.startSpinner()
       await this.afs.collection('pacientes').doc(p.id).delete()
       this.fbsSrv.stopSpinner()
@@ -48,6 +50,9 @@ export class PacientesPage implements OnInit {
                text: 'Salir',
                icon: 'log-out',
                handler: () => {
+                  this.authSrv.doLogout().then(x => {
+                     this.route.navigate([''])
+                  })
                   console.log('Logout');
                }
             }, {
@@ -62,12 +67,12 @@ export class PacientesPage implements OnInit {
       await actionSheet.present();
    }
 
-   async gotoPatient(p){
+   async gotoPatient(p) {
       await this.globalSrv.setItem('patient', p)
-      this.router.navigate(["/menu/home/ficha"])
+      this.route.navigate(["/menu/home/ficha"])
    }
 
-   evalEdad(nac){
+   evalEdad(nac) {
       const today = moment()
       const cumple = moment(nac)
       const edad = today.diff(cumple, 'y')

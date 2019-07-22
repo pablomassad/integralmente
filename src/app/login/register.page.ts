@@ -16,7 +16,7 @@ import { Chooser } from '@ionic-native/chooser/ngx'
 export class RegisterPage implements OnInit {
    isMobile: boolean
    user: UserModel
-   fotoUrl:string = "assets/images/anonymous.png"
+   fotoUrl: string = "assets/images/anonymous.png"
    validations_form: FormGroup
    validation_messages = {
       'displayName': [
@@ -74,14 +74,10 @@ export class RegisterPage implements OnInit {
    handleAvatar(files: FileList) {
       this.savePhoto(files.item(0))
    }
-   tryRegister(value) {
-      value['photoURL'] = this.fotoUrl 
-      this.authService.doRegister(value)
-         .then(res => {
-            console.log('UserModel: ', res)
-         }, err => {
-            console.log('Error registration: ', err)
-         })
+   async tryRegister(value) {
+      value['photoURL'] = this.fotoUrl
+      await this.authService.doRegister(value)
+      this.modalController.dismiss()
    }
    cancel() {
       this.modalController.dismiss()
@@ -92,7 +88,6 @@ export class RegisterPage implements OnInit {
       this.fbsSrv.uploadFile(file, 'avatars').then(async obj => {
          this.fotoUrl = obj.url
          this.fbsSrv.stopSpinner()
-         this.modalController.dismiss()
       })
    }
 }

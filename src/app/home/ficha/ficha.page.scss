@@ -22,10 +22,9 @@
    color: white;
    text-align: center;
    opacity: .8;
-
    font-size: 3.5vw;
    padding: .9vw 0 2.0vw;
-   margin-top: -9vw;
+   margin-top: -7.8vw;
 }
 
 .frameContacto {
@@ -49,3 +48,15 @@
 }
 
 
+@media only screen and (min-width: 500px) {
+   .fichaAvatar {
+      width: 140px;
+      height: 140px;
+   }
+
+   .editFoto {
+      font-size: 18px;
+      margin-top: -40px;
+      padding: 3px 0 10px;
+   }
+}

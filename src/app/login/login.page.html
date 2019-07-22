@@ -4,8 +4,7 @@
          <ion-row>
             <div class="loginPanel">
                <!-- (ngSubmit)="tryEmailLogin(validations_form.value)" -->
-               <form [formGroup]="validations_form" class="form backForm" *ngIf="user"
-                  (ngSubmit)="tryEmailLogin(validations_form.value)">
+               <form [formGroup]="validations_form" class="form backForm" (ngSubmit)="tryEmailLogin(validations_form.value)">
                   <div class="formTitle">
                      <img src="assets/images/integralmenteET.png" class="logo">
                   </div>
@@ -53,21 +52,11 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 <!--
    Bindings:
    =========
-   user.displayName
-   errorMessage
+
+
 
    Classes:
    ========
