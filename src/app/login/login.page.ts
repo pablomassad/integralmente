@@ -60,7 +60,6 @@ export class LoginPage implements OnInit {
       this.fbsSrv.startSpinner()
       let usr = await this.authSrv.currentState()
       if (usr != null) {
-         console.log('logged user: ', usr)
          this.route.navigate(['/menu/pacientes'])
       }
       this.fbsSrv.stopSpinner()

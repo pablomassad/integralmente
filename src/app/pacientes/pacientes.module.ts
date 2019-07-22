@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular'
 
 import { PacientesPage } from './pacientes.page'
 import { Fwk4PipesModule } from 'fwk4-pipes'
+import { ToolHeadComponentModule } from '../tool-head/tool-head.module';
 
 const routes: Routes = [
    {
@@ -17,6 +18,7 @@ const routes: Routes = [
 
 @NgModule({
    imports: [
+      ToolHeadComponentModule,
       Fwk4PipesModule,
       CommonModule,
       FormsModule,

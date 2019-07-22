@@ -9,6 +9,7 @@ import { OrderModule } from 'ngx-order-pipe'
 
 import { FacturacionPage } from './facturacion.page'
 import { FacturaPage } from './factura.page'
+import { ToolHeadComponentModule } from '../tool-head/tool-head.module';
 
 const routes: Routes = [
    {
@@ -19,6 +20,7 @@ const routes: Routes = [
 
 @NgModule({
    imports: [
+      ToolHeadComponentModule,
       CommonModule,
       FormsModule,
       OrderModule,

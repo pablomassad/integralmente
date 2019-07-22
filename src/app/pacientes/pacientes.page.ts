@@ -42,31 +42,6 @@ export class PacientesPage implements OnInit {
       await this.afs.collection('pacientes').doc(p.id).delete()
       this.fbsSrv.stopSpinner()
    }
-   async openMenuSheet() {
-      const actionSheet = await this.actionSheetController.create({
-         header: 'Opciones',
-         buttons: [
-            {
-               text: 'Salir',
-               icon: 'log-out',
-               handler: () => {
-                  this.authSrv.doLogout().then(x => {
-                     this.route.navigate([''])
-                  })
-                  console.log('Logout');
-               }
-            }, {
-               text: 'Cancelar',
-               icon: 'close',
-               role: 'cancel',
-               handler: () => {
-                  console.log('Cancelar');
-               }
-            }]
-      });
-      await actionSheet.present();
-   }
-
    async gotoPatient(p) {
       await this.globalSrv.setItem('patient', p)
       this.route.navigate(["/menu/home/ficha"])

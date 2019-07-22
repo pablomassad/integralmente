@@ -33,7 +33,6 @@ import { Chooser } from '@ionic-native/chooser/ngx'
 
 @NgModule({
    declarations: [AppComponent],
-   entryComponents: [],
    imports: [
       HttpClientModule,
       BrowserModule, 

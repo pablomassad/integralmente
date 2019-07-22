@@ -1,19 +1,11 @@
-<ion-header>
-   <ion-toolbar>
-      <ion-buttons slot="start">
-         <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <div class="grdPatientBar">
-         <ion-avatar class="avatar">
-            <img [src]="patient.foto">
-         </ion-avatar>
-         <div class="patientFullName">{{patient.apellido}}, {{patient.nombres}}</div>
-      </div>
-      <ion-avatar slot="end">
-         <img class="avatar" [src]="userPhoto">
+<app-tool-head>
+   <div class="grdPatientBar">
+      <ion-avatar class="avatar">
+         <img [src]="patient.foto">
       </ion-avatar>
-   </ion-toolbar>
-</ion-header>
+      <div class="patientFullName">{{patient.apellido}}, {{patient.nombres}}</div>
+   </div>
+</app-tool-head>
 
 <ion-content *ngIf="patient">
    <ion-tabs>

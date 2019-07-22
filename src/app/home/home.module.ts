@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms'
 import { Routes, RouterModule } from '@angular/router'
 import { IonicModule } from '@ionic/angular'
 
-import { HomePage } from './home.page';
+import { HomePage } from './home.page'
+import { ToolHeadComponentModule } from '../tool-head/tool-head.module';
 
 const routes: Routes = [
    {
@@ -39,6 +40,7 @@ const routes: Routes = [
 
 @NgModule({
    imports: [
+      ToolHeadComponentModule,
       CommonModule,
       FormsModule,
       IonicModule,
