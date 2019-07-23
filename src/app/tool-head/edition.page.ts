@@ -4,7 +4,7 @@ import { GlobalService, ApplicationService } from 'fwk4-services'
 import { ModalController, NavParams, AlertController } from '@ionic/angular'
 import { FbsService } from 'src/app/fbs.service'
 import { Chooser } from '@ionic-native/chooser/ngx'
-import { AuthService, FirebaseService, UserModel } from 'fwk4-authentication'
+import { FirebaseService, UserModel } from 'fwk4-authentication'
 
 @Component({
    selector: 'app-edition',
@@ -14,21 +14,13 @@ import { AuthService, FirebaseService, UserModel } from 'fwk4-authentication'
 export class EditionPage implements OnInit {
    user: UserModel
    isMobile: boolean
-   selRole:string = 'Usuario'
+   selRole: string = 'Usuario'
    isAdmin: boolean = false
    fotoUrl: string = "assets/images/anonymous.png"
    validations_form: FormGroup
    validation_messages = {
       'displayName': [
          { type: 'required', message: 'Nombre de usuario requerido' }
-      ],
-      'email': [
-         { type: 'required', message: 'Email requerido' },
-         { type: 'pattern', message: 'Ingrese un email válido' }
-      ],
-      'password': [
-         { type: 'required', message: 'Password requerido' },
-         { type: 'minlength', message: 'Password debe tener un min. de 5 caracteres' }
       ]
    }
 
@@ -51,16 +43,9 @@ export class EditionPage implements OnInit {
       this.validations_form = this.formBuilder.group({
          displayName: new FormControl('', Validators.compose([
             Validators.required
-         ])),
-         email: new FormControl('', Validators.compose([
-            Validators.required,
-            Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-         ])),
-         password: new FormControl('', Validators.compose([
-            Validators.minLength(5),
-            Validators.required
-         ])),
+         ]))
       })
+      this.validations_form.setValue({ displayName: this.user.displayName });
    }
 
    chooseFile() {
@@ -74,14 +59,12 @@ export class EditionPage implements OnInit {
    handleAvatar(files: FileList) {
       this.savePhoto(files.item(0))
    }
-   changeRole(ev){
-      this.isAdmin = ev.target.checked
+   changeRole(ev) {
+      this.user.isAdmin = ev.target.checked
    }
    async save(value) {
-      value['photoURL'] = this.fotoUrl
-      value['isAdmin'] = this.isAdmin
-      if (this.user)
-         await this.firebaseSrv.updateUserData(this.user)
+      this.user.displayName = value['displayName']
+      await this.firebaseSrv.updateUserData(this.user)
       this.modalController.dismiss()
    }
    cancel() {
@@ -91,7 +74,7 @@ export class EditionPage implements OnInit {
    private savePhoto(file) {
       this.appSrv.showLoading()
       this.fbsSrv.uploadFile(file, 'avatars').then(async obj => {
-         this.fotoUrl = obj.url
+         this.user.photoURL = obj.url
          this.appSrv.hideLoading()
       })
    }

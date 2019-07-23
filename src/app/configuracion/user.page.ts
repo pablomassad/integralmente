@@ -46,6 +46,7 @@ export class UserPage implements OnInit {
             Validators.required
          ]))
       })
+      this.validations_form.setValue({ displayName: this.user.displayName });
    }
 
    chooseFile() {
@@ -60,13 +61,11 @@ export class UserPage implements OnInit {
       this.savePhoto(files.item(0))
    }
    changeRole(ev){
-      this.isAdmin = ev.target.checked
+      this.user.isAdmin = ev.target.checked
    }
    async save(value) {
-      value['photoURL'] = this.fotoUrl
-      value['isAdmin'] = this.isAdmin
-      if (this.user)
-         await this.firebaseSrv.updateUserData(this.user)
+      this.user.displayName = value['displayName']
+      await this.firebaseSrv.updateUserData(this.user)
       this.modalController.dismiss()
    }
    cancel() {

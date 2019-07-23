@@ -8,12 +8,11 @@
 </ion-header>
 
 <ion-content padding style="--ion-background-color: radial-gradient(#ffffff, #c1c1c1);">
-
    <form [formGroup]="validations_form" class="form backForm" (ngSubmit)="save(validations_form.value)">
-      <ion-grid class="backForm">
+      <ion-grid>
          <ion-row justify-content-center style="margin-bottom: 30px">
             <ion-avatar class="fichaAvatar">
-               <img [src]="fotoUrl">
+               <img [src]="user.photoURL">
                <div class="editFoto" *ngIf="isMobile" (click)="chooseFile()">
                   CAMBIAR
                </div>
@@ -27,7 +26,7 @@
          </ion-row>
          <ion-row align-items-center justify-content-center>
             <ion-col>
-               <input formControlName="displayName" type="text" placeholder="Nombre de usuario">
+               <input formControlName="displayName" type="text" placeholder="Nombre de usuario" class="displayName">
                <div class="validation-errors">
                   <ng-container *ngFor="let validation of validation_messages.displayName">
                      <div class="error-message"
@@ -48,16 +47,17 @@
             <div class="email">{{user.email}}</div>
          </ion-row>
          <ion-row>
-            <p>No es posible cambiar el email, solo eliminar la cuenta y crear una nueva</p>
+            <p class="notification">No es posible cambiar el email, solo eliminar la cuenta y crear una nueva desde la
+                  administracion de usuarios.</p>
          </ion-row>
       </ion-grid>
    </form>
-   <ion-row align-items-center justify-content-center>
+   <ion-row align-items-center justify-content-center style="margin-top:20px;">
       <ion-col>
-         <button class="glass" expand="block" type="submit">Eliminar usuario</button>
+         <button class="glass" expand="block" (click)="deleteUser()">Eliminar usuario</button>
       </ion-col>
       <ion-col>
-         <button class="glass" expand="block" type="submit">Actualizar datos</button>
+         <button class="glass" expand="block" type="submit" (click)="save(validations_form.value)">Actualizar datos</button>
       </ion-col>
    </ion-row>
 </ion-content>
