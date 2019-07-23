@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core'
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { GlobalService, ApplicationService } from 'fwk4-services'
 import { ModalController, NavParams, AlertController } from '@ionic/angular'
 import { FbsService } from 'src/app/fbs.service'
 import { Chooser } from '@ionic-native/chooser/ngx'
-import { AuthService, FirebaseService, UserModel } from 'fwk4-authentication'
+import { UserModel, FirebaseService } from 'fwk4-authentication';
 
 @Component({
-   selector: 'app-edition',
-   templateUrl: './edition.page.html',
-   styleUrls: ['./edition.page.scss', '../buttons.scss']
+   selector: 'app-user',
+   templateUrl: './user.page.html',
+   styleUrls: ['./user.page.scss', '../buttons.scss']
 })
-export class EditionPage implements OnInit {
+export class UserPage implements OnInit {
    user: UserModel
    isMobile: boolean
    selRole:string = 'Usuario'
@@ -21,14 +21,6 @@ export class EditionPage implements OnInit {
    validation_messages = {
       'displayName': [
          { type: 'required', message: 'Nombre de usuario requerido' }
-      ],
-      'email': [
-         { type: 'required', message: 'Email requerido' },
-         { type: 'pattern', message: 'Ingrese un email válido' }
-      ],
-      'password': [
-         { type: 'required', message: 'Password requerido' },
-         { type: 'minlength', message: 'Password debe tener un min. de 5 caracteres' }
       ]
    }
 
@@ -39,27 +31,20 @@ export class EditionPage implements OnInit {
       private chooser: Chooser,
       private fbsSrv: FbsService,
       private firebaseSrv: FirebaseService,
-      private modalController: ModalController
+      private modalController: ModalController,
+      private navParams: NavParams
    ) {
-      console.log('EditionPage constructor')
+      console.log('UserPage constructor')
    }
 
    async ngOnInit() {
       this.isMobile = this.globalSrv.getItemRAM('isMobile')
-      this.user = this.globalSrv.getItemRAM('userInfo')
+      this.user = this.navParams.get('user')
 
       this.validations_form = this.formBuilder.group({
          displayName: new FormControl('', Validators.compose([
             Validators.required
-         ])),
-         email: new FormControl('', Validators.compose([
-            Validators.required,
-            Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-         ])),
-         password: new FormControl('', Validators.compose([
-            Validators.minLength(5),
-            Validators.required
-         ])),
+         ]))
       })
    }
 

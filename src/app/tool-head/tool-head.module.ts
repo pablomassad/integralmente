@@ -1,14 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
-import { ToolHeadComponent } from './tool-head.component';
-import { EditionPage } from './edition.page';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms'
+import { Routes, RouterModule } from '@angular/router'
+import { IonicModule } from '@ionic/angular'
+import { EditionPage } from './edition.page'
+import { ToolHeadComponent } from './tool-head.component'
 
 
 @NgModule({
    imports: [
       CommonModule,
-      IonicModule
+      IonicModule,
+      FormsModule
    ],
    exports: [
       ToolHeadComponent

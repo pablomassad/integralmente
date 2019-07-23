@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { ModalController, AlertController } from '@ionic/angular'
 import { AngularFirestore } from '@angular/fire/firestore'
-import { FacturaPage } from './factura.page'
-import { equal } from 'assert';
 import { Subscription } from 'rxjs'
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 import { FbsService } from 'src/app/fbs.service'
 import { ApplicationService } from 'fwk4-services';
+import { FacturaPage } from './factura.page'
+
 
 @Component({
    selector: 'app-facturacion',

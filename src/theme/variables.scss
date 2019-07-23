@@ -89,9 +89,17 @@
 $loading-md-background: transparent;
 $loading-md-box-shadow: none;
 
+.sc-ion-loading-md-h{
+   background: transparent;
+   box-shadow: none;
+}
+
+
 ion-loading.spinnerCss {
   .loading-wrapper {
     color: white;
+    background: transparent;
+    box-shadow: none;
     //background:palevioletred;
     //background: brown;
     //width: 50px;

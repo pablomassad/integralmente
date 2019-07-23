@@ -1,13 +1,14 @@
 <ion-header>
    <ion-toolbar>
       <ion-buttons slot="start">
-         <ion-back-button defaultHref="/login" (click)="cancel()"></ion-back-button>
+         <ion-back-button defaultHref="/configuracion" (click)="cancel()"></ion-back-button>
       </ion-buttons>
       <div class="toolbarTitle">Edición de usuario</div>
    </ion-toolbar>
 </ion-header>
 
 <ion-content padding style="--ion-background-color: radial-gradient(#ffffff, #c1c1c1);">
+
    <form [formGroup]="validations_form" class="form backForm" (ngSubmit)="save(validations_form.value)">
       <ion-grid class="backForm">
          <ion-row justify-content-center style="margin-bottom: 30px">
@@ -40,7 +41,7 @@
                <div class="campo">
                   Administrador
                </div>
-               <input class="switch" type="checkbox" />
+               <input class="switch" type="checkbox" (change)="changeState($event)" />
             </ion-col>
          </ion-row>
          <ion-row>
@@ -53,7 +54,7 @@
    </form>
    <ion-row align-items-center justify-content-center>
       <ion-col>
-         <button class="glass" expand="block" type="submit">Recuperar contraseña</button>
+         <button class="glass" expand="block" type="submit">Eliminar usuario</button>
       </ion-col>
       <ion-col>
          <button class="glass" expand="block" type="submit">Actualizar datos</button>
