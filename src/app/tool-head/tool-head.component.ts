@@ -26,26 +26,46 @@ export class ToolHeadComponent implements OnInit {
    }
 
    async openMenuSheet() {
+      const menuOptions = [
+         {
+            text: 'Editar Perfil',
+            icon: 'person',
+            handler: () => {
+               console.log('Edit User');
+            }
+         },
+         {
+            text: 'Salir',
+            icon: 'log-out',
+            handler: () => {
+               this.authSrv.doLogout().then(x => {
+                  this.route.navigate(['/login'])
+               })
+               console.log('Logout');
+            }
+         }
+      ]
+
+      if (this.user.isAdmin == true)
+         menuOptions.push({
+            text: 'Administrar Usuarios',
+            icon: 'people',
+            handler: () => {
+               console.log('Admin Users');
+            }
+         })
+
+      menuOptions.push({
+         text: 'Cancelar',
+         icon: 'close',
+         handler: () => {
+            console.log('Cancelar');
+         }
+      })
+
       const actionSheet = await this.actionSheetController.create({
          header: 'Opciones',
-         buttons: [
-            {
-               text: 'Salir',
-               icon: 'log-out',
-               handler: () => {
-                  this.authSrv.doLogout().then(x => {
-                     this.route.navigate(['/login'])
-                  })
-                  console.log('Logout');
-               }
-            }, {
-               text: 'Cancelar',
-               icon: 'close',
-               role: 'cancel',
-               handler: () => {
-                  console.log('Cancelar');
-               }
-            }]
+         buttons: menuOptions
       });
       await actionSheet.present();
    }

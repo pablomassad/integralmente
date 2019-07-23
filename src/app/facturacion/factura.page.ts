@@ -42,7 +42,7 @@ export class FacturaPage implements OnInit, OnDestroy {
    ngOnDestroy() {
    }
    changeState(ev){
-      this.factura.estado = (ev == true)?'Cobrada':'Pendiente'
+      this.factura.estado = (ev.target.checked == true)?'Cobrada':'Pendiente'
    }
    chooseFile() {
       this.chooser.getFile('*/*').then(f => {

@@ -7,7 +7,7 @@
    </ion-toolbar>
 </ion-header>
 
-<ion-content padding class="form-content">
+<ion-content padding style="--ion-background-color: radial-gradient(#ffffff, #c1c1c1);">
 
    <form [formGroup]="validations_form" class="form backForm" (ngSubmit)="tryRegister(validations_form.value)">
       <ion-grid>
@@ -26,15 +26,23 @@
             <input type="file" style="display: none" id="photoEdit" (change)="handleAvatar($event.target.files)" />
          </ion-row>
          <ion-row align-items-center justify-content-center>
-            <input formControlName="displayName" type="text" placeholder="Nombre de usuario">
-            <div class="validation-errors">
-               <ng-container *ngFor="let validation of validation_messages.displayName">
-                  <div class="error-message"
-                     *ngIf="validations_form.get('displayName').hasError(validation.type) && (validations_form.get('displayName').dirty || validations_form.get('displayName').touched)">
-                     {{ validation.message }}
-                  </div>
-               </ng-container>
-            </div>
+            <ion-col>
+               <input formControlName="displayName" type="text" placeholder="Nombre de usuario">
+               <div class="validation-errors">
+                  <ng-container *ngFor="let validation of validation_messages.displayName">
+                     <div class="error-message"
+                        *ngIf="validations_form.get('displayName').hasError(validation.type) && (validations_form.get('displayName').dirty || validations_form.get('displayName').touched)">
+                        {{ validation.message }}
+                     </div>
+                  </ng-container>
+               </div>
+            </ion-col>
+            <ion-col class="grdItem">
+               <div class="campo">
+                  Administrador
+               </div>
+               <input class="switch" type="checkbox" (change)="changeRole($event)" />
+            </ion-col>
          </ion-row>
          <ion-row align-items-center justify-content-center>
             <input formControlName="email" type="text" placeholder="Correo electrónico">

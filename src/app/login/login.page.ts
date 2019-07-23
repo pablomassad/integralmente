@@ -31,6 +31,7 @@ export class LoginPage implements OnInit {
    }
 
    constructor(
+      private appSrv: ApplicationService,
       private fbsSrv: FbsService,
       private authSrv: AuthService,
       private modalController: ModalController,
@@ -66,9 +67,12 @@ export class LoginPage implements OnInit {
    }
 
    async tryEmailLogin(value) {
-      console.log('form data: ', value)
-      await this.authSrv.doLogin(value)
-      this.route.navigate(['/menu/pacientes'])
+      try {
+         await this.authSrv.doLogin(value)
+         this.route.navigate(['/menu/pacientes']) 
+      } catch (error) {
+         this.appSrv.message('Usuario o contraseña inválidos', 'error')
+      }
    }
 
    async gotoRegister() {

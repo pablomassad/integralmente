@@ -15,6 +15,8 @@ import { Chooser } from '@ionic-native/chooser/ngx'
 })
 export class RegisterPage implements OnInit {
    isMobile: boolean
+   selRole:string = 'Usuario'
+   isAdmin: boolean = false
    user: UserModel
    fotoUrl: string = "assets/images/anonymous.png"
    validations_form: FormGroup
@@ -74,8 +76,12 @@ export class RegisterPage implements OnInit {
    handleAvatar(files: FileList) {
       this.savePhoto(files.item(0))
    }
+   changeRole(ev){
+      this.isAdmin = ev.target.checked
+   }
    async tryRegister(value) {
       value['photoURL'] = this.fotoUrl
+      value['isAdmin'] = this.isAdmin
       await this.authService.doRegister(value)
       this.modalController.dismiss()
    }
