@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FbsService, Upload } from 'src/app/fbs.service'
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { AngularFirestore } from '@angular/fire/firestore'
-import { GlobalService } from 'fwk4-services'
+import { GlobalService, ApplicationService } from 'fwk4-services'
 import * as moment from 'moment'
 import { Chooser } from '@ionic-native/chooser/ngx'
 import { UserModel } from 'fwk4-authentication';
@@ -34,6 +34,7 @@ export class FichaPage implements OnInit {
    constructor(
       private formBuilder: FormBuilder,
       private globalSrv: GlobalService,
+      private appSrv: ApplicationService,
       private chooser: Chooser,
       private afs: AngularFirestore,
       private fbsSrv: FbsService
@@ -66,24 +67,24 @@ export class FichaPage implements OnInit {
       }
    }
    async handleAvatar(files: FileList) {
-      this.fbsSrv.startSpinner()
+      this.appSrv.showLoading()
       await this.fbsSrv.deleteFileStorage(this.patient.dni, this.patient.fotoNombre)
       await this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj => {
          this.saveToDB(obj)
       })
-      this.fbsSrv.stopSpinner()
+      this.appSrv.hideLoading()
    }
    chooseFile() {
       this.chooser.getFile('*/*').then(f => {
          if (f){
-            this.fbsSrv.startSpinner()
+            this.appSrv.showLoading()
             this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
                this.saveToDB(obj)
             })
          }
       })
       .catch(err=>{
-         this.fbsSrv.stopSpinner()
+         this.appSrv.hideLoading()
       })
    }
    evalEdad() {
@@ -96,7 +97,7 @@ export class FichaPage implements OnInit {
       
    }
    async save(val) {
-      this.fbsSrv.startSpinner()
+      this.appSrv.showLoading()
       this.patient.nombres = val.nombres
       this.patient.apellido = val.apellido
       this.patient.nacimiento = moment(this.fechaNacimiento).valueOf()
@@ -115,6 +116,6 @@ export class FichaPage implements OnInit {
       else
          await this.afs.collection('pacientes').add(this.patient)
 
-      this.fbsSrv.stopSpinner()
+      this.appSrv.hideLoading()
    }
 }

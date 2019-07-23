@@ -58,19 +58,21 @@ export class LoginPage implements OnInit {
    }
 
    async ngOnInit() {
-      this.fbsSrv.startSpinner()
-      let usr = await this.authSrv.currentState()
+      this.appSrv.showLoading()
+      let usr = await this.authSrv.loggedUser()
       if (usr != null) {
          this.route.navigate(['/menu/pacientes'])
       }
-      this.fbsSrv.stopSpinner()
+      this.appSrv.hideLoading()
    }
 
    async tryEmailLogin(value) {
       try {
+         this.appSrv.showLoading()
          await this.authSrv.doLogin(value)
          this.route.navigate(['/menu/pacientes']) 
       } catch (error) {
+         this.appSrv.hideLoading()
          this.appSrv.message('Usuario o contraseña inválidos', 'error')
       }
    }

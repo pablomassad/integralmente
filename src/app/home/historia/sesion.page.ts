@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { GlobalService } from 'fwk4-services'
+import { GlobalService, ApplicationService } from 'fwk4-services'
 import { ModalController, NavParams, AlertController } from '@ionic/angular'
 import { AngularFirestore } from '@angular/fire/firestore'
 import * as moment from 'moment'
@@ -34,6 +34,7 @@ export class SesionPage implements OnInit, OnDestroy {
       private navParams: NavParams,
       private modalController: ModalController,
       private globalSrv: GlobalService,
+      private appSrv: ApplicationService,
       private afs: AngularFirestore,
       private fbsSrv: FbsService
    ) {
@@ -50,10 +51,10 @@ export class SesionPage implements OnInit, OnDestroy {
       this.sessionsPath = 'pacientes/' + this.patient.id + '/sesiones/'
       this.sessionAttachmentsPath = this.sessionsPath + this.session.id + '/adjuntos'
 
-      this.fbsSrv.startSpinner()
+      this.appSrv.showLoading()
       this.sub = this.afs.collection(this.sessionAttachmentsPath).valueChanges({ idField: 'id' }).subscribe(ats => {
          this.attachments = ats
-         this.fbsSrv.stopSpinner()
+         this.appSrv.hideLoading()
       })
    }
    ngOnDestroy() {
@@ -74,18 +75,18 @@ export class SesionPage implements OnInit, OnDestroy {
    chooseFile() {
       this.chooser.getFile('*/*').then(f => {
          if (f){
-            this.fbsSrv.startSpinner()
+            this.appSrv.showLoading()
             this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
                this.saveAttachment(obj)
             })
          }
       })
       .catch(err=>{
-         this.fbsSrv.stopSpinner()
+         this.appSrv.hideLoading()
       })
    }
    handleFile(files: FileList) {
-      this.fbsSrv.startSpinner()
+      this.appSrv.showLoading()
       this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj => {
          this.saveAttachment(obj)
       })
@@ -115,11 +116,11 @@ export class SesionPage implements OnInit, OnDestroy {
                text: 'Okay',
                handler: async () => {
                   console.log('Confirm Okay')
-                  this.fbsSrv.startSpinner()
+                  this.appSrv.showLoading()
                   this.fbsSrv.deleteFileStorage(this.patient.dni, adj.nombre)
                   await this.afs.doc(this.sessionAttachmentsPath + '/' + adj.id).delete()
                   await this.afs.doc(this.attachmentsPath + '/' + adj.id).delete()
-                  this.fbsSrv.stopSpinner()
+                  this.appSrv.hideLoading()
                }
             }
          ]
@@ -144,6 +145,6 @@ export class SesionPage implements OnInit, OnDestroy {
       const id = new Date().getTime().toString()
       await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(obj)
       await this.afs.collection(this.attachmentsPath).doc(id).set(obj)
-      this.fbsSrv.stopSpinner()
+      this.appSrv.hideLoading()
    }
 }

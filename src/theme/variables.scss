@@ -83,3 +83,39 @@
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 }
+
+
+/**************************************************/
+$loading-md-background: transparent;
+$loading-md-box-shadow: none;
+
+ion-loading.spinnerCss {
+  .loading-wrapper {
+    color: white;
+    //background:palevioletred;
+    //background: brown;
+    //width: 50px;
+    //height: 50px;
+  } 
+}
+.spinnerClass{
+   animation: spinner 3s infinite linear;
+   perspective: 500px;
+   transform-style: preserve-3d;
+   //width: 100px;
+   //height: 100px;
+   //margin: 50px 0 0 50px;
+   //background: blue;    
+   //color:green;
+   //animation-name: spinnerAnim;
+   //animation-duration: 4s;
+}
+@keyframes spinner {
+   0% { 
+       transform: rotate3d(0, 1, 0, 0deg);
+   }
+   100% { 
+       transform: rotate3d(0, 1, 0, 360deg);
+   }
+}
+

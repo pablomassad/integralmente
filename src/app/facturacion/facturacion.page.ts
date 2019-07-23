@@ -6,6 +6,7 @@ import { equal } from 'assert';
 import { Subscription } from 'rxjs'
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 import { FbsService } from 'src/app/fbs.service'
+import { ApplicationService } from 'fwk4-services';
 
 @Component({
    selector: 'app-facturacion',
@@ -24,6 +25,7 @@ export class FacturacionPage implements OnInit, OnDestroy {
    subCob: Subscription
    
    constructor(
+      private appSrv: ApplicationService,
       private fbsSrv: FbsService,
       private alertCtrl:AlertController,
       private iab: InAppBrowser,
@@ -41,7 +43,7 @@ export class FacturacionPage implements OnInit, OnDestroy {
          return (idx !== -1)
       })
       this[totField] = res.reduce((total, item)=> {
-         return Number(total + item['monto']);
+         return Number(total + Number(item['monto']));
       }, 0)
       return res
    }
@@ -83,10 +85,10 @@ export class FacturacionPage implements OnInit, OnDestroy {
                text: 'Okay',
                handler: async () => {
                   console.log('Delete confirmed')
-                  this.fbsSrv.startSpinner()
+                  this.appSrv.showLoading()
                   await this.fbsSrv.deleteFileStorage('facturas', fac.nombre)
                   await this.afs.doc('facturas/' + fac.id).delete()
-                  this.fbsSrv.stopSpinner()
+                  this.appSrv.hideLoading()
                }
             }
          ]

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { GlobalService } from 'fwk4-services'
+import { GlobalService, ApplicationService } from 'fwk4-services'
 import { Router } from '@angular/router'
 import * as moment from 'moment'
 import { ActionSheetController } from '@ionic/angular'
@@ -23,6 +23,7 @@ export class PacientesPage implements OnInit, OnDestroy {
       private route: Router,
       private afs: AngularFirestore,
       private globalSrv: GlobalService,
+      private appSrv: ApplicationService,
       private fbsSrv: FbsService
    ) {
       console.log('PacientesPage constructor')
@@ -30,19 +31,19 @@ export class PacientesPage implements OnInit, OnDestroy {
 
    async ngOnInit() {
       this.user = await this.globalSrv.getItem('userInfo')
-      this.fbsSrv.startSpinner()
+      this.appSrv.showLoading()
       this.sub = this.afs.collection('pacientes', ref => ref.where('uid', '==', this.user.uid)).valueChanges({ idField: 'id' }).subscribe(ps => {
          this.patients = ps
-         this.fbsSrv.stopSpinner()
+         this.appSrv.hideLoading()
       })
    }
    ngOnDestroy(){
       this.sub.unsubscribe()
    }
    async removePatient(p) {
-      this.fbsSrv.startSpinner()
+      this.appSrv.showLoading()
       await this.afs.collection('pacientes').doc(p.id).delete()
-      this.fbsSrv.stopSpinner()
+      this.appSrv.hideLoading()
    }
    async gotoPatient(p) {
       await this.globalSrv.setItem('patient', p)

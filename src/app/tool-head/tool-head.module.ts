@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ToolHeadComponent } from './tool-head.component';
+import { EditionPage } from './edition.page';
 
 
 @NgModule({
@@ -12,7 +13,10 @@ import { ToolHeadComponent } from './tool-head.component';
    exports: [
       ToolHeadComponent
    ],
-   declarations: [ToolHeadComponent]
+   entryComponents: [
+      EditionPage
+   ],
+   declarations: [ToolHeadComponent, EditionPage]
 })
 export class ToolHeadComponentModule {
    constructor() {

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core'
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore'
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage'
 import * as firebase from "firebase"
-import { LoadingController } from '@ionic/angular'
+import { ApplicationService } from 'fwk4-services';
 
 @Injectable({
    providedIn: 'root'
@@ -13,7 +12,7 @@ export class FbsService {
    private loading:any
    
    constructor(
-      private loadingCtrl: LoadingController,
+      private appSrv: ApplicationService,
       private afStorage: AngularFireStorage) {
       console.log('FbsService constructor')
    }
@@ -105,16 +104,16 @@ export class FbsService {
 
 
 
-   async startSpinner() {
-      this.loading = await this.loadingCtrl.create({
-         spinner: "bubbles",
-         message: 'cargando...'
-      })
-      await this.loading.present()
-   }
-   stopSpinner(){
-      this.loading.dismiss()
-   }
+   // async startSpinner() {
+   //    this.loading = await this.loadingCtrl.create({
+   //       spinner: "bubbles",
+   //       // message: 'cargando...'
+   //    })
+   //    await this.loading.present()
+   // }
+   // stopSpinner(){
+   //    this.loading.dismiss()
+   // }
 
 
    // uploadPic(dni, upload) {

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from 'fwk4-services';
-import { ActionSheetController } from '@ionic/angular';
-import { AuthService } from 'fwk4-authentication';
+import { ActionSheetController, ModalController } from '@ionic/angular';
+import { AuthService, UserModel } from 'fwk4-authentication';
 import { Router } from '@angular/router';
+import { EditionPage } from './edition.page';
 
 @Component({
    selector: 'app-tool-head',
@@ -10,19 +11,19 @@ import { Router } from '@angular/router';
    styleUrls: ['./tool-head.component.scss'],
 })
 export class ToolHeadComponent implements OnInit {
+   user: UserModel
 
-   user: any
    constructor(
+      private modalController: ModalController,
       private authSrv: AuthService,
-      private route: Router, 
-      private actionSheetController: ActionSheetController,
-      private globalSrv: GlobalService
+      private route: Router,
+      private actionSheetController: ActionSheetController
    ) {
       console.log('ToolHeadComponent constructor')
    }
 
    async ngOnInit() {
-      this.user = await this.globalSrv.getItem('userInfo')
+      this.user = await this.authSrv.loggedUser()
    }
 
    async openMenuSheet() {
@@ -30,8 +31,12 @@ export class ToolHeadComponent implements OnInit {
          {
             text: 'Editar Perfil',
             icon: 'person',
-            handler: () => {
-               console.log('Edit User');
+            handler: async () => {
+               const modal = await this.modalController.create({
+                  component: EditionPage,
+                  componentProps: {}
+               })
+               return await modal.present()
             }
          },
          {
@@ -43,25 +48,18 @@ export class ToolHeadComponent implements OnInit {
                })
                console.log('Logout');
             }
+         },
+         {
+            text: 'Cancelar',
+            icon: 'close',
+            role: 'Cancel',
+            handler: () => {
+               console.log('Cancelar');
+            }
          }
       ]
 
-      if (this.user.isAdmin == true)
-         menuOptions.push({
-            text: 'Administrar Usuarios',
-            icon: 'people',
-            handler: () => {
-               console.log('Admin Users');
-            }
-         })
-
-      menuOptions.push({
-         text: 'Cancelar',
-         icon: 'close',
-         handler: () => {
-            console.log('Cancelar');
-         }
-      })
+      menuOptions.push()
 
       const actionSheet = await this.actionSheetController.create({
          header: 'Opciones',

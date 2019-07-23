@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { GlobalService } from 'fwk4-services'
+import { GlobalService, ApplicationService } from 'fwk4-services'
 import { ModalController, NavParams, AlertController } from '@ionic/angular'
 import { AngularFirestore } from '@angular/fire/firestore'
 import * as moment from 'moment'
@@ -25,6 +25,7 @@ export class FacturaPage implements OnInit, OnDestroy {
       private navParams: NavParams,
       private modalController: ModalController,
       private globalSrv: GlobalService,
+      private appSrv: ApplicationService,
       private afs: AngularFirestore,
       private fbsSrv: FbsService
    ) {
@@ -49,7 +50,7 @@ export class FacturaPage implements OnInit, OnDestroy {
          if (f) this.saveFactura(f)
       })
       .catch(err=>{
-         this.fbsSrv.stopSpinner()
+         this.appSrv.hideLoading()
       })
    }
    handleFile(files: FileList) {
@@ -82,14 +83,14 @@ export class FacturaPage implements OnInit, OnDestroy {
       this.modalController.dismiss()
    }
    saveFactura(file: any) {
-      this.fbsSrv.startSpinner()
+      this.appSrv.showLoading()
       this.fbsSrv.deleteFileStorage('facturas', this.factura.nombre)
       this.fbsSrv.uploadFile(file, 'facturas').then(async obj => {
          const doc = await this.afs.collection('facturas').add(obj)
          this.factura.id = doc.id
          this.factura.nombre = obj.nombre
          this.factura.url = obj.url
-         this.fbsSrv.stopSpinner()
+         this.appSrv.hideLoading()
       })
    }
 }

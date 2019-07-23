@@ -1,12 +1,52 @@
-<ion-header>
-   <ion-toolbar>
-      <ion-buttons slot="start">
-         <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>CONFIGURACION</ion-title>
-   </ion-toolbar>
-</ion-header>
+<app-tool-head>
+   <ion-title>CONFIGURACION</ion-title>
+</app-tool-head>
+
+
+<ion-item style="--ion-background-color: linear-gradient(#ddd, #fff);">
+   <ion-icon name="person" class="filterIcon" slot="start"></ion-icon>
+   <ion-label position="floating" class="txtCriteria">Ingrese datos</ion-label>
+   <ion-input type="text" [(ngModel)]="criteria" class="filterInput"></ion-input>
+</ion-item>
 
 <ion-content>
-
+   <ion-grid class="back">
+      <ion-row>
+         <ion-col size-sm="12" size-lg="6">
+            <ion-list style="padding-bottom: 60px">
+               <ion-item-sliding *ngFor="let u of users | searchInfo: criteria">
+                  <ion-item (click)="gotoUser(u)">
+                     <ion-avatar slot="start" class="foto">
+                        <img [src]="u.photoURL">
+                     </ion-avatar>
+                     <ion-grid>
+                        <ion-row>
+                           <ion-col size-xs="12">
+                              <div>{{u.email}}</div>
+                           </ion-col>
+                           <ion-col>
+                              <div style="float:left">{{u.displayName}}</div>
+                              <ion-icon *ngIf="u.isAdmin" name="school"  class="adminIcon"></ion-icon>
+                           </ion-col>
+                        </ion-row>
+                     </ion-grid>
+                  </ion-item>
+                  <ion-item-options side="end">
+                     <ion-item-option (click)="removeUser(u)" color="danger">
+                        <div class="grdRemove">
+                           <ion-icon name="trash"></ion-icon>
+                           <div>Eliminar</div>
+                        </div>
+                     </ion-item-option>
+                  </ion-item-options>
+               </ion-item-sliding>
+            </ion-list>
+         </ion-col>
+      </ion-row>
+   </ion-grid>
+   <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="glass glRound" style="position: fixed;">
+      <ion-fab-button (click)="gotoUser({})">
+         <ion-icon name="person-add"></ion-icon>
+      </ion-fab-button>
+   </ion-fab>
 </ion-content>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { GlobalService } from 'fwk4-services'
+import { GlobalService, ApplicationService } from 'fwk4-services'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { Subscription } from 'rxjs'
 import { FbsService } from 'src/app/fbs.service'
@@ -31,6 +31,7 @@ export class DocsPage implements OnInit {
       private chooser: Chooser,
       private alertCtrl: AlertController,
       private globalSrv: GlobalService,
+      private appSrv: ApplicationService,
       private afs: AngularFirestore,
       private fbsSrv: FbsService
    ) {
@@ -55,18 +56,18 @@ export class DocsPage implements OnInit {
    chooseFile() {
       this.chooser.getFile('*/*').then(f => {
          if (f){
-            this.fbsSrv.startSpinner()
+            this.appSrv.showLoading()
             this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
                this.saveAttachment(obj)
             })
          }
       })
       .catch(err=>{
-         this.fbsSrv.stopSpinner()
+         this.appSrv.hideLoading()
       })
    }
    handleFile(files: FileList) {
-      this.fbsSrv.startSpinner()
+      this.appSrv.showLoading()
       this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj => {
          this.saveAttachment(obj)
       })

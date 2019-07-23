@@ -9,11 +9,12 @@ import { FbsService } from 'src/app/fbs.service'
 import { Chooser } from '@ionic-native/chooser/ngx'
 
 @Component({
-   selector: 'app-register',
-   templateUrl: './register.page.html',
-   styleUrls: ['./register.page.scss', '../buttons.scss']
+   selector: 'app-edition',
+   templateUrl: './edition.page.html',
+   styleUrls: ['./edition.page.scss', '../buttons.scss']
 })
-export class RegisterPage implements OnInit {
+export class EditionPage implements OnInit {
+   user: UserModel
    isMobile: boolean
    selRole:string = 'Usuario'
    isAdmin: boolean = false
@@ -39,14 +40,16 @@ export class RegisterPage implements OnInit {
       private formBuilder: FormBuilder,
       private chooser: Chooser,
       private fbsSrv: FbsService,
-      private modalController: ModalController,
-      private authService: AuthService,
+      private firebaseSrv: FirebaseService,
+      private modalController: ModalController
    ) {
-      console.log('RegisterPage constructor')
+      console.log('EditionPage constructor')
    }
 
    async ngOnInit() {
       this.isMobile = this.globalSrv.getItemRAM('isMobile')
+      this.user = this.globalSrv.getItemRAM('userInfo')
+
       this.validations_form = this.formBuilder.group({
          displayName: new FormControl('', Validators.compose([
             Validators.required
@@ -79,7 +82,8 @@ export class RegisterPage implements OnInit {
    async save(value) {
       value['photoURL'] = this.fotoUrl
       value['isAdmin'] = this.isAdmin
-      await this.authService.doRegister(value)
+      if (this.user)
+         await this.firebaseSrv.updateUserData(this.user)
       this.modalController.dismiss()
    }
    cancel() {
@@ -88,7 +92,7 @@ export class RegisterPage implements OnInit {
 
    private savePhoto(file) {
       this.appSrv.showLoading()
-         this.fbsSrv.uploadFile(file, 'avatars').then(async obj => {
+      this.fbsSrv.uploadFile(file, 'avatars').then(async obj => {
          this.fotoUrl = obj.url
          this.appSrv.hideLoading()
       })
