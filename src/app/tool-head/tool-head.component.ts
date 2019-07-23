@@ -34,7 +34,7 @@ export class ToolHeadComponent implements OnInit {
                icon: 'log-out',
                handler: () => {
                   this.authSrv.doLogout().then(x => {
-                     this.route.navigate([''])
+                     this.route.navigate(['/login'])
                   })
                   console.log('Logout');
                }

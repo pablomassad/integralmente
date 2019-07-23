@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore'
 import { GlobalService } from 'fwk4-services'
 import * as moment from 'moment'
 import { Chooser } from '@ionic-native/chooser/ngx'
+import { UserModel } from 'fwk4-authentication';
 
 
 @Component({
@@ -13,6 +14,8 @@ import { Chooser } from '@ionic-native/chooser/ngx'
    styleUrls: ['./ficha.page.scss', '../../buttons.scss'],
 })
 export class FichaPage implements OnInit {
+   user:UserModel
+   
    validations_form: FormGroup
 
    validation_messages = {
@@ -38,7 +41,8 @@ export class FichaPage implements OnInit {
       console.log('FichaPage constructor')
    }
 
-   ngOnInit() {
+   async ngOnInit() {
+      this.user = await this.globalSrv.getItem('userInfo')
       this.validations_form = this.formBuilder.group({
          nombres: new FormControl('',
             Validators.compose([
@@ -103,6 +107,7 @@ export class FichaPage implements OnInit {
       if (obj) {
          this.patient.foto = obj.url
          this.patient.fotoNombre = obj.nombre
+         this.patient.uid = this.user.uid
       }
 
       if (this.patient.id)

@@ -67,11 +67,12 @@ img {
    align-items: center;
 }
 
-.grdPatientBar{
+.grdPatientBar {
    display: grid;
    grid-template-columns: 60px 1fr;
    align-items: center;
 }
+
 .avatar {
    box-shadow: 0px 0px 10px;
    height: 60px;
@@ -261,7 +262,7 @@ img {
    bottom: 0;
 }
 
-.backForm input{
+.backForm input {
    border: none;
    box-shadow: 0 2px 15px grey;
    outline: none;
@@ -269,22 +270,30 @@ img {
    padding: 10px;
    border-radius: 10px;
    width: 100%;
-   margin:10px 0px;
+   margin: 10px 0px;
    background-color: transparent;
    // background: transparent;
    // --background: transparent;
 }
+
 .backForm input::after {
    background-color: transparent;
- }
+}
 
 
+.editFoto {
+   background: black;
+   color: white;
+   text-align: center;
+   opacity: .8;
+   font-size: 3.5vw;
+   padding: .9vw 0 2.0vw;
+   margin-top: -7.8vw;
+}
 
- .fichaAvatar {
+.fichaAvatar {
    box-shadow: 2px 2px 10px black;
    width: 25vw;
    height: 25vw;
    overflow: hidden;
 }
-
-

@@ -4,7 +4,7 @@
             <ion-menu-button></ion-menu-button>
          </ion-buttons>
          <ng-content></ng-content>
-         <ion-avatar slot="end" *ngIf="user">
+         <ion-avatar slot="end" *ngIf="user" (click)="openMenuSheet()">
             <img class="avatar" [src]="user.photoURL">
          </ion-avatar>
       </ion-toolbar>
