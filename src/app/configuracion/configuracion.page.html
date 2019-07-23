@@ -21,7 +21,6 @@
                            <img [src]="u.photoURL">
                            <!-- <ion-icon *ngIf="u.isAdmin" name="ribbon"  class="adminIcon"></ion-icon> -->
                         </ion-avatar>
-                        <img src="assets/images/crown.png" class="adminIcon" *ngIf="u.isAdmin">
                      </div>
                      <ion-grid>
                         <ion-row>
@@ -30,6 +29,7 @@
                            </ion-col>
                            <ion-col>
                               <div style="float:left">{{u.displayName}}</div>
+                              <img src="assets/images/crown.png" class="adminIcon" *ngIf="u.isAdmin">
                            </ion-col>
                         </ion-row>
                      </ion-grid>
@@ -47,9 +47,4 @@
          </ion-col>
       </ion-row>
    </ion-grid>
-   <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="glass glRound" style="position: fixed;">
-      <ion-fab-button (click)="gotoUser({})">
-         <ion-icon name="person-add"></ion-icon>
-      </ion-fab-button>
-   </ion-fab>
 </ion-content>

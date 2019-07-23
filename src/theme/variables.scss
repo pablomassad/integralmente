@@ -99,6 +99,9 @@ ion-loading.spinnerCss {
   .loading-wrapper {
     color: white;
     background: transparent;
+    -webkit-background: transparent;
+    -o-background: transparent;
+    -moz-background: transparent;
     box-shadow: none;
     //background:palevioletred;
     //background: brown;
@@ -106,6 +109,7 @@ ion-loading.spinnerCss {
     //height: 50px;
   } 
 }
+
 .spinnerClass{
    animation: spinner 3s infinite linear;
    perspective: 500px;

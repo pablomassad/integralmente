@@ -75,7 +75,7 @@ export class UserPage implements OnInit {
    private savePhoto(file) {
       this.appSrv.showLoading()
       this.fbsSrv.uploadFile(file, 'avatars').then(async obj => {
-         this.fotoUrl = obj.url
+         this.user.photoURL = obj.url
          this.appSrv.hideLoading()
       })
    }

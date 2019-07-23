@@ -3,8 +3,9 @@ APK
 
 --------------------------------------------------------
 Login/Register
-   Pagina de register completa
-   Logout
+   [OK] Pagina de register completa
+   Logout Spinner dando vuelta
+   Recuperar Contrasena
 
 --------------------------------------------------------
 Pacientes
@@ -20,6 +21,7 @@ Ficha
 
 --------------------------------------------------------
 Historia Clinica
+      Primera entrevista (implementar...)
    [OK] Layout Styles
    [OK] ABM 
 
@@ -30,10 +32,12 @@ Documentacion
 
 --------------------------------------------------------
 Facturas / Facturacion
-   Layout Styles
+   [OK] Layout Styles
 
 --------------------------------------------------------
 Configuracion
-   Layout Styles
+   [OK] Layout Styles
+   Eliminacion de cuenta
+
 
 

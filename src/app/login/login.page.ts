@@ -39,6 +39,8 @@ export class LoginPage implements OnInit {
       private formBuilder: FormBuilder
    ) {
       console.log('LoginPage constructor')
+      this.appSrv.configLoading('p&pSoft.png', 'spinnerClass', 'spinnerCss')
+      
       this.validations_form = this.formBuilder.group({
          email: new FormControl('',
             Validators.compose([
@@ -61,6 +63,7 @@ export class LoginPage implements OnInit {
       this.appSrv.showLoading()
       let usr = await this.authSrv.loggedUser()
       if (usr != null) {
+         this.appSrv.hideLoading()
          this.route.navigate(['/menu/pacientes'])
       }
       this.appSrv.hideLoading()
@@ -70,6 +73,7 @@ export class LoginPage implements OnInit {
       try {
          this.appSrv.showLoading()
          await this.authSrv.doLogin(value)
+         this.appSrv.hideLoading()
          this.route.navigate(['/menu/pacientes']) 
       } catch (error) {
          this.appSrv.hideLoading()
