@@ -14,8 +14,12 @@ import { UserModel } from 'fwk4-authentication';
    styleUrls: ['./ficha.page.scss', '../../buttons.scss'],
 })
 export class FichaPage implements OnInit {
-   user:UserModel
-   
+   user: UserModel
+   private fileInfo: any
+   patient: any
+   isMobile: boolean = false
+   fechaNacimiento: any
+
    validations_form: FormGroup
 
    validation_messages = {
@@ -26,10 +30,6 @@ export class FichaPage implements OnInit {
          { type: 'required', message: 'El apellido es requerido' }
       ]
    }
-
-   patient: any
-   isMobile: boolean = false
-   fechaNacimiento: any
 
    constructor(
       private formBuilder: FormBuilder,
@@ -59,29 +59,18 @@ export class FichaPage implements OnInit {
       this.fechaNacimiento = moment(this.patient.nacimiento).format("MM/DD/YYYY")
       this.isMobile = this.globalSrv.getItemRAM('isMobile')
 
-      if (this.patient.id){
-         this.validations_form.setValue({ 
-            nombres: this.patient.nombres, 
-            apellido:this.patient.apellido
+      if (this.patient.id) {
+         this.validations_form.setValue({
+            nombres: this.patient.nombres,
+            apellido: this.patient.apellido
          })
       }
    }
-   async handleAvatar(files: FileList) {
-      await this.fbsSrv.deleteFileStorage(this.patient.dni, this.patient.fotoNombre)
-      const obj = await this.fbsSrv.uploadFile(files.item(0), this.patient.dni)
-      this.saveToDB(obj)
+   async chooseFileBrowser(info: File) {
+      this.fileInfo = info
    }
-   chooseFile() {
-      this.chooser.getFile('*/*').then(async f => {
-         if (f){
-            const obj = await this.fbsSrv.uploadFile(f, this.patient.dni)
-            this.saveToDB(obj)
-         }
-      })
-      .catch(err=>{
-         this.appSrv.message('Ocurrio un error al seleccionar foto', 'error')
-         console.log('Error Foto: ', err)
-      })
+   async chooseFileMobile() {
+      this.fileInfo = await this.chooser.getFile('*/*')
    }
    evalEdad() {
       const today = moment()
@@ -89,22 +78,23 @@ export class FichaPage implements OnInit {
       const edad = today.diff(cumple, 'y')
       return edad + " años"
    }
-   cancel(){
-      
+   cancel() {
+
    }
    async save(val) {
+      if (this.fileInfo) {
+         if (this.patient.fotoNombre)
+            await this.fbsSrv.deleteFileStorage(this.patient.dni, this.patient.fotoNombre)
+
+         const obj = await this.fbsSrv.uploadFile(this.fileInfo, this.patient.dni)
+         this.patient.foto = obj.url
+         this.patient.fotoNombre = obj.nombre
+      }
+
       this.patient.nombres = val.nombres
       this.patient.apellido = val.apellido
       this.patient.nacimiento = moment(this.fechaNacimiento).valueOf()
-      await this.saveToDB()
-   }
-
-   private async saveToDB(obj?: any) {
-      if (obj) {
-         this.patient.foto = obj.url
-         this.patient.fotoNombre = obj.nombre
-         this.patient.uid = this.user.id
-      }
+      this.patient.uid = this.user.id
 
       if (this.patient.id)
          await this.afs.collection('pacientes').doc(this.patient.id).set(this.patient, { merge: true })

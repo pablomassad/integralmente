@@ -13,7 +13,7 @@
          <ion-row justify-content-center style="margin-bottom: 30px">
             <ion-avatar class="fichaAvatar">
                <img [src]="fotoUrl">
-               <div class="editFoto" *ngIf="isMobile" (click)="chooseFile()">
+               <div class="editFoto" *ngIf="isMobile" (click)="chooseFileMobile()">
                   CAMBIAR
                </div>
                <label for="photoEdit" *ngIf="!isMobile">
@@ -22,7 +22,7 @@
                   </div>
                </label>
             </ion-avatar>
-            <input type="file" style="display: none" id="photoEdit" (change)="handleAvatar($event.target.files)" />
+            <input type="file" style="display: none" id="photoEdit" (change)="chooseFileBrowser($event.target.files.item(0))" />
          </ion-row>
          <ion-row align-items-center justify-content-center>
             <ion-col>

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
-import { AuthService, FirebaseService, UserModel } from 'fwk4-authentication'
+import { AuthService } from 'fwk4-authentication'
 import { GlobalService, ApplicationService } from 'fwk4-services'
-import { ModalController, NavParams, AlertController } from '@ionic/angular'
-import { AngularFirestore } from '@angular/fire/firestore'
-import * as moment from 'moment'
+import { ModalController} from '@ionic/angular'
 import { FbsService } from 'src/app/fbs.service'
 import { Chooser } from '@ionic-native/chooser/ngx'
 
@@ -14,6 +12,7 @@ import { Chooser } from '@ionic-native/chooser/ngx'
    styleUrls: ['./register.page.scss', '../buttons.scss']
 })
 export class RegisterPage implements OnInit {
+   private fileInfo:any
    isMobile: boolean
    selRole:string = 'Usuario'
    isAdmin: boolean = false
@@ -62,29 +61,28 @@ export class RegisterPage implements OnInit {
       })
    }
 
-   chooseFile() {
-      this.chooser.getFile('*/*').then(foto => {
-         if (foto) this.savePhoto(foto)
-      })
+   chooseFileBrowser(info: File) {
+      this.fileInfo = info
    }
-   handleAvatar(files: FileList) {
-      if (files) this.savePhoto(files.item(0))
+   async chooseFileMobile() {
+      this.fileInfo = await this.chooser.getFile('*/*')
    }
+
+
    changeRole(ev){
       this.isAdmin = ev.target.checked
    }
    async save(value) {
-      value['photoURL'] = this.fotoUrl
+      if (this.fileInfo) {
+         const obj = await this.fbsSrv.uploadFile(this.fileInfo, 'avatars')
+         value['photoURL'] = obj.url
+         value['photoName'] = obj.nombre
+      }
       value['isAdmin'] = this.isAdmin
       await this.authService.doRegister(value)
       this.modalController.dismiss()
    }
    cancel() {
       this.modalController.dismiss()
-   }
-
-   private async savePhoto(file) {
-      const obj = await this.fbsSrv.uploadFile(file, 'avatars')
-      this.fotoUrl = obj.url
    }
 }

@@ -22,7 +22,7 @@ export class FacturacionPage implements OnInit, OnDestroy {
    totalPendientes:number
    totalCobradas:number
 
-   criteria:string = "OSDE"
+   criteria:string = ""
    subPend: Subscription
    subCob: Subscription
    

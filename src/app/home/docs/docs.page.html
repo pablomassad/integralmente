@@ -18,7 +18,7 @@
    <ion-fab vertical="bottom" horizontal="end" class="glass glRound" style="position: fixed">
       <ion-fab-button>
          <label *ngIf="isMobile">
-            <div class="btnAddAdjunto" (click)="chooseFile()">
+            <div class="btnAddAdjunto" (click)="chooseFileMobile()">
                <ion-icon name="add"></ion-icon>
             </div>
          </label>
@@ -27,7 +27,7 @@
                <ion-icon name="add"></ion-icon>
             </div>
          </label>
-         <input type="file" style="display: none" id="attachment" (change)="handleFile($event.target.files)" />
+         <input type="file" style="display: none" id="attachment" (change)="chooseFileBrowser($event.target.files.ite(0))" />
       </ion-fab-button>
    </ion-fab>
 </ion-content>

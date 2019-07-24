@@ -5,7 +5,7 @@
                <div slot="start">
                   <ion-avatar class="fichaAvatar">
                      <img [src]="patient.foto">
-                     <div class="editFoto" *ngIf="isMobile" (click)="chooseFile()">
+                     <div class="editFoto" *ngIf="isMobile" (click)="chooseFileMobile()">
                         CAMBIAR
                      </div>
                      <label for="photoEdit" *ngIf="!isMobile">
@@ -15,7 +15,7 @@
                      </label>
                   </ion-avatar>
                   <input type="file" style="display: none" id="photoEdit"
-                     (change)="handleAvatar($event.target.files)" />
+                     (change)="chooseFileBrowser($event.target.files.item(0))" />
                </div>
                <ion-grid>
                      <form [formGroup]="validations_form" *ngIf="patient" (ngSubmit)="save(validations_form.value)"

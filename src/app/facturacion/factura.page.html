@@ -51,7 +51,7 @@
                <label *ngIf="isMobile">
                   <div class="glass glFlex facturaName"
                      [ngClass]="{'facturaOK': (factura.url != undefined), 'facturaNO': (factura.url == undefined)}"
-                     (click)="chooseFile()">
+                     (click)="chooseFileMobile()">
                      <ion-icon name="attach" style="font-size: 23px !important;"></ion-icon>
                      <div *ngIf="!factura.url">Adjuntar factura...</div>
                      <div *ngIf="factura.url">{{factura.nombre}}</div>
@@ -65,7 +65,7 @@
                      <div *ngIf="factura.url">{{factura.nombre}}</div>
                   </div>
                </label>
-               <input type="file" style="display: none" id="attachment" (change)="handleFile($event.target.files)" />
+               <input type="file" style="display: none" id="attachment" (change)="chooseFileBrowser($event.target.files.item(0))" />
             </div>
          </ion-col>
       </ion-row>

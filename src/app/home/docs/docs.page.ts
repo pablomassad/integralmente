@@ -14,7 +14,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
    styleUrls: ['./docs.page.scss', '../../buttons.scss'],
 })
 export class DocsPage implements OnInit {
-
+   private fileInfo:any
    patient: any
    session: any
    attachments: any
@@ -53,24 +53,11 @@ export class DocsPage implements OnInit {
    shortName(n) {
       return this.fbsSrv.shortName(n)
    }
-   chooseFile() {
-      this.chooser.getFile('*/*')
-         .then(async f => {
-            if (f) {
-               const obj = await this.fbsSrv.uploadFile(f, this.patient.dni)
-               this.saveAttachment(obj)
-            }
-         })
-         .catch(err => {
-            this.appSrv.message('Ocurrio un error al seleccionar adjunto', 'error')
-            console.log('Error adjunto: ', err)
-         })
+   chooseFileBrowser(info: File) {
+      this.fileInfo = info
    }
-   async handleFile(files: FileList) {
-      if (files) {
-         const obj = await this.fbsSrv.uploadFile(files.item(0), this.patient.dni)
-         this.saveAttachment(obj)
-      }
+   async chooseFileMobile() {
+      this.fileInfo = await this.chooser.getFile('*/*')
    }
    isImage(ext) {
       let flag = false
@@ -110,14 +97,19 @@ export class DocsPage implements OnInit {
       })
       await alert.present();
    }
-
-
-   async saveAttachment(adj: any) {
-      const id = new Date().getTime().toString()
-      if (adj.idSesion) {
-         this.sessionAttachmentsPath = 'pacientes/' + this.patient.id + '/sesiones/' + adj.idSesion + '/adjuntos'
-         await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(adj)
+   async saveAttachment() {
+      if (this.fileInfo) {
+         let obj = await this.fbsSrv.uploadFile(this.fileInfo, this.patient.dni)
+         const id = new Date().getTime().toString()
+         await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(obj)
+         await this.afs.collection(this.attachmentsPath).doc(id).set(obj)
       }
-      await this.afs.collection(this.attachmentsPath).doc(id).set(adj)
+
+      // const id = new Date().getTime().toString()
+      // if (adj.idSesion) {
+      //    this.sessionAttachmentsPath = 'pacientes/' + this.patient.id + '/sesiones/' + adj.idSesion + '/adjuntos'
+      //    await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(adj)
+      // }
+      // await this.afs.collection(this.attachmentsPath).doc(id).set(adj)
    }
 }

@@ -7,6 +7,7 @@ import * as moment from 'moment'
 import { FbsService } from 'src/app/fbs.service'
 import { Chooser } from '@ionic-native/chooser/ngx'
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
+import { UserModel } from 'fwk4-authentication';
 
 
 @Component({
@@ -15,6 +16,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
    styleUrls: ['./factura.page.scss', '../buttons.scss'],
 })
 export class FacturaPage implements OnInit, OnDestroy {
+   private fileInfo:any
+   user:UserModel
    factura: any
    isMobile: boolean
    fechaFactura:any
@@ -35,6 +38,7 @@ export class FacturaPage implements OnInit, OnDestroy {
 
    ngOnInit() {
       this.isMobile = this.globalSrv.getItemRAM('isMobile')
+      this.user = this.globalSrv.getItemRAM('userInfo')
       this.factura = this.navParams.get('facturaDetail')
       this.fechaFactura = moment(this.factura.fecha).format("MM/DD/YYYY")
       if (!this.factura['id']){
@@ -46,18 +50,14 @@ export class FacturaPage implements OnInit, OnDestroy {
    changeState(ev){
       this.factura.estado = (ev.target.checked == true)?'Cobrada':'Pendiente'
    }
-   chooseFile() {
-      this.chooser.getFile('*/*').then(f => {
-         if (f) this.saveFactura(f)
-      })
-      .catch(err=>{
-         this.appSrv.message('Ocurrio un error al seleccionar factura', 'error')
-         console.log('Error Factura: ', err)
-      })
+
+   chooseFileBrowser(info: File) {
+      this.fileInfo = info
    }
-   handleFile(files: FileList) {
-      if (files) this.saveFactura(files.item(0))
+   async chooseFileMobile() {
+      this.fileInfo = await this.chooser.getFile('*/*')
    }
+
    openFile(url) {
       this.iab.create(url, '_system')
    }
@@ -66,30 +66,37 @@ export class FacturaPage implements OnInit, OnDestroy {
    }
 
    async save() {
+      if (this.fileInfo) {
+         if (this.factura.nombre)
+            await this.fbsSrv.deleteFileStorage('facturas', this.factura.nombre)
+
+         const obj = await this.fbsSrv.uploadFile(this.fileInfo, 'facturas')
+         this.factura.url = obj.url
+         this.factura.nombre = obj.nombre
+      }
+
       this.factura.fecha = moment(this.fechaFactura).valueOf()
+      this.factura.uid = this.user.id
+
       if (this.factura['id'] != undefined)
          await this.afs.doc('facturas/'+this.factura.id).set(this.factura, { merge: true })
-      else{
-         const alert = await this.alertCtrl.create({
-            header: 'Alerta',
-            subHeader: 'No esta la factura',
-            message: 'Debe cargar una factura para grabar',
-            buttons: ['OK']
-          })
+      else
+         await this.afs.collection('facturas').add(this.factura)
+
       
-          await alert.present()
-      }
+      // else{
+      //    const alert = await this.alertCtrl.create({
+      //       header: 'Alerta',
+      //       subHeader: 'No esta la factura',
+      //       message: 'Debe cargar una factura para grabar',
+      //       buttons: ['OK']
+      //     })
+      //     await alert.present()
+      // }
+
       this.modalController.dismiss()
    }
    cancel() {
       this.modalController.dismiss()
-   }
-   async saveFactura(file: any) {
-      await this.fbsSrv.deleteFileStorage('facturas', this.factura.nombre)
-      const obj = await this.fbsSrv.uploadFile(file, 'facturas')
-      const doc = await this.afs.collection('facturas').add(obj)
-      this.factura.id = doc.id
-      this.factura.nombre = obj.nombre
-      this.factura.url = obj.url
    }
 }

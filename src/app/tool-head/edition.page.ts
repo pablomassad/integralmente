@@ -12,6 +12,7 @@ import { FirebaseService, UserModel } from 'fwk4-authentication'
    styleUrls: ['./edition.page.scss', '../buttons.scss']
 })
 export class EditionPage implements OnInit {
+   private fileInfo: any
    user: UserModel
    isMobile: boolean
    selRole: string = 'Usuario'
@@ -51,34 +52,32 @@ export class EditionPage implements OnInit {
       // this.validations_form.setValue({ displayName: this.user.displayName, isAdmin: this.user.isAdmin });
    }
 
-   chooseFile() {
-      this.chooser.getFile('*/*')
-         .then(foto => {
-            if (foto) this.savePhoto(foto)
-         })
-         .catch(err => {
-            this.appSrv.message('Ocurrio un error al seleccionar foto', 'error')
-            console.log('Error Foto: ', err)
-         })
+   chooseFileBrowser(info: File) {
+      this.fileInfo = info
    }
-   handleAvatar(files: FileList) {
-      this.savePhoto(files.item(0))
+   async chooseFileMobile() {
+      this.fileInfo = await this.chooser.getFile('*/*')
    }
+
+
    changeRole(ev) {
       this.user.isAdmin = ev.target.checked
    }
    async save(value) {
+      if (this.fileInfo) {
+         if (this.user.photoName)
+            await this.fbsSrv.deleteFileStorage('avatars', this.user.photoName)
+
+         const obj = await this.fbsSrv.uploadFile(this.fileInfo, 'avatars')
+         this.user.photoURL = obj.url
+         this.user.photoName = obj.nombre
+      }
+
       this.user.displayName = value['displayName']
       await this.firebaseSrv.updateUserData(this.user)
       this.modalController.dismiss()
    }
    cancel() {
       this.modalController.dismiss()
-   }
-
-   private async savePhoto(file) {
-      const obj = await this.fbsSrv.uploadFile(file, 'avatars')
-      this.user.photoName = obj.nombre
-      this.user.photoURL = obj.url
    }
 }

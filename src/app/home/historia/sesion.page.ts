@@ -15,6 +15,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
    styleUrls: ['./sesion.page.scss', '../../buttons.scss'],
 })
 export class SesionPage implements OnInit, OnDestroy {
+   private fileInfo: any
    patient: any
    session: any
    fechaSesion: any
@@ -70,22 +71,17 @@ export class SesionPage implements OnInit, OnDestroy {
    shortName(n) {
       return this.fbsSrv.shortName(n)
    }
-   chooseFile() {
-      this.chooser.getFile('*/*').then(async f => {
-         if (f){
-            const obj = await this.fbsSrv.uploadFile(f, this.patient.dni)
-            this.saveAttachment(obj)
-         }
-      })
-      .catch(err=>{
-         this.appSrv.message('Ocurrio un error al seleccionar adjunto', 'error')
-         console.log('Error adjunto: ', err)
-      })
+
+   chooseFileBrowser(info: File) {
+      this.fileInfo = info
+      this.saveAttachment()
    }
-   async handleFile(files: FileList) {
-      const obj = await this.fbsSrv.uploadFile(files.item(0), this.patient.dni)
-      this.saveAttachment(obj)
+   async chooseFileMobile() {
+      const fi = await this.chooser.getFile('*/*')
+      this.fileInfo = fi
+      this.saveAttachment()
    }
+
    isImage(ext) {
       let flag = false
       if ((ext == 'png') || (ext == 'jpg') || (ext == 'jpeg') || (ext == 'gif'))
@@ -133,10 +129,14 @@ export class SesionPage implements OnInit, OnDestroy {
    cancel() {
       this.modalController.dismiss()
    }
-   async saveAttachment(obj: object) {
-      obj['idSesion'] = this.session.id
-      const id = new Date().getTime().toString()
-      await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(obj)
-      await this.afs.collection(this.attachmentsPath).doc(id).set(obj)
+
+   async saveAttachment() {
+      if (this.fileInfo) {
+         let obj = await this.fbsSrv.uploadFile(this.fileInfo, this.patient.dni)
+         obj['idSesion'] = this.session.id
+         const id = new Date().getTime().toString()
+         await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(obj)
+         await this.afs.collection(this.attachmentsPath).doc(id).set(obj)
+      }
    }
 }
