@@ -41,11 +41,14 @@ export class EditionPage implements OnInit {
       this.user = this.globalSrv.getItemRAM('userInfo')
 
       this.validations_form = this.formBuilder.group({
-         displayName: new FormControl('', Validators.compose([
+         displayName: new FormControl({value:this.user.displayName, disabled:true}, Validators.compose([
+            Validators.required
+         ])),
+         isAdmin: new FormControl({value:this.user.isAdmin}, Validators.compose([
             Validators.required
          ]))
       })
-      this.validations_form.setValue({ displayName: this.user.displayName });
+      // this.validations_form.setValue({ displayName: this.user.displayName, isAdmin: this.user.isAdmin });
    }
 
    chooseFile() {
@@ -53,7 +56,7 @@ export class EditionPage implements OnInit {
          if (foto) this.savePhoto(foto)
       })
          .catch(err => {
-            this.appSrv.hideLoading()
+            
          })
    }
    handleAvatar(files: FileList) {
@@ -71,11 +74,9 @@ export class EditionPage implements OnInit {
       this.modalController.dismiss()
    }
 
-   private savePhoto(file) {
-      this.appSrv.showLoading()
-      this.fbsSrv.uploadFile(file, 'avatars').then(async obj => {
-         this.user.photoURL = obj.url
-         this.appSrv.hideLoading()
-      })
+   private async savePhoto(file) {
+      const obj = await this.fbsSrv.uploadFile(file, 'avatars')
+      this.user.photoName = obj.nombre
+      this.user.photoURL = obj.url
    }
 }

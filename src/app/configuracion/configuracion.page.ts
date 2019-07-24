@@ -26,11 +26,8 @@ export class ConfiguracionPage implements OnInit, OnDestroy {
    }
 
    async ngOnInit() {
-
-      this.appSrv.showLoading()
       this.sub = this.afs.collection('users').valueChanges({ idField: 'id' }).subscribe(ps => {
          this.users = ps
-         this.appSrv.hideLoading()
       })
    }
    ngOnDestroy(){
@@ -52,10 +49,8 @@ export class ConfiguracionPage implements OnInit, OnDestroy {
                text: 'Okay',
                handler: async () => {
                   console.log('Delete confirmed')
-                  this.appSrv.showLoading()
                   await this.fbsSrv.deleteFileStorage('users', usr.nombre)
                   await this.afs.doc('users/' + usr.id).delete()
-                  this.appSrv.hideLoading()
                }
             }
          ]

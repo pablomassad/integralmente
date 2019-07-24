@@ -51,11 +51,12 @@ export class FacturaPage implements OnInit, OnDestroy {
          if (f) this.saveFactura(f)
       })
       .catch(err=>{
-         this.appSrv.hideLoading()
+         this.appSrv.message('Ocurrio un error al seleccionar factura', 'error')
+         console.log('Error Factura: ', err)
       })
    }
    handleFile(files: FileList) {
-      this.saveFactura(files.item(0))
+      if (files) this.saveFactura(files.item(0))
    }
    openFile(url) {
       this.iab.create(url, '_system')
@@ -74,7 +75,7 @@ export class FacturaPage implements OnInit, OnDestroy {
             subHeader: 'No esta la factura',
             message: 'Debe cargar una factura para grabar',
             buttons: ['OK']
-          });
+          })
       
           await alert.present()
       }
@@ -83,15 +84,12 @@ export class FacturaPage implements OnInit, OnDestroy {
    cancel() {
       this.modalController.dismiss()
    }
-   saveFactura(file: any) {
-      this.appSrv.showLoading()
-      this.fbsSrv.deleteFileStorage('facturas', this.factura.nombre)
-      this.fbsSrv.uploadFile(file, 'facturas').then(async obj => {
-         const doc = await this.afs.collection('facturas').add(obj)
-         this.factura.id = doc.id
-         this.factura.nombre = obj.nombre
-         this.factura.url = obj.url
-         this.appSrv.hideLoading()
-      })
+   async saveFactura(file: any) {
+      await this.fbsSrv.deleteFileStorage('facturas', this.factura.nombre)
+      const obj = await this.fbsSrv.uploadFile(file, 'facturas')
+      const doc = await this.afs.collection('facturas').add(obj)
+      this.factura.id = doc.id
+      this.factura.nombre = obj.nombre
+      this.factura.url = obj.url
    }
 }

@@ -67,24 +67,20 @@ export class FichaPage implements OnInit {
       }
    }
    async handleAvatar(files: FileList) {
-      this.appSrv.showLoading()
       await this.fbsSrv.deleteFileStorage(this.patient.dni, this.patient.fotoNombre)
-      await this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj => {
-         this.saveToDB(obj)
-      })
-      this.appSrv.hideLoading()
+      const obj = await this.fbsSrv.uploadFile(files.item(0), this.patient.dni)
+      this.saveToDB(obj)
    }
    chooseFile() {
-      this.chooser.getFile('*/*').then(f => {
+      this.chooser.getFile('*/*').then(async f => {
          if (f){
-            this.appSrv.showLoading()
-            this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
-               this.saveToDB(obj)
-            })
+            const obj = await this.fbsSrv.uploadFile(f, this.patient.dni)
+            this.saveToDB(obj)
          }
       })
       .catch(err=>{
-         this.appSrv.hideLoading()
+         this.appSrv.message('Ocurrio un error al seleccionar foto', 'error')
+         console.log('Error Foto: ', err)
       })
    }
    evalEdad() {
@@ -97,7 +93,6 @@ export class FichaPage implements OnInit {
       
    }
    async save(val) {
-      this.appSrv.showLoading()
       this.patient.nombres = val.nombres
       this.patient.apellido = val.apellido
       this.patient.nacimiento = moment(this.fechaNacimiento).valueOf()
@@ -115,7 +110,5 @@ export class FichaPage implements OnInit {
          await this.afs.collection('pacientes').doc(this.patient.id).set(this.patient, { merge: true })
       else
          await this.afs.collection('pacientes').add(this.patient)
-
-      this.appSrv.hideLoading()
    }
 }

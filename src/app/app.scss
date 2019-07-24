@@ -264,7 +264,8 @@ img {
 
 .backForm input {
    border: none;
-   box-shadow: 0 2px 15px grey;
+   box-shadow: inset 1px 1px 5px grey;
+   // box-shadow: 0 2px 15px grey;
    outline: none;
    height: 50px;
    padding: 10px;

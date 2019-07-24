@@ -14,7 +14,7 @@ import { UserModel, FirebaseService } from 'fwk4-authentication';
 export class UserPage implements OnInit {
    user: UserModel
    isMobile: boolean
-   selRole:string = 'Usuario'
+   selRole: string = 'Usuario'
    isAdmin: boolean = false
    fotoUrl: string = "assets/images/anonymous.png"
    validations_form: FormGroup
@@ -50,17 +50,19 @@ export class UserPage implements OnInit {
    }
 
    chooseFile() {
-      this.chooser.getFile('*/*').then(foto => {
-         if (foto) this.savePhoto(foto)
-      })
+      this.chooser.getFile('*/*')
+         .then(foto => {
+            if (foto) this.savePhoto(foto)
+         })
          .catch(err => {
-            this.appSrv.hideLoading()
+            this.appSrv.message('Ocurrio un error al seleccionar foto', 'error')
+            console.log('Error Foto: ', err)
          })
    }
    handleAvatar(files: FileList) {
-      this.savePhoto(files.item(0))
+      if (files) this.savePhoto(files.item(0))
    }
-   changeRole(ev){
+   changeRole(ev) {
       this.user.isAdmin = ev.target.checked
    }
    async save(value) {
@@ -72,11 +74,8 @@ export class UserPage implements OnInit {
       this.modalController.dismiss()
    }
 
-   private savePhoto(file) {
-      this.appSrv.showLoading()
-      this.fbsSrv.uploadFile(file, 'avatars').then(async obj => {
-         this.user.photoURL = obj.url
-         this.appSrv.hideLoading()
-      })
+   private async savePhoto(file) {
+      const obj = await this.fbsSrv.uploadFile(file, 'avatars')
+      this.user.photoURL = obj.url
    }
 }

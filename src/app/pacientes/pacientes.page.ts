@@ -31,19 +31,17 @@ export class PacientesPage implements OnInit, OnDestroy {
 
    async ngOnInit() {
       this.user = await this.globalSrv.getItem('userInfo')
-      this.appSrv.showLoading()
       this.sub = this.afs.collection('pacientes', ref => ref.where('uid', '==', this.user.uid)).valueChanges({ idField: 'id' }).subscribe(ps => {
          this.patients = ps
-         this.appSrv.hideLoading()
       })
    }
    ngOnDestroy(){
       this.sub.unsubscribe()
    }
    async removePatient(p) {
-      this.appSrv.showLoading()
+      // Borrar la foto del paciente
+      // Borrar los adjuntos
       await this.afs.collection('pacientes').doc(p.id).delete()
-      this.appSrv.hideLoading()
    }
    async gotoPatient(p) {
       await this.globalSrv.setItem('patient', p)

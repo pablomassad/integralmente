@@ -51,10 +51,8 @@ export class SesionPage implements OnInit, OnDestroy {
       this.sessionsPath = 'pacientes/' + this.patient.id + '/sesiones/'
       this.sessionAttachmentsPath = this.sessionsPath + this.session.id + '/adjuntos'
 
-      this.appSrv.showLoading()
       this.sub = this.afs.collection(this.sessionAttachmentsPath).valueChanges({ idField: 'id' }).subscribe(ats => {
          this.attachments = ats
-         this.appSrv.hideLoading()
       })
    }
    ngOnDestroy() {
@@ -73,23 +71,20 @@ export class SesionPage implements OnInit, OnDestroy {
       return this.fbsSrv.shortName(n)
    }
    chooseFile() {
-      this.chooser.getFile('*/*').then(f => {
+      this.chooser.getFile('*/*').then(async f => {
          if (f){
-            this.appSrv.showLoading()
-            this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
-               this.saveAttachment(obj)
-            })
+            const obj = await this.fbsSrv.uploadFile(f, this.patient.dni)
+            this.saveAttachment(obj)
          }
       })
       .catch(err=>{
-         this.appSrv.hideLoading()
+         this.appSrv.message('Ocurrio un error al seleccionar adjunto', 'error')
+         console.log('Error adjunto: ', err)
       })
    }
-   handleFile(files: FileList) {
-      this.appSrv.showLoading()
-      this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj => {
-         this.saveAttachment(obj)
-      })
+   async handleFile(files: FileList) {
+      const obj = await this.fbsSrv.uploadFile(files.item(0), this.patient.dni)
+      this.saveAttachment(obj)
    }
    isImage(ext) {
       let flag = false
@@ -116,11 +111,9 @@ export class SesionPage implements OnInit, OnDestroy {
                text: 'Okay',
                handler: async () => {
                   console.log('Confirm Okay')
-                  this.appSrv.showLoading()
                   this.fbsSrv.deleteFileStorage(this.patient.dni, adj.nombre)
                   await this.afs.doc(this.sessionAttachmentsPath + '/' + adj.id).delete()
                   await this.afs.doc(this.attachmentsPath + '/' + adj.id).delete()
-                  this.appSrv.hideLoading()
                }
             }
          ]
@@ -145,6 +138,5 @@ export class SesionPage implements OnInit, OnDestroy {
       const id = new Date().getTime().toString()
       await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(obj)
       await this.afs.collection(this.attachmentsPath).doc(id).set(obj)
-      this.appSrv.hideLoading()
    }
 }

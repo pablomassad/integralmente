@@ -85,10 +85,8 @@ export class FacturacionPage implements OnInit, OnDestroy {
                text: 'Okay',
                handler: async () => {
                   console.log('Delete confirmed')
-                  this.appSrv.showLoading()
                   await this.fbsSrv.deleteFileStorage('facturas', fac.nombre)
                   await this.afs.doc('facturas/' + fac.id).delete()
-                  this.appSrv.hideLoading()
                }
             }
          ]

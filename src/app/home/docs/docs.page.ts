@@ -54,23 +54,22 @@ export class DocsPage implements OnInit {
       return this.fbsSrv.shortName(n)
    }
    chooseFile() {
-      this.chooser.getFile('*/*').then(f => {
-         if (f){
-            this.appSrv.showLoading()
-            this.fbsSrv.uploadFile(f, this.patient.dni).then(obj => {
+      this.chooser.getFile('*/*')
+         .then(async f => {
+            if (f) {
+               const obj = await this.fbsSrv.uploadFile(f, this.patient.dni)
                this.saveAttachment(obj)
-            })
-         }
-      })
-      .catch(err=>{
-         this.appSrv.hideLoading()
-      })
+            }
+         })
+         .catch(err => {
+            
+         })
    }
-   handleFile(files: FileList) {
-      this.appSrv.showLoading()
-      this.fbsSrv.uploadFile(files.item(0), this.patient.dni).then(obj => {
+   async handleFile(files: FileList) {
+      if (files) {
+         const obj = await this.fbsSrv.uploadFile(files.item(0), this.patient.dni)
          this.saveAttachment(obj)
-      })
+      }
    }
    isImage(ext) {
       let flag = false

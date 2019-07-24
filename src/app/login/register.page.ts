@@ -66,12 +66,9 @@ export class RegisterPage implements OnInit {
       this.chooser.getFile('*/*').then(foto => {
          if (foto) this.savePhoto(foto)
       })
-         .catch(err => {
-            this.appSrv.hideLoading()
-         })
    }
    handleAvatar(files: FileList) {
-      this.savePhoto(files.item(0))
+      if (files) this.savePhoto(files.item(0))
    }
    changeRole(ev){
       this.isAdmin = ev.target.checked
@@ -86,11 +83,8 @@ export class RegisterPage implements OnInit {
       this.modalController.dismiss()
    }
 
-   private savePhoto(file) {
-      this.appSrv.showLoading()
-         this.fbsSrv.uploadFile(file, 'avatars').then(async obj => {
-         this.fotoUrl = obj.url
-         this.appSrv.hideLoading()
-      })
+   private async savePhoto(file) {
+      const obj = await this.fbsSrv.uploadFile(file, 'avatars')
+      this.fotoUrl = obj.url
    }
 }

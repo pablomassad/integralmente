@@ -9,8 +9,8 @@ import { ApplicationService } from 'fwk4-services';
 export class FbsService {
 
    private uploadTask: firebase.storage.UploadTask
-   private loading:any
-   
+   private loading: any
+
    constructor(
       private appSrv: ApplicationService,
       private afStorage: AngularFireStorage) {
@@ -27,7 +27,7 @@ export class FbsService {
       filename = filename.substr(0, maxLen) + (n.length > maxLen ? '...' : '');
       return filename + '.' + ext;
    }
-   
+
    showAllFiles(dni) {
       // Create a reference under which you want to list
       var listRef = this.afStorage.storage.ref().child(dni.toString());
@@ -59,24 +59,30 @@ export class FbsService {
       let blob = new Blob([f.data])
       return this.uploadFile(blob, id)
    }
-   uploadFile(file, id: string): Promise<any> {
+   uploadFile(file, id: string): Promise<FileModel> {
       return new Promise(async (resolve, reject) => {
          try {
+            this.appSrv.showLoading()
             let data = (file instanceof File) ? file : file.data
             const stPath = id + '/' + file.name
             const sn = await this.pushUpload(data, stPath)
             const url = await sn.ref.getDownloadURL()
-            const res = new Object()
+
+            const res = new FileModel()
             res['url'] = url
-            res['nombre'] = sn.ref.name,
-               res['extension'] = sn.ref.name.substr(sn.ref.name.indexOf('.') + 1)
+            res['nombre'] = sn.ref.name
+            res['extension'] = sn.ref.name.substr(sn.ref.name.indexOf('.') + 1)
+            
+            this.appSrv.hideLoading()
             resolve(res)
          } catch (error) {
             console.log(error)
+            this.appSrv.hideLoading()
             reject(error)
          }
       })
    }
+
    private pushUpload(data, stPath) {
       let storageRef = firebase.storage().ref()
       this.uploadTask = storageRef.child(stPath).put(data)
@@ -89,14 +95,17 @@ export class FbsService {
       return this.uploadTask
    }
    deleteFileStorage(id, name: string) {
-      return new Promise((resolve, reject)=>{
+      return new Promise((resolve, reject) => {
+         this.appSrv.showLoading()
          const storageRef = firebase.storage().ref()
          const stPath = id + '/' + name
          try {
             storageRef.child(stPath).delete()
+            this.appSrv.hideLoading()
             resolve(true)
          } catch (error) {
-            console.log('Error deleting factura: ', error)
+            console.log('Error deleting file: ', error)
+            this.appSrv.hideLoading()
             resolve(false)
          }
       })
@@ -141,4 +150,11 @@ export class Upload {
    constructor(file: File) {
       this.file = file
    }
+}
+
+export class FileModel {
+   url: string
+   nombre: string
+   extension: string
+   constructor(){ }
 }
