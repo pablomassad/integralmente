@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalService } from 'fwk4-services';
+import { GlobalService, ApplicationService } from 'fwk4-services';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { AuthService, UserModel } from 'fwk4-authentication';
 import { Router } from '@angular/router';
 import { EditionPage } from './edition.page';
+import { LoginPageModule } from '../login/login.module';
+import { longStackSupport } from 'q';
 
 @Component({
    selector: 'app-tool-head',
@@ -16,6 +18,7 @@ export class ToolHeadComponent implements OnInit {
    constructor(
       private modalController: ModalController,
       private authSrv: AuthService,
+      private appSrv: ApplicationService,
       private route: Router,
       private actionSheetController: ActionSheetController
    ) {
@@ -31,40 +34,41 @@ export class ToolHeadComponent implements OnInit {
          {
             text: 'Editar Perfil',
             icon: 'person',
-            handler: async () => {
-               const modal = await this.modalController.create({
-                  component: EditionPage,
-                  componentProps: {}
-               })
-               return await modal.present()
-            }
+            handler: () => { this.gotoEdition() }
          },
          {
             text: 'Salir',
             icon: 'log-out',
-            handler: () => {
-               this.authSrv.doLogout().then(x => {
-                  this.route.navigate(['/login'])
-               })
-               console.log('Logout');
-            }
+            handler: () => { this.logout() }
          },
          {
             text: 'Cancelar',
             icon: 'close',
-            role: 'Cancel',
+            role: 'cancel',
             handler: () => {
-               console.log('Cancelar');
+               console.log('Cancelar')
             }
          }
       ]
-
-      menuOptions.push()
 
       const actionSheet = await this.actionSheetController.create({
          header: 'Opciones',
          buttons: menuOptions
       });
       await actionSheet.present();
+   }
+
+
+   async gotoEdition() {
+      const modal = await this.modalController.create({
+         component: EditionPage,
+         componentProps: {}
+      })
+      return await modal.present()
+   }
+   async logout() {
+      await this.authSrv.doLogout()
+      console.log('Logout')
+      this.route.navigate(['/login'])
    }
 }

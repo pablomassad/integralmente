@@ -103,7 +103,7 @@ export class FichaPage implements OnInit {
       if (obj) {
          this.patient.foto = obj.url
          this.patient.fotoNombre = obj.nombre
-         this.patient.uid = this.user.uid
+         this.patient.uid = this.user.id
       }
 
       if (this.patient.id)

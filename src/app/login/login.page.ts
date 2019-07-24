@@ -32,7 +32,6 @@ export class LoginPage implements OnInit {
 
    constructor(
       private appSrv: ApplicationService,
-      private fbsSrv: FbsService,
       private authSrv: AuthService,
       private modalController: ModalController,
       private route: Router,
@@ -60,23 +59,17 @@ export class LoginPage implements OnInit {
    }
 
    async ngOnInit() {
-      this.appSrv.showLoading()
       let usr = await this.authSrv.loggedUser()
       if (usr != null) {
-         this.appSrv.hideLoading()
          this.route.navigate(['/menu/pacientes'])
       }
-      this.appSrv.hideLoading()
    }
 
    async tryEmailLogin(value) {
       try {
-         this.appSrv.showLoading()
          await this.authSrv.doLogin(value)
-         this.appSrv.hideLoading()
          this.route.navigate(['/menu/pacientes']) 
       } catch (error) {
-         this.appSrv.hideLoading()
          this.appSrv.message('Usuario o contraseña inválidos', 'error')
       }
    }

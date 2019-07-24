@@ -31,7 +31,7 @@ export class PacientesPage implements OnInit, OnDestroy {
 
    async ngOnInit() {
       this.user = await this.globalSrv.getItem('userInfo')
-      this.sub = this.afs.collection('pacientes', ref => ref.where('uid', '==', this.user.uid)).valueChanges({ idField: 'id' }).subscribe(ps => {
+      this.sub = this.afs.collection('pacientes', ref => ref.where('uid', '==', this.user.id)).valueChanges({ idField: 'id' }).subscribe(ps => {
          this.patients = ps
       })
    }

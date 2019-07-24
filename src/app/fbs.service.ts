@@ -59,7 +59,7 @@ export class FbsService {
       let blob = new Blob([f.data])
       return this.uploadFile(blob, id)
    }
-   uploadFile(file, id: string): Promise<FileModel> {
+   uploadFile(file, id: string): Promise<any> {
       return new Promise(async (resolve, reject) => {
          try {
             this.appSrv.showLoading()
@@ -68,7 +68,7 @@ export class FbsService {
             const sn = await this.pushUpload(data, stPath)
             const url = await sn.ref.getDownloadURL()
 
-            const res = new FileModel()
+            const res = new Object()
             res['url'] = url
             res['nombre'] = sn.ref.name
             res['extension'] = sn.ref.name.substr(sn.ref.name.indexOf('.') + 1)
@@ -150,11 +150,4 @@ export class Upload {
    constructor(file: File) {
       this.file = file
    }
-}
-
-export class FileModel {
-   url: string
-   nombre: string
-   extension: string
-   constructor(){ }
 }

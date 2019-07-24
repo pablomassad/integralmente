@@ -41,10 +41,10 @@ export class EditionPage implements OnInit {
       this.user = this.globalSrv.getItemRAM('userInfo')
 
       this.validations_form = this.formBuilder.group({
-         displayName: new FormControl({value:this.user.displayName, disabled:true}, Validators.compose([
+         displayName: new FormControl({ value: this.user.displayName }, Validators.compose([
             Validators.required
          ])),
-         isAdmin: new FormControl({value:this.user.isAdmin}, Validators.compose([
+         isAdmin: new FormControl({ value: this.user.isAdmin, disabled: true }, Validators.compose([
             Validators.required
          ]))
       })
@@ -52,11 +52,13 @@ export class EditionPage implements OnInit {
    }
 
    chooseFile() {
-      this.chooser.getFile('*/*').then(foto => {
-         if (foto) this.savePhoto(foto)
-      })
+      this.chooser.getFile('*/*')
+         .then(foto => {
+            if (foto) this.savePhoto(foto)
+         })
          .catch(err => {
-            
+            this.appSrv.message('Ocurrio un error al seleccionar foto', 'error')
+            console.log('Error Foto: ', err)
          })
    }
    handleAvatar(files: FileList) {

@@ -62,7 +62,8 @@ export class DocsPage implements OnInit {
             }
          })
          .catch(err => {
-            
+            this.appSrv.message('Ocurrio un error al seleccionar adjunto', 'error')
+            console.log('Error adjunto: ', err)
          })
    }
    async handleFile(files: FileList) {

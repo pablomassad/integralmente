@@ -4,8 +4,9 @@ import { AngularFirestore } from '@angular/fire/firestore'
 import { Subscription } from 'rxjs'
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 import { FbsService } from 'src/app/fbs.service'
-import { ApplicationService } from 'fwk4-services';
+import { ApplicationService, GlobalService } from 'fwk4-services';
 import { FacturaPage } from './factura.page'
+import { UserModel } from 'fwk4-authentication';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { FacturaPage } from './factura.page'
    styleUrls: ['./facturacion.page.scss', '../buttons.scss'],
 })
 export class FacturacionPage implements OnInit, OnDestroy {
+   user:UserModel
    facturasPendientes: any = []
    facturasCobradas: any = []
 
@@ -25,7 +27,7 @@ export class FacturacionPage implements OnInit, OnDestroy {
    subCob: Subscription
    
    constructor(
-      private appSrv: ApplicationService,
+      private globalSrv:GlobalService,
       private fbsSrv: FbsService,
       private alertCtrl:AlertController,
       private iab: InAppBrowser,
@@ -48,12 +50,13 @@ export class FacturacionPage implements OnInit, OnDestroy {
       return res
    }
 
-   ngOnInit() {
-      this.subPend = this.afs.collection('facturas', ref => ref.where('estado', '==', 'Pendiente')).valueChanges({ idField: 'id' }).subscribe(ses=>{
+   async ngOnInit() {
+      this.user = await this.globalSrv.getItemRAM('userInfo')
+
+      this.subPend = this.afs.collection('facturas', ref => ref.where('estado', '==', 'Pendiente').where('uid', '==', this.user.id)).valueChanges({ idField: 'id' }).subscribe(ses=>{
          this.facturasPendientes = ses 
       })
-
-      this.subCob =  this.afs.collection('facturas', ref => ref.where('estado', '==', 'Cobrada')).valueChanges({ idField: 'id' }).subscribe(ses=>{
+      this.subCob =  this.afs.collection('facturas', ref => ref.where('estado', '==', 'Cobrada').where('uid', '==', this.user.id)).valueChanges({ idField: 'id' }).subscribe(ses=>{
          this.facturasCobradas = ses 
       }) 
    }
@@ -61,7 +64,6 @@ export class FacturacionPage implements OnInit, OnDestroy {
       this.subPend.unsubscribe()
       this.subCob.unsubscribe()
    }
-
    openFile(fac){
       this.iab.create(fac.url, '_system')
    }

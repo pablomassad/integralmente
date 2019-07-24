@@ -9,17 +9,13 @@ import { UserModel } from 'fwk4-authentication';
    styleUrls: ['./menu.page.scss'],
 })
 export class MenuPage implements OnInit {
-   user:UserModel
+   user: UserModel
    isMobile: boolean = false
    selectedPath = '/menu/pacientes'
    pages = [
       {
          title: "Pacientes",
          url: "/menu/pacientes"
-      },
-      {
-         title: "Facturación",
-         url: "/menu/facturacion"
       }
    ]
 
@@ -37,10 +33,15 @@ export class MenuPage implements OnInit {
 
    async ngOnInit() {
       const usr = await this.globalSrv.getItem('userInfo')
-      if (usr.isAdmin)
+      if (usr.isAdmin) {
+         this.pages.push({
+            title: "Facturación",
+            url: "/menu/facturacion"
+         })
          this.pages.push({
             title: "Configuración",
             url: "/menu/configuracion"
          })
+      }
    }
 }
