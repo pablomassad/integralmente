@@ -2,36 +2,32 @@ import { Component, OnInit, OnDestroy } from '@angular/core'
 import { GlobalService, ApplicationService } from 'fwk4-services'
 import { Router } from '@angular/router'
 import * as moment from 'moment'
-import { ActionSheetController } from '@ionic/angular'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { FbsService } from '../fbs.service'
-import { AuthService, UserModel } from 'fwk4-authentication';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs'
+
 
 @Component({
    selector: 'app-pacientes',
    templateUrl: './pacientes.page.html',
-   styleUrls: ['./pacientes.page.scss', '../buttons.scss'],
+   styleUrls: ['./pacientes.page.scss', '../buttons.scss']
 })
 export class PacientesPage implements OnInit, OnDestroy {
-   sub: Subscription
-   user:UserModel
+   private sub: Subscription
    criteria: string
    patients: any = []
 
    constructor(
       private route: Router,
       private afs: AngularFirestore,
-      private globalSrv: GlobalService,
-      private appSrv: ApplicationService,
-      private fbsSrv: FbsService
+      private globalSrv: GlobalService
    ) {
       console.log('PacientesPage constructor')
    }
 
    async ngOnInit() {
-      this.user = await this.globalSrv.getItem('userInfo')
-      this.sub = this.afs.collection('pacientes', ref => ref.where('uid', '==', this.user.id)).valueChanges({ idField: 'id' }).subscribe(ps => {
+      let usr = await this.globalSrv.getItem('userInfo')
+      this.sub = this.afs.collection('pacientes', ref => ref.where('uid', '==', usr.id)).valueChanges({ idField: 'id' }).subscribe(ps => {
          this.patients = ps
       })
    }
@@ -47,7 +43,6 @@ export class PacientesPage implements OnInit, OnDestroy {
       await this.globalSrv.setItem('patient', p)
       this.route.navigate(["/menu/home/ficha"])
    }
-
    evalEdad(nac) {
       const today = moment()
       const cumple = moment(nac)

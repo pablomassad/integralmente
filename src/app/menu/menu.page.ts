@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router, RouterEvent } from '@angular/router'
 import { GlobalService } from 'fwk4-services'
-import { UserModel } from 'fwk4-authentication';
 
 @Component({
    selector: 'app-menu',
@@ -9,8 +8,6 @@ import { UserModel } from 'fwk4-authentication';
    styleUrls: ['./menu.page.scss'],
 })
 export class MenuPage implements OnInit {
-   user: UserModel
-   isMobile: boolean = false
    selectedPath = '/menu/pacientes'
    pages = [
       {
