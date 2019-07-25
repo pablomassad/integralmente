@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { AuthService } from 'fwk4-authentication'
-import { GlobalService, ApplicationService } from 'fwk4-services'
+import { GlobalService } from 'fwk4-services'
 import { ModalController} from '@ionic/angular'
 import { FbsService } from 'src/app/fbs.service'
 import { Chooser } from '@ionic-native/chooser/ngx'
@@ -13,9 +13,9 @@ import { Chooser } from '@ionic-native/chooser/ngx'
 })
 export class RegisterPage implements OnInit {
    private fileInfo:any
+   private isAdmin: boolean = false   
+
    isMobile: boolean
-   selRole:string = 'Usuario'
-   isAdmin: boolean = false
    fotoUrl: string = "assets/images/anonymous.png"
    validations_form: FormGroup
    validation_messages = {
@@ -34,7 +34,6 @@ export class RegisterPage implements OnInit {
 
    constructor(
       private globalSrv: GlobalService,
-      private appSrv: ApplicationService,
       private formBuilder: FormBuilder,
       private chooser: Chooser,
       private fbsSrv: FbsService,
@@ -67,8 +66,6 @@ export class RegisterPage implements OnInit {
    async chooseFileMobile() {
       this.fileInfo = await this.chooser.getFile('*/*')
    }
-
-
    changeRole(ev){
       this.isAdmin = ev.target.checked
    }

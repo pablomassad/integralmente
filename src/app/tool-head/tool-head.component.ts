@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { GlobalService, ApplicationService } from 'fwk4-services';
-import { ActionSheetController, ModalController } from '@ionic/angular';
-import { AuthService, UserModel } from 'fwk4-authentication';
-import { Router } from '@angular/router';
-import { EditionPage } from './edition.page';
-import { LoginPageModule } from '../login/login.module';
-import { longStackSupport } from 'q';
+import { Component, OnInit } from '@angular/core'
+import { ActionSheetController, ModalController } from '@ionic/angular'
+import { AuthService, UserModel } from 'fwk4-authentication'
+import { Router } from '@angular/router'
+import { EditionPage } from './edition.page'
 
 @Component({
    selector: 'app-tool-head',
@@ -18,7 +15,6 @@ export class ToolHeadComponent implements OnInit {
    constructor(
       private modalController: ModalController,
       private authSrv: AuthService,
-      private appSrv: ApplicationService,
       private route: Router,
       private actionSheetController: ActionSheetController
    ) {
@@ -28,7 +24,6 @@ export class ToolHeadComponent implements OnInit {
    async ngOnInit() {
       this.user = await this.authSrv.loggedUser()
    }
-
    async openMenuSheet() {
       const menuOptions = [
          {
@@ -59,14 +54,14 @@ export class ToolHeadComponent implements OnInit {
    }
 
 
-   async gotoEdition() {
+   private async gotoEdition() {
       const modal = await this.modalController.create({
          component: EditionPage,
          componentProps: {}
       })
       return await modal.present()
    }
-   async logout() {
+   private async logout() {
       await this.authSrv.doLogout()
       console.log('Logout')
       this.route.navigate(['/login'])

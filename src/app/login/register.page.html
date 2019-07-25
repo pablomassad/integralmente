@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding style="--ion-background-color: radial-gradient(#ffffff, #c1c1c1);">
-   <form [formGroup]="validations_form" class="form backForm" (ngSubmit)="save(validations_form.value)">
+   <form [formGroup]="validations_form" class="backForm" (ngSubmit)="save(validations_form.value)">
       <ion-grid>
          <ion-row justify-content-center style="margin-bottom: 30px">
             <ion-avatar class="fichaAvatar">
@@ -55,7 +55,7 @@
             </div>
          </ion-row>
          <ion-row>
-            <input formControlName="password" type="password" class="form-controll" placeholder="Contraseña">
+            <input formControlName="password" type="password" placeholder="Contraseña">
             <div class="validation-errors">
                <ng-container *ngFor="let validation of validation_messages.password">
                   <div class="error-message"
@@ -78,28 +78,38 @@
 <!--
    Classes:
    ========
+   switch
+ * validation-errors
+
+   App.css
+   ========
    toolbarTitle
    backForm
    fichaAvatar
    editFoto
+   fotoEdit
    error-message
+
+   Buttons.css
+   ===========
    glass
- * validation-errors
+   btnEdit
 
 
    Bindings:
    =========
    validations_form
-   validation_messages
+   fotoUrl
    isMobile
-   user.url
+   validation_messages
+   
 
    Methods:
    ========
    cancel()
-   tryRegister()
-   chooseFile()
-   handleAvatar()
-
+   save()
+   chooseFileMobile()
+   chooseFileBrowser()
+   changeRole()
 
 -->

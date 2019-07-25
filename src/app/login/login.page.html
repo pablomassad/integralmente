@@ -4,9 +4,9 @@
          <ion-row>
             <div class="loginPanel">
                <!-- (ngSubmit)="tryEmailLogin(validations_form.value)" -->
-               <form [formGroup]="validations_form" class="form backForm formlogin" (ngSubmit)="tryEmailLogin(validations_form.value)">
+               <form [formGroup]="validations_form" class="backForm formlogin" (ngSubmit)="tryEmailLogin(validations_form.value)">
                   <div class="formTitle">
-                     <img src="assets/images/integralmenteET.png" class="logo">
+                     <img src="assets/images/integralmenteET.png">
                   </div>
 
                   <input formControlName="email" type="text" placeholder="Correo electrónico">
@@ -19,7 +19,7 @@
                      </ng-container>
                   </div>
 
-                  <input formControlName="password" type="password" class="form-controll" placeholder="Contraseña">
+                  <input formControlName="password" type="password" placeholder="Contraseña">
                   <div class="validation-errors">
                      <ng-container *ngFor="let validation of validation_messages.password">
                         <div class="error-message"
@@ -40,34 +40,37 @@
    </div>
 </ion-content>
 
-
-
-
-
-
-
-
-
-
-
-
-
 <!--
    Bindings:
    =========
+   validations_form
+   validation_messages
 
-
-
-   Classes:
-   ========
-   form
-   form-control
-   error-message
 
    Methods:
    ========
    tryEmailLogin()
    goRegisterPage()
-   tryGoogleLogin()
-   tryFaceBookLogin()
+
+
+   Classes:
+   ========
+   backImg
+   loginFrame
+   loginPanel
+   formlogin
+   formTitle
+   btnLogin
+   btnRegister
+
+   App.css
+   =======
+   validation-errors
+   error-message
+   backForm
+
+   Buttons.css
+   ===========
+   glass 
+
 -->
