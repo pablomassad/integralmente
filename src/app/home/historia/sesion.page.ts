@@ -12,7 +12,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 @Component({
    selector: 'app-sesion',
    templateUrl: './sesion.page.html',
-   styleUrls: ['./sesion.page.scss', '../../buttons.scss'],
+   styleUrls: ['./sesion.page.scss'],
 })
 export class SesionPage implements OnInit, OnDestroy {
    private fileInfo: any

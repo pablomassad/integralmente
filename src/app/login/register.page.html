@@ -22,7 +22,7 @@
                   </div>
                </label>
             </ion-avatar>
-            <input type="file" style="display: none" id="photoEdit" (change)="chooseFileBrowser($event.target.files.item(0))" />
+            <input type="file" style="display: none" id="photoEdit" #file (change)="chooseFileBrowser($event)" />
          </ion-row>
          <ion-row align-items-center justify-content-center>
             <ion-col>

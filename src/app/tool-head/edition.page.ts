@@ -2,14 +2,16 @@ import { Component, OnInit } from '@angular/core'
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { GlobalService } from 'fwk4-services'
 import { ModalController } from '@ionic/angular'
-import { FbsService } from 'src/app/fbs.service'
+import { FbsService } from '../fbs.service'
 import { Chooser } from '@ionic-native/chooser/ngx'
-import { FirebaseService, UserModel } from 'fwk4-authentication'
+import { UserModel, AuthService } from 'fwk4-authentication'
+import { AngularFirestore } from '@angular/fire/firestore';
+
 
 @Component({
    selector: 'app-edition',
    templateUrl: './edition.page.html',
-   styleUrls: ['./edition.page.scss', '../buttons.scss']
+   styleUrls: ['./edition.page.scss']
 })
 export class EditionPage implements OnInit {
    private fileInfo: any
@@ -23,11 +25,11 @@ export class EditionPage implements OnInit {
    }
 
    constructor(
+      private afs: AngularFirestore,
       private globalSrv: GlobalService,
       private formBuilder: FormBuilder,
       private chooser: Chooser,
       private fbsSrv: FbsService,
-      private firebaseSrv: FirebaseService,
       private modalController: ModalController
    ) {
       console.log('EditionPage constructor')
@@ -68,7 +70,7 @@ export class EditionPage implements OnInit {
       }
 
       this.user.displayName = value['displayName']
-      await this.firebaseSrv.updateUserData(this.user)
+      await this.afs.doc('users/'+this.user.id).set(this.user, {merge:true})
       this.modalController.dismiss()
    }
    cancel() {

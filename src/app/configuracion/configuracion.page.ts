@@ -9,7 +9,7 @@ import { UserPage } from './user.page';
 @Component({
    selector: 'app-configuracion',
    templateUrl: './configuracion.page.html',
-   styleUrls: ['./configuracion.page.scss', '../buttons.scss'],
+   styleUrls: ['./configuracion.page.scss'],
 })
 export class ConfiguracionPage implements OnInit, OnDestroy {
    sub:Subscription

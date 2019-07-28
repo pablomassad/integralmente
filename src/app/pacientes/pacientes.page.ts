@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs'
 @Component({
    selector: 'app-pacientes',
    templateUrl: './pacientes.page.html',
-   styleUrls: ['./pacientes.page.scss', '../buttons.scss']
+   styleUrls: ['./pacientes.page.scss']
 })
 export class PacientesPage implements OnInit, OnDestroy {
    private sub: Subscription

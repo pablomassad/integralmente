@@ -2,21 +2,21 @@ import { Component, OnInit } from '@angular/core'
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { AuthService } from 'fwk4-authentication'
 import { GlobalService } from 'fwk4-services'
-import { ModalController} from '@ionic/angular'
-import { FbsService } from 'src/app/fbs.service'
+import { ModalController } from '@ionic/angular'
+import { FbsService } from '../fbs.service'
 import { Chooser } from '@ionic-native/chooser/ngx'
 
 @Component({
    selector: 'app-register',
    templateUrl: './register.page.html',
-   styleUrls: ['./register.page.scss', '../buttons.scss']
+   styleUrls: ['./register.page.scss']
 })
 export class RegisterPage implements OnInit {
-   private fileInfo:any
-   private isAdmin: boolean = false   
+   private fileInfo: any
+   private isAdmin: boolean = false
 
    isMobile: boolean
-   fotoUrl: string = "assets/images/anonymous.png"
+   fotoUrl:any = "assets/images/anonymous.png"
    validations_form: FormGroup
    validation_messages = {
       'displayName': [
@@ -60,13 +60,15 @@ export class RegisterPage implements OnInit {
       })
    }
 
-   chooseFileBrowser(info: File) {
-      this.fileInfo = info
+   chooseFileBrowser(ev) {
+      this.fileInfo = ev.target.files[0]
+      this.onFileSelected()
    }
    async chooseFileMobile() {
       this.fileInfo = await this.chooser.getFile('*/*')
+      this.onFileSelected()
    }
-   changeRole(ev){
+   changeRole(ev) {
       this.isAdmin = ev.target.checked
    }
    async save(value) {
@@ -75,6 +77,10 @@ export class RegisterPage implements OnInit {
          value['photoURL'] = obj.url
          value['photoName'] = obj.nombre
       }
+      else {
+         value['photoURL'] = "assets/images/anonymous.png"
+         value['photoName'] = "anonymous.png"
+      }
       value['isAdmin'] = this.isAdmin
       await this.authService.doRegister(value)
       this.modalController.dismiss()
@@ -82,4 +88,12 @@ export class RegisterPage implements OnInit {
    cancel() {
       this.modalController.dismiss()
    }
+
+   private  onFileSelected() {
+      var reader = new FileReader()
+      reader.readAsDataURL(this.fileInfo)
+      reader.onload = () => { 
+        this.fotoUrl = reader.result;
+      }    
+    }
 }

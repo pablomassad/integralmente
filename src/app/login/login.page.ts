@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { AuthService } from 'fwk4-authentication'
 import { Router } from '@angular/router'
-import { GlobalService, ApplicationService } from 'fwk4-services'
-import { ModalController } from '@ionic/angular';
-import { RegisterPage } from './register.page';
-import { FbsService } from '../fbs.service';
+import { ApplicationService } from 'fwk4-services'
+import { ModalController } from '@ionic/angular'
+import { RegisterPage } from './register.page'
 
 
 @Component({
    selector: 'app-login',
    templateUrl: './login.page.html',
-   styleUrls: ['./login.page.scss', '../buttons.scss'],
+   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+
    validations_form: FormGroup
 
    validation_messages = {
@@ -39,7 +39,7 @@ export class LoginPage implements OnInit {
    ) {
       console.log('LoginPage constructor')
       this.appSrv.configLoading('p&pSoft.png', 'spinnerClass', 'spinnerCss')
-      
+
       this.validations_form = this.formBuilder.group({
          email: new FormControl('',
             Validators.compose([
@@ -59,26 +59,42 @@ export class LoginPage implements OnInit {
    }
 
    async ngOnInit() {
-      let usr = await this.authSrv.loggedUser()
-      if (usr != null) {
-         this.route.navigate(['/menu/pacientes'])
-      }
+      //let u = await this.authSrv.isAuthenticated()
+      //console.log('afAuth user: ', u)  // return firebase.user = null or data
+      let usr = await this.authSrv.loggedUser()  // return UserModel null or data (getUser() return undefined or data)
+      console.log('firebase.user: ', usr)
+      if (usr) this.route.navigate(['/menu/home'])
    }
 
    async tryEmailLogin(value) {
       try {
          await this.authSrv.doLogin(value)
-         this.route.navigate(['/menu/pacientes']) 
+         this.route.navigate(['/menu/home'])
       } catch (error) {
          this.appSrv.message('Usuario o contraseña inválidos', 'error')
       }
    }
 
    async gotoRegister() {
-      const modal = await this.modalController.create({
-         component: RegisterPage,
-         componentProps: {}
-      })
-      return await modal.present()
+      try {
+         const modal = await this.modalController.create({
+            component: RegisterPage,
+            componentProps: {}
+         })
+         return await modal.present()
+      } catch (error) {
+         console.log('Registration error: ', error)
+         this.appSrv.message('El usuario ya existe', 'error')
+      }
    }
+
+
+   // async tryFacebookLogin() {
+   //    this.user = await this.authSrv.doFacebookLogin()
+   //    this.goHome()
+   // }
+   // async tryGoogleLogin() {
+   //    this.user = await this.authSrv.doGoogleLogin(environment.googleWebClientId)
+   //    this.goHome()
+   // }
 }

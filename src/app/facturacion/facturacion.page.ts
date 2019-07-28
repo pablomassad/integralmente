@@ -12,7 +12,7 @@ import { UserModel } from 'fwk4-authentication';
 @Component({
    selector: 'app-facturacion',
    templateUrl: './facturacion.page.html',
-   styleUrls: ['./facturacion.page.scss', '../buttons.scss'],
+   styleUrls: ['./facturacion.page.scss'],
 })
 export class FacturacionPage implements OnInit, OnDestroy {
    user:UserModel

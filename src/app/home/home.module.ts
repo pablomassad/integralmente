@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router'
 import { IonicModule } from '@ionic/angular'
 
 import { HomePage } from './home.page'
-import { ToolHeadComponentModule } from '../tool-head/tool-head.module';
+import { ToolHeadComponentModule } from '../tool-head/tool-head.module'
 
 const routes: Routes = [
    {

@@ -11,7 +11,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 @Component({
    selector: 'app-docs',
    templateUrl: './docs.page.html',
-   styleUrls: ['./docs.page.scss', '../../buttons.scss'],
+   styleUrls: ['./docs.page.scss'],
 })
 export class DocsPage implements OnInit {
    private fileInfo:any

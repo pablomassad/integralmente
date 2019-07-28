@@ -13,7 +13,7 @@ import { UserModel } from 'fwk4-authentication';
 @Component({
    selector: 'app-factura',
    templateUrl: './factura.page.html',
-   styleUrls: ['./factura.page.scss', '../buttons.scss'],
+   styleUrls: ['./factura.page.scss'],
 })
 export class FacturaPage implements OnInit, OnDestroy {
    private fileInfo:any

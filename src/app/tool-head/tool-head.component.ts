@@ -3,6 +3,7 @@ import { ActionSheetController, ModalController } from '@ionic/angular'
 import { AuthService, UserModel } from 'fwk4-authentication'
 import { Router } from '@angular/router'
 import { EditionPage } from './edition.page'
+import { GlobalService } from 'fwk4-services';
 
 @Component({
    selector: 'app-tool-head',
@@ -15,6 +16,7 @@ export class ToolHeadComponent implements OnInit {
    constructor(
       private modalController: ModalController,
       private authSrv: AuthService,
+      private globalSrv: GlobalService,
       private route: Router,
       private actionSheetController: ActionSheetController
    ) {
@@ -22,26 +24,35 @@ export class ToolHeadComponent implements OnInit {
    }
 
    async ngOnInit() {
-      this.user = await this.authSrv.loggedUser()
+      this.user = await this.globalSrv.getItem('userInfo') 
    }
    async openMenuSheet() {
       const menuOptions = [
+         // {
+         //    text: 'Contactos',
+         //    handler: () => {
+         //       console.log('Contacts Admin');
+         //       this.navCtrl.push('ContactsPage', {
+         //          title: 'Contactos',
+         //          uid: this.userInfo.uid
+         //       })
+         //    }
+         // },
          {
             text: 'Editar Perfil',
-            icon: 'person',
             handler: () => { this.gotoEdition() }
          },
          {
             text: 'Salir',
-            icon: 'log-out',
-            handler: () => { this.logout() }
-         },
-         {
+            handler: () => {
+               console.log('Logout!!!');
+               this.logout();
+            }
+         }, {
             text: 'Cancelar',
-            icon: 'close',
             role: 'cancel',
             handler: () => {
-               console.log('Cancelar')
+               console.log('Cancel clicked');
             }
          }
       ]
@@ -52,8 +63,6 @@ export class ToolHeadComponent implements OnInit {
       });
       await actionSheet.present();
    }
-
-
    private async gotoEdition() {
       const modal = await this.modalController.create({
          component: EditionPage,

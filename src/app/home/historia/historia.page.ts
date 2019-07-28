@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 @Component({
    selector: 'app-historia',
    templateUrl: './historia.page.html',
-   styleUrls: ['./historia.page.scss', '../../buttons.scss'],
+   styleUrls: ['./historia.page.scss'],
 })
 export class HistoriaPage implements OnInit, OnDestroy {
    sub: Subscription

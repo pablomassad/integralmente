@@ -11,7 +11,7 @@ import { UserModel } from 'fwk4-authentication';
 @Component({
    selector: 'app-ficha',
    templateUrl: './ficha.page.html',
-   styleUrls: ['./ficha.page.scss', '../../buttons.scss'],
+   styleUrls: ['./ficha.page.scss'],
 })
 export class FichaPage implements OnInit {
    user: UserModel
