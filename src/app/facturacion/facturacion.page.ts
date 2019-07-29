@@ -3,7 +3,7 @@ import { ModalController, AlertController } from '@ionic/angular'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { Subscription } from 'rxjs'
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
-import { FbsService } from 'src/app/fbs.service'
+import { FbsService } from 'fwk4-authentication'
 import { ApplicationService, GlobalService } from 'fwk4-services';
 import { FacturaPage } from './factura.page'
 import { UserModel } from 'fwk4-authentication';

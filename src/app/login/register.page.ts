@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
-import { AuthService } from 'fwk4-authentication'
+import { AuthService, FbsService } from 'fwk4-authentication'
 import { GlobalService } from 'fwk4-services'
 import { ModalController } from '@ionic/angular'
-import { FbsService } from '../fbs.service'
 import { Chooser } from '@ionic-native/chooser/ngx'
 
 @Component({

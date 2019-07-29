@@ -3,7 +3,6 @@ import { GlobalService, ApplicationService } from 'fwk4-services'
 import { Router } from '@angular/router'
 import * as moment from 'moment'
 import { AngularFirestore } from '@angular/fire/firestore'
-import { FbsService } from '../fbs.service'
 import { Subscription } from 'rxjs'
 
 

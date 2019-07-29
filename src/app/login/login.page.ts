@@ -63,13 +63,13 @@ export class LoginPage implements OnInit {
       //console.log('afAuth user: ', u)  // return firebase.user = null or data
       let usr = await this.authSrv.loggedUser()  // return UserModel null or data (getUser() return undefined or data)
       console.log('firebase.user: ', usr)
-      if (usr) this.route.navigate(['/menu/home'])
+      if (usr) this.route.navigate(['/menu/pacientes'])
    }
 
    async tryEmailLogin(value) {
       try {
          await this.authSrv.doLogin(value)
-         this.route.navigate(['/menu/home'])
+         this.route.navigate(['/menu/pacientes'])
       } catch (error) {
          this.appSrv.message('Usuario o contraseña inválidos', 'error')
       }

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { GlobalService, ApplicationService } from 'fwk4-services'
-import { FbsService } from '../fbs.service'
+import { FbsService } from 'fwk4-authentication'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { Subscription } from 'rxjs'
 import { ModalController, AlertController } from '@ionic/angular';

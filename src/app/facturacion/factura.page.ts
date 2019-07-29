@@ -4,7 +4,7 @@ import { ModalController, NavParams, AlertController } from '@ionic/angular'
 
 import { AngularFirestore } from '@angular/fire/firestore'
 import * as moment from 'moment'
-import { FbsService } from 'src/app/fbs.service'
+import { FbsService } from 'fwk4-authentication'
 import { Chooser } from '@ionic-native/chooser/ngx'
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 import { UserModel } from 'fwk4-authentication';

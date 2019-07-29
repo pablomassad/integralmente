@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { GlobalService } from 'fwk4-services'
 import { ModalController } from '@ionic/angular'
-import { FbsService } from '../fbs.service'
 import { Chooser } from '@ionic-native/chooser/ngx'
-import { UserModel, AuthService } from 'fwk4-authentication'
+import { UserModel, FbsService } from 'fwk4-authentication'
 import { AngularFirestore } from '@angular/fire/firestore';
 
 

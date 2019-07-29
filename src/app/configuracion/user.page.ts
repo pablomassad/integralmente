@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { GlobalService, ApplicationService } from 'fwk4-services'
 import { ModalController, NavParams, AlertController } from '@ionic/angular'
-import { FbsService } from 'src/app/fbs.service'
+import { FbsService } from 'fwk4-authentication'
 import { Chooser } from '@ionic-native/chooser/ngx'
-import { UserModel, FirebaseService } from 'fwk4-authentication';
+import { UserModel, AuthService } from 'fwk4-authentication';
 
 @Component({
    selector: 'app-user',
@@ -26,12 +26,11 @@ export class UserPage implements OnInit {
    }
 
    constructor(
+      private authSrv: AuthService,
       private globalSrv: GlobalService,
-      private appSrv: ApplicationService,
       private formBuilder: FormBuilder,
       private chooser: Chooser,
       private fbsSrv: FbsService,
-      private firebaseSrv: FirebaseService,
       private modalController: ModalController,
       private navParams: NavParams
    ) {
@@ -69,7 +68,7 @@ export class UserPage implements OnInit {
       }
 
       this.user.displayName = value['displayName']
-      await this.firebaseSrv.updateUserData(this.user)
+      await this.authSrv.updateUserData(this.user)
       this.modalController.dismiss()
    }
    cancel() {

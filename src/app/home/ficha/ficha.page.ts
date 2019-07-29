@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FbsService, Upload } from 'src/app/fbs.service'
+import { FbsService, Upload } from 'fwk4-authentication'
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { GlobalService, ApplicationService } from 'fwk4-services'
