@@ -17,7 +17,8 @@ export class DocsPage implements OnInit {
    private fileInfo:any
    patient: any
    session: any
-   attachments: any
+   attachments: any = []
+   pendingAttachments:any = []
    isMobile: boolean
 
 
@@ -53,11 +54,13 @@ export class DocsPage implements OnInit {
    shortName(n) {
       return this.fbsSrv.shortName(n)
    }
-   chooseFileBrowser(info: File) {
-      this.fileInfo = info
+   chooseFileBrowser(ev) {
+      this.fileInfo = ev.target.files[0]
+      this.saveAttachment()
    }
    async chooseFileMobile() {
       this.fileInfo = await this.chooser.getFile('*/*')
+      this.saveAttachment()
    }
    isImage(ext) {
       let flag = false
@@ -101,15 +104,23 @@ export class DocsPage implements OnInit {
       if (this.fileInfo) {
          let obj = await this.fbsSrv.uploadFile(this.fileInfo, this.patient.dni)
          const id = new Date().getTime().toString()
-         await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(obj)
          await this.afs.collection(this.attachmentsPath).doc(id).set(obj)
+         //await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(obj)
       }
+   }
 
-      // const id = new Date().getTime().toString()
-      // if (adj.idSesion) {
-      //    this.sessionAttachmentsPath = 'pacientes/' + this.patient.id + '/sesiones/' + adj.idSesion + '/adjuntos'
-      //    await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(adj)
-      // }
-      // await this.afs.collection(this.attachmentsPath).doc(id).set(adj)
+   private onFileSelected() {
+      var reader = new FileReader()
+      reader.readAsDataURL(this.fileInfo)
+      reader.onload = () => {
+         const info = reader.result
+         const att = {
+            extension:'',
+            url:'',
+            nombre:'',
+            id:new Date().getTime().toString()
+         }
+         this.pendingAttachments.push(att)
+      }
    }
 }

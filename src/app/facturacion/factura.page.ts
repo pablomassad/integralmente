@@ -50,9 +50,9 @@ export class FacturaPage implements OnInit, OnDestroy {
    changeState(ev){
       this.factura.estado = (ev.target.checked == true)?'Cobrada':'Pendiente'
    }
-
-   chooseFileBrowser(info: File) {
-      this.fileInfo = info
+   chooseFileBrowser(ev) {
+      this.fileInfo = ev.target.files[0]
+      
    }
    async chooseFileMobile() {
       this.fileInfo = await this.chooser.getFile('*/*')

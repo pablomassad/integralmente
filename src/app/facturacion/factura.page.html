@@ -65,7 +65,7 @@
                      <div *ngIf="factura.url">{{factura.nombre}}</div>
                   </div>
                </label>
-               <input type="file" style="display: none" id="attachment" (change)="chooseFileBrowser($event.target.files.item(0))" />
+               <input type="file" style="display: none" id="attachment" (change)="chooseFileBrowser($event)" />
             </div>
          </ion-col>
       </ion-row>

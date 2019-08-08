@@ -12,13 +12,13 @@
       <ion-grid>
          <ion-row justify-content-center style="margin-bottom: 30px">
             <ion-avatar class="fichaAvatar">
-               <img [src]="fotoUrl">
+               <img [src]="foto">
                <div class="editFoto" *ngIf="isMobile" (click)="chooseFileMobile()">
                   CAMBIAR
                </div>
                <label for="photoEdit" *ngIf="!isMobile">
                   <div class="editFoto">
-                     SUBIR
+                     CAMBIAR
                   </div>
                </label>
             </ion-avatar>

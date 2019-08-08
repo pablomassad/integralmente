@@ -15,7 +15,7 @@ export class RegisterPage implements OnInit {
    private isAdmin: boolean = false
 
    isMobile: boolean
-   fotoUrl:any = "assets/images/anonymous.png"
+   foto: any = "assets/images/anonymous.png"
    validations_form: FormGroup
    validation_messages = {
       'displayName': [
@@ -88,11 +88,11 @@ export class RegisterPage implements OnInit {
       this.modalController.dismiss()
    }
 
-   private  onFileSelected() {
+   private onFileSelected() {
       var reader = new FileReader()
       reader.readAsDataURL(this.fileInfo)
-      reader.onload = () => { 
-        this.fotoUrl = reader.result;
-      }    
-    }
+      reader.onload = () => {
+         this.foto = reader.result;
+      }
+   }
 }

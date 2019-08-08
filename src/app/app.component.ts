@@ -17,17 +17,21 @@ export class AppComponent {
       private splashScreen: SplashScreen,
       private statusBar: StatusBar
    ) {
-      console.log('AppComponent constructor')
+      console.log('AppComponent constructor!!!')
       this.initializeApp();
    }
 
-   initializeApp() {
-      this.platform.ready().then(async () => {
-         const isMobile = (this.platform.is('cordova'))
-         await this.globalSrv.setItem('isMobile', isMobile)
+   async initializeApp() {
+      const isMobile = !(this.platform.is('desktop'))
+      await this.globalSrv.setItem('isMobile', isMobile)
 
-         this.statusBar.styleDefault()
-         this.splashScreen.hide()
-      })   
+      try {
+         this.platform.ready().then(() => {
+            this.statusBar.styleDefault()
+            this.splashScreen.hide()
+         })   
+      } catch (error) {
+         console.log('Error platform.ready()', error)
+      }
    }
 }

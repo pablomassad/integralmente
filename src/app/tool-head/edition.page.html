@@ -1,7 +1,7 @@
 <ion-header>
    <ion-toolbar>
       <ion-buttons slot="start">
-         <ion-back-button defaultHref="/login" (click)="cancel()"></ion-back-button>
+         <ion-back-button defaultHref="/menu/pacientes" (click)="cancel()"></ion-back-button>
       </ion-buttons>
       <div class="toolbarTitle">Edición de usuario</div>
    </ion-toolbar>
@@ -12,17 +12,17 @@
       <ion-grid>
          <ion-row justify-content-center style="margin-bottom: 30px">
             <ion-avatar class="fichaAvatar">
-               <img [src]="user.photoURL">
+               <img [src]="foto">
                <div class="editFoto" *ngIf="isMobile" (click)="chooseFileMobile()">
                   CAMBIAR
                </div>
                <label for="photoEdit" *ngIf="!isMobile">
                   <div class="editFoto">
-                     SUBIR
+                     CAMBIAR
                   </div>
                </label>
             </ion-avatar>
-            <input type="file" style="display: none" id="photoEdit" (change)="chooseFileBrowser($event.target.files.item(0))" />
+            <input type="file" style="display: none" id="photoEdit" (change)="chooseFileBrowser($event)" />
          </ion-row>
          <ion-row align-items-center justify-content-center>
             <ion-col>

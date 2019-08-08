@@ -17,7 +17,8 @@ export class UserPage implements OnInit {
    isMobile: boolean
    selRole: string = 'Usuario'
    isAdmin: boolean = false
-   fotoUrl: string = "assets/images/anonymous.png"
+   foto: any = "assets/images/anonymous.png"
+
    validations_form: FormGroup
    validation_messages = {
       'displayName': [
@@ -32,7 +33,8 @@ export class UserPage implements OnInit {
       private chooser: Chooser,
       private fbsSrv: FbsService,
       private modalController: ModalController,
-      private navParams: NavParams
+      private navParams: NavParams,
+      private appSrv: ApplicationService
    ) {
       console.log('UserPage constructor')
    }
@@ -40,7 +42,8 @@ export class UserPage implements OnInit {
    async ngOnInit() {
       this.isMobile = this.globalSrv.getItemRAM('isMobile')
       this.user = this.navParams.get('user')
-
+      this.foto = this.user.photoURL
+      
       this.validations_form = this.formBuilder.group({
          displayName: new FormControl('', Validators.compose([
             Validators.required
@@ -48,11 +51,13 @@ export class UserPage implements OnInit {
       })
       this.validations_form.setValue({ displayName: this.user.displayName });
    }
-   chooseFileBrowser(info: File) {
-      this.fileInfo = info
+   chooseFileBrowser(ev) {
+      this.fileInfo = ev.target.files[0]
+      this.onFileSelected()
    }
    async chooseFileMobile() {
       this.fileInfo = await this.chooser.getFile('*/*')
+      this.onFileSelected()
    }
    changeRole(ev) {
       this.user.isAdmin = ev.target.checked
@@ -73,5 +78,16 @@ export class UserPage implements OnInit {
    }
    cancel() {
       this.modalController.dismiss()
+   }
+   deleteUser(){
+      this.appSrv.messageAlert('NO IMPLEMENTADO AUN!!', {})
+   }
+
+   private onFileSelected() {
+      var reader = new FileReader()
+      reader.readAsDataURL(this.fileInfo)
+      reader.onload = () => {
+         this.foto = reader.result;
+      }
    }
 }

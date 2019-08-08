@@ -4,18 +4,18 @@
             <ion-toolbar>
                <div slot="start">
                   <ion-avatar class="fichaAvatar">
-                     <img [src]="patient.foto">
+                     <img [src]="foto">
                      <div class="editFoto" *ngIf="isMobile" (click)="chooseFileMobile()">
                         CAMBIAR
                      </div>
                      <label for="photoEdit" *ngIf="!isMobile">
                         <div class="editFoto">
-                           WEB CH
+                           CAMBIAR
                         </div>
                      </label>
                   </ion-avatar>
                   <input type="file" style="display: none" id="photoEdit"
-                     (change)="chooseFileBrowser($event.target.files.item(0))" />
+                     (change)="chooseFileBrowser($event)" />
                </div>
                <ion-grid>
                      <form [formGroup]="validations_form" *ngIf="patient" (ngSubmit)="save(validations_form.value)"
@@ -142,7 +142,7 @@
                   </ion-col>
                   <ion-col class="grdItem">
                      <div class="campo">
-                        Tel.Pagre:
+                        Tel.Padre:
                      </div>
                      <input type="number" class="dato" [(ngModel)]="patient.telpadre">
                   </ion-col>

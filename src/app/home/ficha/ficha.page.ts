@@ -16,6 +16,8 @@ import { UserModel } from 'fwk4-authentication';
 export class FichaPage implements OnInit {
    user: UserModel
    private fileInfo: any
+   foto: any = "assets/images/anonymous.png"
+
    patient: any
    isMobile: boolean = false
    fechaNacimiento: any
@@ -60,17 +62,20 @@ export class FichaPage implements OnInit {
       this.isMobile = this.globalSrv.getItemRAM('isMobile')
 
       if (this.patient.id) {
+         this.foto = this.patient.foto
          this.validations_form.setValue({
             nombres: this.patient.nombres,
             apellido: this.patient.apellido
          })
       }
    }
-   async chooseFileBrowser(info: File) {
-      this.fileInfo = info
+   async chooseFileBrowser(ev) {
+      this.fileInfo = ev.target.files[0]
+      this.onFileSelected()
    }
    async chooseFileMobile() {
       this.fileInfo = await this.chooser.getFile('*/*')
+      this.onFileSelected()
    }
    evalEdad() {
       const today = moment()
@@ -100,5 +105,13 @@ export class FichaPage implements OnInit {
          await this.afs.collection('pacientes').doc(this.patient.id).set(this.patient, { merge: true })
       else
          await this.afs.collection('pacientes').add(this.patient)
+   }
+
+   private onFileSelected() {
+      var reader = new FileReader()
+      reader.readAsDataURL(this.fileInfo)
+      reader.onload = () => {
+         this.foto = reader.result;
+      }
    }
 }

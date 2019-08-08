@@ -71,14 +71,12 @@ export class SesionPage implements OnInit, OnDestroy {
    shortName(n) {
       return this.fbsSrv.shortName(n)
    }
-
-   chooseFileBrowser(info: File) {
-      this.fileInfo = info
+   chooseFileBrowser(ev) {
+      this.fileInfo = ev.target.files[0]
       this.saveAttachment()
    }
    async chooseFileMobile() {
-      const fi = await this.chooser.getFile('*/*')
-      this.fileInfo = fi
+      this.fileInfo = await this.chooser.getFile('*/*')
       this.saveAttachment()
    }
 

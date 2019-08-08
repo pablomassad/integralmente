@@ -14,6 +14,7 @@ import { UserPage } from './user.page';
 export class ConfiguracionPage implements OnInit, OnDestroy {
    sub:Subscription
    users:any=[]
+   criteria:string
 
    constructor(
       private appSrv: ApplicationService,

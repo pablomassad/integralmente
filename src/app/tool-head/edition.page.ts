@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
-import { GlobalService } from 'fwk4-services'
+import { GlobalService, ApplicationService } from 'fwk4-services'
 import { ModalController } from '@ionic/angular'
 import { Chooser } from '@ionic-native/chooser/ngx'
 import { UserModel, FbsService } from 'fwk4-authentication'
@@ -16,6 +16,8 @@ export class EditionPage implements OnInit {
    private fileInfo: any
    user: UserModel
    isMobile: boolean
+   foto: any = "assets/images/anonymous.png"
+
    validations_form: FormGroup
    validation_messages = {
       'displayName': [
@@ -26,6 +28,7 @@ export class EditionPage implements OnInit {
    constructor(
       private afs: AngularFirestore,
       private globalSrv: GlobalService,
+      private appSrv: ApplicationService,
       private formBuilder: FormBuilder,
       private chooser: Chooser,
       private fbsSrv: FbsService,
@@ -37,23 +40,26 @@ export class EditionPage implements OnInit {
    async ngOnInit() {
       this.isMobile = this.globalSrv.getItemRAM('isMobile')
       this.user = this.globalSrv.getItemRAM('userInfo')
+      this.foto = this.user.photoURL
 
       this.validations_form = this.formBuilder.group({
-         displayName: new FormControl({ value: this.user.displayName }, Validators.compose([
+         displayName: new FormControl('', Validators.compose([
             Validators.required
          ])),
          isAdmin: new FormControl({ value: this.user.isAdmin, disabled: true }, Validators.compose([
             Validators.required
          ]))
       })
-      // this.validations_form.setValue({ displayName: this.user.displayName, isAdmin: this.user.isAdmin });
+      this.validations_form.setValue({ displayName: this.user.displayName, isAdmin: this.user.isAdmin });
    }
 
-   chooseFileBrowser(info: File) {
-      this.fileInfo = info
+   chooseFileBrowser(ev) {
+      this.fileInfo = ev.target.files[0]
+      this.onFileSelected()
    }
    async chooseFileMobile() {
       this.fileInfo = await this.chooser.getFile('*/*')
+      this.onFileSelected()
    }
    changeRole(ev) {
       this.user.isAdmin = ev.target.checked
@@ -74,5 +80,15 @@ export class EditionPage implements OnInit {
    }
    cancel() {
       this.modalController.dismiss()
+   }
+   RecoverPass(){
+      this.appSrv.messageAlert('NO IMPLEMENTADO TODAVIA!', '')
+   }
+   private onFileSelected() {
+      var reader = new FileReader()
+      reader.readAsDataURL(this.fileInfo)
+      reader.onload = () => {
+         this.foto = reader.result;
+      }
    }
 }
