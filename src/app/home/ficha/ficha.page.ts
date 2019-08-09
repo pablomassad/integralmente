@@ -89,9 +89,9 @@ export class FichaPage implements OnInit {
    async save(val) {
       if (this.fileInfo) {
          if (this.patient.fotoNombre)
-            await this.fbsSrv.deleteFileStorage(this.patient.dni, this.patient.fotoNombre)
+            await this.fbsSrv.deleteFileStorage(this.patient.id, this.patient.fotoNombre)
 
-         const obj = await this.fbsSrv.uploadFile(this.fileInfo, this.patient.dni)
+         const obj = await this.fbsSrv.uploadFile(this.fileInfo, this.patient.id)
          this.patient.foto = obj.url
          this.patient.fotoNombre = obj.nombre
       }

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { Routes, RouterModule } from '@angular/router'
 
 import { IonicModule } from '@ionic/angular'
-
+import { OrderModule } from 'ngx-order-pipe'
 import { PacientesPage } from './pacientes.page'
 import { Fwk4PipesModule } from 'fwk4-pipes'
 import { ToolHeadComponentModule } from '../tool-head/tool-head.module';
@@ -21,6 +21,7 @@ const routes: Routes = [
       ToolHeadComponentModule,
       Fwk4PipesModule,
       CommonModule,
+      OrderModule,
       FormsModule,
       IonicModule,
       RouterModule.forChild(routes)

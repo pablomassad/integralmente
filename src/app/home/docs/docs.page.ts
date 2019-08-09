@@ -87,7 +87,7 @@ export class DocsPage implements OnInit {
                text: 'Okay',
                handler: async () => {
                   console.log('Confirm Okay')
-                  this.fbsSrv.deleteFileStorage(this.patient.dni, adj.nombre)
+                  await this.fbsSrv.deleteFileStorage(this.patient.id, adj.nombre)
 
                   if (adj.idSession) {
                      this.sessionAttachmentsPath = 'pacientes/' + this.patient.id + '/sesiones/' + adj.idSesion + '/adjuntos'
@@ -102,7 +102,7 @@ export class DocsPage implements OnInit {
    }
    async saveAttachment() {
       if (this.fileInfo) {
-         let obj = await this.fbsSrv.uploadFile(this.fileInfo, this.patient.dni)
+         let obj = await this.fbsSrv.uploadFile(this.fileInfo, this.patient.id)
          const id = new Date().getTime().toString()
          await this.afs.collection(this.attachmentsPath).doc(id).set(obj)
          //await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(obj)

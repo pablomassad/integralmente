@@ -105,7 +105,7 @@ export class SesionPage implements OnInit, OnDestroy {
                text: 'Okay',
                handler: async () => {
                   console.log('Confirm Okay')
-                  this.fbsSrv.deleteFileStorage(this.patient.dni, adj.nombre)
+                  await this.fbsSrv.deleteFileStorage(this.patient.id, adj.nombre)
                   await this.afs.doc(this.sessionAttachmentsPath + '/' + adj.id).delete()
                   await this.afs.doc(this.attachmentsPath + '/' + adj.id).delete()
                }
@@ -130,7 +130,7 @@ export class SesionPage implements OnInit, OnDestroy {
 
    async saveAttachment() {
       if (this.fileInfo) {
-         let obj = await this.fbsSrv.uploadFile(this.fileInfo, this.patient.dni)
+         let obj = await this.fbsSrv.uploadFile(this.fileInfo, this.patient.id)
          obj['idSesion'] = this.session.id
          const id = new Date().getTime().toString()
          await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(obj)
