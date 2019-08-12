@@ -20,7 +20,7 @@ import { IonicStorageModule } from '@ionic/storage'
 
 import { WebView } from '@ionic-native/ionic-webview/ngx'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
+// import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 import { FileOpener } from '@ionic-native/file-opener/ngx'
 import { File } from '@ionic-native/file/ngx'
 import { Chooser } from '@ionic-native/chooser/ngx'
@@ -42,7 +42,7 @@ import { Chooser } from '@ionic-native/chooser/ngx'
    providers: [
       StatusBar,
       SplashScreen,
-      InAppBrowser,
+      // InAppBrowser,
       FileOpener,
       Chooser,
       File,

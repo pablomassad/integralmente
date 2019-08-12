@@ -2,6 +2,19 @@ npm install @angular/fire firebase --save
 
 npm install --save @ionic-native/ionic-webview
 
+/////////////////////////////////////////////
+HOSTING Firebase
+
+firebase init
+YES Overwrite links url
+NO Overwrite index.html
+
+ionic build --prod --release 
+firebase deploy --only HOSTING
+/////////////////////////////////////////////
+
+
+
 
 deploy HOST Firebase
 - copiar environments a prod

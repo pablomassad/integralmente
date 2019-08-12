@@ -87,7 +87,7 @@ export class SesionPage implements OnInit, OnDestroy {
       return flag
    }
    openFile(url) {
-      this.iab.create(url, '_system')
+      this.iab.create(url, '_blank')
    }
    async removeFile(adj) {
       const alert = await this.alertCtrl.create({

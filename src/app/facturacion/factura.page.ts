@@ -59,7 +59,7 @@ export class FacturaPage implements OnInit, OnDestroy {
    }
 
    openFile(url) {
-      this.iab.create(url, '_system')
+      this.iab.create(url, '_blank')
    }
    onObsChanged(ev) {
       this.factura.observaciones = ev.target.value

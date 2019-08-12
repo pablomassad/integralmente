@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { DocsPage } from './docs.page';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
+
 const routes: Routes = [
   {
     path: '',

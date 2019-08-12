@@ -65,7 +65,7 @@ export class FacturacionPage implements OnInit, OnDestroy {
       this.subCob.unsubscribe()
    }
    openFile(fac){
-      this.iab.create(fac.url, '_system')
+      this.iab.create(fac.url, '_blank')
    }
    changeState(fac, state){
       fac.estado = state
