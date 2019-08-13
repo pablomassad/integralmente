@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core'
 import { ModalController, AlertController } from '@ionic/angular'
 import { AngularFirestore } from '@angular/fire/firestore'
 import { Subscription } from 'rxjs'
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 import { FbsService } from 'fwk4-authentication'
 import { ApplicationService, GlobalService } from 'fwk4-services';
 import { FacturaPage } from './factura.page'
@@ -30,7 +29,6 @@ export class FacturacionPage implements OnInit, OnDestroy {
       private globalSrv:GlobalService,
       private fbsSrv: FbsService,
       private alertCtrl:AlertController,
-      private iab: InAppBrowser,
       private modalController: ModalController,
       private afs: AngularFirestore,
    ) {
@@ -64,8 +62,8 @@ export class FacturacionPage implements OnInit, OnDestroy {
       this.subPend.unsubscribe()
       this.subCob.unsubscribe()
    }
-   openFile(fac){
-      this.iab.create(fac.url, '_blank')
+   openFile(url){
+      window.open(url,'_system', 'location=yes')
    }
    changeState(fac, state){
       fac.estado = state

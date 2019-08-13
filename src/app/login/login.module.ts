@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular'
 import { LoginPage } from './login.page'
 import { RegisterPage } from './register.page'
 import { Fwk4AuthenticationModule } from 'fwk4-authentication'
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx'
 
 const routes: Routes = [
    {
@@ -26,6 +27,7 @@ const routes: Routes = [
       Fwk4AuthenticationModule
    ],
    entryComponents: [
+      FingerprintAIO,
       RegisterPage
    ],
    declarations: [LoginPage, RegisterPage]

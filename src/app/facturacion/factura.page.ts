@@ -6,7 +6,6 @@ import { AngularFirestore } from '@angular/fire/firestore'
 import * as moment from 'moment'
 import { FbsService } from 'fwk4-authentication'
 import { Chooser } from '@ionic-native/chooser/ngx'
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 import { UserModel } from 'fwk4-authentication';
 
 
@@ -23,7 +22,6 @@ export class FacturaPage implements OnInit, OnDestroy {
    fechaFactura:any
 
    constructor(
-      private iab: InAppBrowser,
       private chooser: Chooser,
       private alertCtrl: AlertController,
       private navParams: NavParams,
@@ -59,7 +57,7 @@ export class FacturaPage implements OnInit, OnDestroy {
    }
 
    openFile(url) {
-      this.iab.create(url, '_blank')
+      window.open(url,'_system', 'location=yes')
    }
    onObsChanged(ev) {
       this.factura.observaciones = ev.target.value

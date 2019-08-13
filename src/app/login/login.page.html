@@ -35,7 +35,14 @@
             </div>
          </ion-row>
          <ion-row justify-content-center>
-            <button (click)="gotoRegister()" type="submit" class="glass btnRegister">Registrarse</button>
+            <ion-col *ngIf="isMobile">
+               <button class="glass glround" (click)="finger()">
+                  <ion-icon name="finger-print" class="lockFinger"></ion-icon>
+               </button>
+            </ion-col>
+            <ion-col>
+               <button (click)="gotoRegister()" type="submit" class="glass btnRegister">Registrarse</button>
+            </ion-col>
          </ion-row>
       </ion-grid>
    </div>

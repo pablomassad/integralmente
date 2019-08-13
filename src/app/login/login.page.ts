@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { AuthService } from 'fwk4-authentication'
 import { Router } from '@angular/router'
-import { ApplicationService } from 'fwk4-services'
+import { ApplicationService, GlobalService } from 'fwk4-services'
 import { ModalController } from '@ionic/angular'
 import { RegisterPage } from './register.page'
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { RegisterPage } from './register.page'
 })
 export class LoginPage implements OnInit {
 
+   isMobile:boolean = false
    validations_form: FormGroup
 
    validation_messages = {
@@ -31,7 +33,9 @@ export class LoginPage implements OnInit {
    }
 
    constructor(
+      private faio: FingerprintAIO,
       private appSrv: ApplicationService,
+      private globalSrv: GlobalService,
       private authSrv: AuthService,
       private modalController: ModalController,
       private route: Router,
@@ -61,11 +65,26 @@ export class LoginPage implements OnInit {
    async ngOnInit() {
       //let u = await this.authSrv.isAuthenticated()
       //console.log('afAuth user: ', u)  // return firebase.user = null or data
+
+      this.isMobile = await this.globalSrv.getItem('isMobile')
       let usr = await this.authSrv.loggedUser()  // return UserModel null or data (getUser() return undefined or data)
       console.log('firebase.user: ', usr)
       if (usr) this.route.navigate(['/menu/pacientes'])
    }
 
+   unlock(){
+      this.faio.show({
+         clientId: "Huella Dactilar",
+         clientSecret: "secretoIntegralmente"
+      })
+      .then(()=>{
+         this.validations_form.setValue({ password: '123456', email: 'patriciagonzalezvillar@gmail.com' })
+         this.tryEmailLogin(this.validations_form.value)
+      })
+      .catch(err=>{
+         console.log('Error fingerprint: ', err)
+      })
+   }
    async tryEmailLogin(value) {
       try {
          await this.authSrv.doLogin(value)

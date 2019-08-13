@@ -6,7 +6,6 @@ import * as moment from 'moment'
 import { FbsService } from 'fwk4-authentication'
 import { Subscription } from 'rxjs'
 import { Chooser } from '@ionic-native/chooser/ngx'
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx'
 
 
 @Component({
@@ -29,7 +28,6 @@ export class SesionPage implements OnInit, OnDestroy {
    private attachmentsPath: string = ''
 
    constructor(
-      private iab: InAppBrowser,
       private chooser: Chooser,
       private alertCtrl: AlertController,
       private navParams: NavParams,
@@ -87,7 +85,7 @@ export class SesionPage implements OnInit, OnDestroy {
       return flag
    }
    openFile(url) {
-      this.iab.create(url, '_blank')
+      window.open(url,'_system', 'location=yes')
    }
    async removeFile(adj) {
       const alert = await this.alertCtrl.create({
