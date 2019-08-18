@@ -20,9 +20,11 @@ import { IonicStorageModule } from '@ionic/storage'
 
 import { WebView } from '@ionic-native/ionic-webview/ngx'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { FileOpener } from '@ionic-native/file-opener/ngx'
 import { File } from '@ionic-native/file/ngx'
 import { Chooser } from '@ionic-native/chooser/ngx'
+import { FileOpener } from '@ionic-native/file-opener/ngx'
+import { FileTransfer } from '@ionic-native/file-transfer/ngx'
+
 
 @NgModule({
    declarations: [AppComponent],
@@ -41,9 +43,10 @@ import { Chooser } from '@ionic-native/chooser/ngx'
    providers: [
       StatusBar,
       SplashScreen,
-      FileOpener,
       Chooser,
       File,
+      FileOpener,
+      FileTransfer,
       WebView,
       { provide: FirestoreSettingsToken, useValue: {} },
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

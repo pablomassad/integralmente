@@ -9,8 +9,11 @@
          </div>
          <div class="fileAttr">{{shortName(a.nombre)}}</div>
          <div class="fileAttr">{{a.id | date:'dd/MM/yyyy - HH:mm'}}</div>
-         <div class="btnClose" (click)="removeFile(a);$event.stopPropagation()">
+         <div class="btnOption btnClose" (click)="removeFile(a);$event.stopPropagation()">
             <ion-icon name="close"></ion-icon>
+         </div>
+         <div class="btnOption btnDownload" (click)="download(a);$event.stopPropagation()" *ngIf="isMobile">
+            <ion-icon name="download"></ion-icon>
          </div>
       </div>
    </div>

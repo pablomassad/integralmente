@@ -207,9 +207,9 @@ img {
    font-size: 12px;
 }
 
-.btnClose {
-   margin-top: -115px;
-   margin-left: 111px;
+
+
+.btnOption {
    position: absolute;
    border: none;
    outline: none;
@@ -224,11 +224,26 @@ img {
    padding-top: 3px;
 }
 
-.btnClose:active {
+.btnOption:active {
    background-color: #000000;
    box-shadow: none;
    transform: translateY(2px);
 }
+
+.btnClose{
+   margin-top: -115px;
+   margin-left: 111px;
+}
+.btnDownload{
+   margin-top: -115px;
+   margin-left: -21px;
+}
+
+
+
+
+
+
 
 .btnAddAdjunto {
    border: none;

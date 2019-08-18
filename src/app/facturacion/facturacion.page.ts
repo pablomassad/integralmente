@@ -6,6 +6,7 @@ import { FbsService } from 'fwk4-authentication'
 import { ApplicationService, GlobalService } from 'fwk4-services';
 import { FacturaPage } from './factura.page'
 import { UserModel } from 'fwk4-authentication';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { UserModel } from 'fwk4-authentication';
 })
 export class FacturacionPage implements OnInit, OnDestroy {
    user:UserModel
+   isMobile:Boolean = false
    facturasPendientes: any = []
    facturasCobradas: any = []
 
@@ -26,6 +28,7 @@ export class FacturacionPage implements OnInit, OnDestroy {
    subCob: Subscription
    
    constructor(
+      private fileOpener: FileOpener,
       private globalSrv:GlobalService,
       private fbsSrv: FbsService,
       private alertCtrl:AlertController,
@@ -49,7 +52,8 @@ export class FacturacionPage implements OnInit, OnDestroy {
    }
 
    async ngOnInit() {
-      this.user = await this.globalSrv.getItemRAM('userInfo')
+      this.isMobile = await this.globalSrv.getItem('isMobile')
+      this.user = await this.globalSrv.getItem('userInfo')
 
       this.subPend = this.afs.collection('facturas', ref => ref.where('estado', '==', 'Pendiente').where('uid', '==', this.user.id)).valueChanges({ idField: 'id' }).subscribe(ses=>{
          this.facturasPendientes = ses 
@@ -63,7 +67,10 @@ export class FacturacionPage implements OnInit, OnDestroy {
       this.subCob.unsubscribe()
    }
    openFile(url){
-      window.open(url,'_system', 'location=yes')
+      if (this.isMobile)
+         this.fileOpener.open(url, '')
+      else
+         window.open(url,'_system', 'location=yes')
    }
    changeState(fac, state){
       fac.estado = state

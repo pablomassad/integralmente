@@ -27,8 +27,10 @@ const routes: Routes = [
       Fwk4AuthenticationModule
    ],
    entryComponents: [
-      FingerprintAIO,
       RegisterPage
+   ],
+   providers:[
+      FingerprintAIO
    ],
    declarations: [LoginPage, RegisterPage]
 })

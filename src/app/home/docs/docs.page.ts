@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs'
 import { FbsService } from 'fwk4-authentication'
 import { AlertController } from '@ionic/angular'
 import { Chooser } from '@ionic-native/chooser/ngx'
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 
 @Component({
    selector: 'app-docs',
@@ -12,11 +14,12 @@ import { Chooser } from '@ionic-native/chooser/ngx'
    styleUrls: ['./docs.page.scss'],
 })
 export class DocsPage implements OnInit {
-   private fileInfo:any
+   private fileInfo: any
+   
    patient: any
    session: any
    attachments: any = []
-   pendingAttachments:any = []
+   pendingAttachments: any = []
    isMobile: boolean
 
 
@@ -27,6 +30,8 @@ export class DocsPage implements OnInit {
 
    constructor(
       private chooser: Chooser,
+      private fileTransfer: FileTransfer,
+      private fileOpener: FileOpener,
       private alertCtrl: AlertController,
       private globalSrv: GlobalService,
       private appSrv: ApplicationService,
@@ -66,7 +71,20 @@ export class DocsPage implements OnInit {
       return flag
    }
    openFile(url) {
-      window.open(url,'_system', 'location=yes')
+      if (this.isMobile)
+         this.fileOpener.open(url, '')
+      else
+         window.open(url, '_system', 'location=yes')
+   }
+   download(adj) {
+      let o = this.fileTransfer.create()
+      o.download(adj.url, '/integralmente')
+         .then(x => {
+            console.log('descargado! ', x)
+         })
+         .catch(err => {
+            console.log('error en descarga: ', err)
+         })
    }
    async removeFile(adj) {
       const alert = await this.alertCtrl.create({
@@ -112,10 +130,10 @@ export class DocsPage implements OnInit {
       reader.onload = () => {
          const info = reader.result
          const att = {
-            extension:'',
-            url:'',
-            nombre:'',
-            id:new Date().getTime().toString()
+            extension: '',
+            url: '',
+            nombre: '',
+            id: new Date().getTime().toString()
          }
          this.pendingAttachments.push(att)
       }
