@@ -58,7 +58,7 @@ export class EditionPage implements OnInit {
       this.onFileSelected()
    }
    async chooseFileMobile() {
-      this.fileInfo = await this.chooser.getFile('*/*')
+      this.fileInfo =  this.fbsSrv.convertToFile(await this.chooser.getFile('*/*'))
       this.onFileSelected()
    }
    changeRole(ev) {

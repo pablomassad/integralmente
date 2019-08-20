@@ -52,10 +52,17 @@
    width: 100%;
    margin-top: 30px;
 }
+.grdRegFinger{
+   width: 100%;
+   display:grid;
+   grid-template-columns: 100px 1fr;
+   justify-items: center;
+   align-items: center;
+}
 .btnRegister{
    margin-top: 30px;
-   background: green !important;
-   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 -1px 0 rgba(255, 255, 255, 0.1) inset, 0 4px 0 #0f6331, 0 10px 10px rgba(0, 0, 0, 0.3) !important;
+   width: 90%;
+   background: #69929a !important;
 }
 .go-to-register
 {
@@ -65,7 +72,6 @@
 
 
 .lockFinger{
-   font-size: 35px;
-   padding:0px !important;
+   font-size: 50px;
 }
 

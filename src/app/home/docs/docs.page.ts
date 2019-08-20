@@ -4,9 +4,10 @@ import { AngularFirestore } from '@angular/fire/firestore'
 import { Subscription } from 'rxjs'
 import { FbsService } from 'fwk4-authentication'
 import { AlertController } from '@ionic/angular'
-import { Chooser } from '@ionic-native/chooser/ngx'
+import { Chooser, ChooserResult } from '@ionic-native/chooser/ngx'
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file'
 
 @Component({
    selector: 'app-docs',
@@ -14,8 +15,7 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
    styleUrls: ['./docs.page.scss'],
 })
 export class DocsPage implements OnInit {
-   private fileInfo: any
-   
+   private fileInfo:File
    patient: any
    session: any
    attachments: any = []
@@ -34,7 +34,6 @@ export class DocsPage implements OnInit {
       private fileOpener: FileOpener,
       private alertCtrl: AlertController,
       private globalSrv: GlobalService,
-      private appSrv: ApplicationService,
       private afs: AngularFirestore,
       private fbsSrv: FbsService
    ) {
@@ -61,7 +60,7 @@ export class DocsPage implements OnInit {
       this.saveAttachment()
    }
    async chooseFileMobile() {
-      this.fileInfo = await this.chooser.getFile('*/*')
+      this.fileInfo = this.fbsSrv.convertToFile(await this.chooser.getFile('*/*'))
       this.saveAttachment()
    }
    isImage(ext) {
@@ -121,21 +120,6 @@ export class DocsPage implements OnInit {
          const id = new Date().getTime().toString()
          await this.afs.collection(this.attachmentsPath).doc(id).set(obj)
          //await this.afs.collection(this.sessionAttachmentsPath).doc(id).set(obj)
-      }
-   }
-
-   private onFileSelected() {
-      var reader = new FileReader()
-      reader.readAsDataURL(this.fileInfo)
-      reader.onload = () => {
-         const info = reader.result
-         const att = {
-            extension: '',
-            url: '',
-            nombre: '',
-            id: new Date().getTime().toString()
-         }
-         this.pendingAttachments.push(att)
       }
    }
 }
