@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router, RouterEvent } from '@angular/router'
-import { GlobalService } from 'fwk4-services'
+import { GlobalService, ApplicationService } from 'fwk4-services'
 
 @Component({
    selector: 'app-menu',
@@ -17,6 +17,7 @@ export class MenuPage implements OnInit {
    ]
 
    constructor(
+      private appSrv: ApplicationService,
       private globalSrv: GlobalService,
       private router: Router
    ) {
@@ -29,7 +30,10 @@ export class MenuPage implements OnInit {
    }
 
    async ngOnInit() {
+      await this.appSrv.loading(true)
       const usr = await this.globalSrv.getItem('userInfo')
+      await this.appSrv.loading(false)
+
       if (usr.isAdmin) {
          this.pages.push({
             title: "Facturación",

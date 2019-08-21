@@ -42,7 +42,7 @@ export class LoginPage implements OnInit {
       private formBuilder: FormBuilder
    ) {
       console.log('LoginPage constructor')
-      this.appSrv.configLoading('p&pSoft.png', 'spinnerClass', 'spinnerCss')
+      //this.appSrv.configLoading('p&pSoft.png', 'spinnerClass', 'spinnerCss')
 
       this.validations_form = this.formBuilder.group({
          email: new FormControl('',

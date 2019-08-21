@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { Platform } from '@ionic/angular'
 import { SplashScreen } from '@ionic-native/splash-screen/ngx'
 import { StatusBar } from '@ionic-native/status-bar/ngx'
-import { GlobalService } from 'fwk4-services'
+import { GlobalService, ApplicationService } from 'fwk4-services'
 
 
 @Component({
@@ -12,6 +12,7 @@ import { GlobalService } from 'fwk4-services'
 export class AppComponent {
 
    constructor(
+      private appSrv: ApplicationService,
       private platform: Platform,
       private globalSrv: GlobalService,
       private splashScreen: SplashScreen,
@@ -23,8 +24,10 @@ export class AppComponent {
 
    async initializeApp() {
       const isMobile = !(this.platform.is('desktop'))
+      await this.appSrv.loading(true)
       await this.globalSrv.setItem('isMobile', isMobile)
-
+      await this.appSrv.loading(false)
+      
       try {
          this.platform.ready().then(() => {
             this.statusBar.styleDefault()

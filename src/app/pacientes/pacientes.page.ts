@@ -17,6 +17,7 @@ export class PacientesPage implements OnInit, OnDestroy {
    patients: any = []
 
    constructor(
+      private appSrv: ApplicationService,
       private route: Router,
       private afs: AngularFirestore,
       private globalSrv: GlobalService
@@ -25,10 +26,18 @@ export class PacientesPage implements OnInit, OnDestroy {
    }
 
    async ngOnInit() {
-      let usr = await this.globalSrv.getItem('userInfo')
-      this.sub = this.afs.collection('pacientes', ref => ref.where('uid', '==', usr.id)).valueChanges({ idField: 'id' }).subscribe(ps => {
-         this.patients = ps
-      })
+      try {
+         let usr = await this.globalSrv.getItem('userInfo')
+
+         await this.appSrv.loading(true)
+         this.sub = this.afs.collection('pacientes', ref => ref.where('uid', '==', usr.id)).valueChanges({ idField: 'id' }).subscribe(async ps => {
+            this.patients = ps
+            await this.appSrv.loading(false)
+         })
+      } catch (error) {
+         console.log('Error Pacientes: ', error)
+         await this.appSrv.loading(false)
+      }
    }
    ngOnDestroy(){
       this.sub.unsubscribe()
