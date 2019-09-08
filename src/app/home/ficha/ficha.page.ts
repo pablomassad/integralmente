@@ -71,11 +71,11 @@ export class FichaPage implements OnInit {
    }
    async chooseFileBrowser(ev) {
       this.fileInfo = ev.target.files[0]
-      this.onFileSelected()
+      this.foto = this.fbsSrv.onFileSelected(this.fileInfo)
    }
    async chooseFileMobile() {
-      this.fileInfo =  this.fbsSrv.convertToFile(await this.chooser.getFile('*/*'))
-      this.onFileSelected()
+      this.fileInfo =  await this.chooser.getFile('*/*') //this.fbsSrv.convertToFile(await this.chooser.getFile('*/*'))
+      this.foto = this.fbsSrv.onFileSelected(this.fileInfo)
    }
    evalEdad() {
       const today = moment()
@@ -105,13 +105,5 @@ export class FichaPage implements OnInit {
          await this.afs.collection('pacientes').doc(this.patient.id).set(this.patient, { merge: true })
       else
          await this.afs.collection('pacientes').add(this.patient)
-   }
-
-   private onFileSelected() {
-      var reader = new FileReader()
-      reader.readAsDataURL(this.fileInfo)
-      reader.onload = () => {
-         this.foto = reader.result;
-      }
    }
 }

@@ -53,7 +53,7 @@ export class FacturaPage implements OnInit, OnDestroy {
       
    }
    async chooseFileMobile() {
-      this.fileInfo =  this.fbsSrv.convertToFile(await this.chooser.getFile('*/*'))
+      this.fileInfo =  await this.chooser.getFile('*/*')
    }
 
    openFile(url) {

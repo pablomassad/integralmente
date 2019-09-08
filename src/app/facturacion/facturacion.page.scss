@@ -65,3 +65,18 @@ ion-item-sliding ion-item-options ion-item-option ion-icon{
 .glState{
    background:blue;
 }
+
+
+
+
+@media only screen and (min-width: 500px) {
+   .facFecha{
+      font-size: 20px;
+   }
+   .facOS{
+      font-size: 20px;
+   }
+   .facMonto{
+      font-size: 20px;
+   }
+}

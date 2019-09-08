@@ -53,11 +53,11 @@ export class UserPage implements OnInit {
    }
    chooseFileBrowser(ev) {
       this.fileInfo = ev.target.files[0]
-      this.onFileSelected()
+      this.foto = this.fbsSrv.onFileSelected(this.fileInfo)
    }
    async chooseFileMobile() {
-      this.fileInfo = this.fbsSrv.convertToFile(await this.chooser.getFile('*/*'))
-      this.onFileSelected()
+      this.fileInfo = await this.chooser.getFile('*/*')
+      this.foto = this.fbsSrv.onFileSelected(this.fileInfo)
    }
    changeRole(ev) {
       this.user.isAdmin = ev.target.checked
@@ -81,13 +81,5 @@ export class UserPage implements OnInit {
    }
    deleteUser(){
       this.appSrv.messageAlert('NO IMPLEMENTADO AUN!!', {})
-   }
-
-   private onFileSelected() {
-      var reader = new FileReader()
-      reader.readAsDataURL(this.fileInfo)
-      reader.onload = () => {
-         this.foto = reader.result;
-      }
    }
 }

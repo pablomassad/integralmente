@@ -15,7 +15,7 @@ import { File } from '@ionic-native/file'
    styleUrls: ['./docs.page.scss'],
 })
 export class DocsPage implements OnInit {
-   private fileInfo:File
+   private fileInfo:any
    patient: any
    session: any
    attachments: any = []
@@ -60,7 +60,7 @@ export class DocsPage implements OnInit {
       this.saveAttachment()
    }
    async chooseFileMobile() {
-      this.fileInfo = this.fbsSrv.convertToFile(await this.chooser.getFile('*/*'))
+      this.fileInfo = await this.chooser.getFile('*/*')
       this.saveAttachment()
    }
    isImage(ext) {

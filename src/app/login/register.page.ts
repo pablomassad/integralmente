@@ -61,11 +61,11 @@ export class RegisterPage implements OnInit {
 
    chooseFileBrowser(ev) {
       this.fileInfo = ev.target.files[0]
-      this.onFileSelected()
+      this.foto = this.fbsSrv.onFileSelected(this.fileInfo)
    }
    async chooseFileMobile() {
-      this.fileInfo =  this.fbsSrv.convertToFile(await this.chooser.getFile('*/*'))
-      this.onFileSelected()
+      this.fileInfo = await this.chooser.getFile('*/*')
+      this.fileInfo = this.fbsSrv.onFileSelected(this.fileInfo)
    }
    changeRole(ev) {
       this.isAdmin = ev.target.checked
@@ -86,13 +86,5 @@ export class RegisterPage implements OnInit {
    }
    cancel() {
       this.modalController.dismiss()
-   }
-
-   private onFileSelected() {
-      var reader = new FileReader()
-      reader.readAsDataURL(this.fileInfo)
-      reader.onload = () => {
-         this.foto = reader.result;
-      }
    }
 }
