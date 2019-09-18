@@ -87,6 +87,33 @@ export class SesionPage implements OnInit, OnDestroy {
    openFile(url) {
       window.open(url,'_system', 'location=yes')
    }
+   async remove(){
+      const alert = await this.alertCtrl.create({
+         header: 'Borrado de sesión',
+         message: 'Esta seguro?',
+         buttons: [
+            {
+               text: 'Cancel',
+               role: 'cancel',
+               cssClass: 'secondary',
+               handler: (blah) => {
+                  console.log('Confirm Cancel');
+               }
+            }, {
+               text: 'Okay',
+               handler: async () => {
+                  console.log('Confirm Okay')
+                  this.attachments.forEach(async att => {
+                     await this.afs.doc(this.sessionAttachmentsPath + '/' + att.id).delete()
+                  });
+                  await this.afs.doc(this.sessionsPath + this.session.id).delete()
+                  this.modalController.dismiss()
+               }
+            }
+         ]
+      })
+      await alert.present();
+   }
    async removeFile(adj) {
       const alert = await this.alertCtrl.create({
          header: 'Confirma borrado',
