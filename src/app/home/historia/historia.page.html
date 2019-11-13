@@ -1,36 +1,35 @@
 <ion-toolbar>
-   <ion-icon slot="start" name="search" class="filterIcon"></ion-icon>
-   <ion-item>
-      <ion-label position="floating">Criterio de búsqueda</ion-label>
-      <ion-input type="text" [(ngModel)]="criteria" class="filterInput"></ion-input>
-   </ion-item>
-   <!-- <button slot="end" class="glass glRound btnEntrevista">
+    <ion-icon slot="start" name="search" class="filterIcon"></ion-icon>
+    <ion-item>
+        <ion-label position="floating">Criterio de búsqueda</ion-label>
+        <ion-input type="text" [(ngModel)]="criteria" class="filterInput"></ion-input>
+    </ion-item>
+    <!-- <button slot="end" class="glass glRound btnEntrevista">
       <ion-icon name="contacts" style="font-size: 30px"></ion-icon>
    </button> -->
 </ion-toolbar>
 
 <ion-content>
-   <ion-grid>
-      <!-- <ion-row class="ion-align-items-center ion-justify-content-start">
+    <ion-grid>
+        <!-- <ion-row class="ion-align-items-center ion-justify-content-start">
       </ion-row> -->
-      <ion-row>
-         <ion-col style="padding-bottom: 60px">
-            <div *ngFor="let s of sessions | orderBy:'fecha':true | searchInfo: criteria" (click)="gotoSession(s)"
-               class="historyCards">
-               <div class="txtFecha">{{s.fecha | date:'dd MMM yyyy'}}</div>
-               <div class="obsPanel">
-                  {{s.observaciones}}
-               </div>
-            </div>
-         </ion-col>
-      </ion-row>
-   </ion-grid>
+        <ion-row>
+            <ion-col style="padding-bottom: 60px">
+                <div *ngFor="let s of sessions | orderBy:'fecha':true | searchInfo: criteria" (click)="gotoSession(s)" class="historyCards">
+                    <div class="txtFecha">{{s.fecha | date:'dd MMM yyyy'}}</div>
+                    <div class="obsPanel">
+                        {{s.observaciones}}
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
-   <ion-fab vertical="bottom" horizontal="end" class="glass glRound" style="position: fixed">
-      <ion-fab-button (click)="gotoSession({})">
-         <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-   </ion-fab>
+    <ion-fab vertical="bottom" horizontal="end" class="glass glRound" style="position: fixed">
+        <ion-fab-button (click)="gotoSession({})">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>
 
 

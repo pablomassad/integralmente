@@ -1,96 +1,96 @@
 <ion-header>
-   <ion-toolbar>
-      <ion-buttons slot="start">
-         <ion-back-button defaultHref="/menu/home/historia" (click)="cancel()"></ion-back-button>
-      </ion-buttons>
-      <div class="toolbarTitle" *ngIf="patient">{{patient.apellido}}, {{patient.nombres}}</div>
-   </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/menu/home/historia" (click)="cancel()"></ion-back-button>
+        </ion-buttons>
+        <div class="toolbarTitle" *ngIf="patient">{{patient.apellido}}, {{patient.nombres}}</div>
+    </ion-toolbar>
 </ion-header>
 <ion-content *ngIf="session">
-   <ion-toolbar>
-      <ion-segment (ionChange)="onSegmentChanged($event)" value="sessions" class="segment">
-         <ion-segment-button layout="icon-start" value="sessions" class="btnSegment">
-            <ion-label>Sesiones</ion-label>
-            <ion-icon name="albums"></ion-icon>
-         </ion-segment-button>
-         <ion-segment-button layout="icon-start" value="attachments" class="btnSegment">
-            <ion-label>Adjuntos</ion-label>
-            <ion-icon name="attach"></ion-icon>
-         </ion-segment-button>
-      </ion-segment>
-   </ion-toolbar>
+    <ion-toolbar>
+        <ion-segment (ionChange)="onSegmentChanged($event)" value="sessions" class="segment">
+            <ion-segment-button layout="icon-start" value="sessions" class="btnSegment">
+                <ion-label>Sesiones</ion-label>
+                <ion-icon name="albums"></ion-icon>
+            </ion-segment-button>
+            <ion-segment-button layout="icon-start" value="attachments" class="btnSegment">
+                <ion-label>Adjuntos</ion-label>
+                <ion-icon name="attach"></ion-icon>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
 
-   <ion-grid class="sessionFrame" *ngIf="sessionType=='sessions'">
-      <ion-row class="grdItem">
-         <div class="campo">
-            Fecha:
-         </div>
-         <ion-datetime monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Set, Oct, Nov, Dic"
-         displayFormat="DD MMM YYYY" placeholder="Ingrese fecha" [(ngModel)]="fechaSesion" class="dato datePicker">
-         </ion-datetime>
-      </ion-row>
+    <ion-grid class="sessionFrame" *ngIf="sessionType=='sessions'">
+        <ion-row class="grdItem">
+            <div class="campo">
+                Fecha:
+            </div>
+            <ion-datetime monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Set, Oct, Nov, Dic" displayFormat="DD MMM YYYY" placeholder="Ingrese fecha"
+                [(ngModel)]="fechaSesion" class="dato datePicker">
+            </ion-datetime>
+        </ion-row>
 
-      <ion-row>
-         <div class="campo">Observaciones</div>
-         <textarea (change)="onObsChanged($event)" rows="4" cols="40" labels="notes" wrap="virtual" class="txtArea">
+        <ion-row>
+            <div class="campo">Observaciones</div>
+            <textarea (change)="onObsChanged($event)" rows="4" cols="40" labels="notes" wrap="virtual" class="txtArea">
                {{session.observaciones}}
             </textarea>
-      </ion-row>
+        </ion-row>
 
-      <ion-row>
-         <div class="campo">Notas</div>
-         <textarea (change)="onNotasChanged($event)" wrap="hard" class="txtArea">
+        <ion-row>
+            <div class="campo">Notas</div>
+            <textarea (change)="onNotasChanged($event)" wrap="hard" class="txtArea">
                   {{session.notas}}
             </textarea>
-      </ion-row>
+        </ion-row>
 
-      <ion-row>
-         <ion-toolbar class="backFooter" style="--background: var(--medium);">
-            <div slot="start" class="glass glFlex" (click)="cancel()">
-               <ion-icon name="close"></ion-icon>
-               <div>Cancelar</div>
-            </div>
-            <div class="glass glFlex" (click)="remove()" style="width: 60px; margin: 0 10px 20px 10px;padding: 19px 20px;">
-               <ion-icon name="trash"></ion-icon>
-               <div></div>
-            </div>
-            <div slot="end" class="glass glFlex" (click)="save()">
-               <ion-icon name="save"></ion-icon>
-               <div>Guardar</div>
-            </div>
-         </ion-toolbar>
-      </ion-row>
-   </ion-grid>
+        <ion-row>
+            <ion-toolbar class="backFooter" style="--background: var(--medium);">
+                <div slot="start" class="glass glFlex" (click)="cancel()">
+                    <ion-icon name="close"></ion-icon>
+                    <div>Cancelar</div>
+                </div>
+                <div class="glass glFlex" (click)="remove()" style="width: 60px; margin: 0 10px 20px 10px;padding: 19px 20px;">
+                    <ion-icon name="trash"></ion-icon>
+                    <div></div>
+                </div>
+                <div slot="end" class="glass glFlex" (click)="save()">
+                    <ion-icon name="save"></ion-icon>
+                    <div>Guardar</div>
+                </div>
+            </ion-toolbar>
+        </ion-row>
+    </ion-grid>
 
-   <div class="sessionFrame grdAttachments" *ngIf="sessionType=='attachments' && attachments">
-      <div *ngFor="let a of attachments" class="attachmentBox" (click)="openFile(a.url)">
-         <div *ngIf="isImage(a.extension)">
-            <img class="thumbnail" [src]="a.url">
-         </div>
-         <div *ngIf="!isImage(a.extension)">
-            <img class="thumbnail" src="assets/images/bluebutton.png">
-         </div>
-         <div class="fileAttr">{{shortName(a.nombre)}}</div>
-         <div class="fileAttr">{{a.id | date:'dd/MM/yyyy - HH:mm'}}</div>
-         <div class="btnOption btnClose" (click)="removeFile(a);$event.stopPropagation()">
-            <ion-icon name="close"></ion-icon>
-         </div>
-      </div>
-   </div>
+    <div class="sessionFrame grdAttachments" *ngIf="sessionType=='attachments' && attachments">
+        <div *ngFor="let a of attachments" class="attachmentBox" (click)="openFile(a.url)">
+            <div *ngIf="isImage(a.extension)">
+                <img class="thumbnail" [src]="a.url">
+            </div>
+            <div *ngIf="!isImage(a.extension)">
+                <img class="thumbnail" src="assets/images/bluebutton.png">
+            </div>
+            <div class="fileAttr">{{shortName(a.nombre)}}</div>
+            <div class="fileAttr">{{a.id | date:'dd/MM/yyyy - HH:mm'}}</div>
+            <div class="btnOption btnClose" (click)="removeFile(a);$event.stopPropagation()">
+                <ion-icon name="close"></ion-icon>
+            </div>
+        </div>
+    </div>
 
-   <ion-fab vertical="bottom" horizontal="end" *ngIf="sessionType=='attachments'" class="glass glRound" style="position: fixed">
-      <ion-fab-button>
-         <label *ngIf="isMobile">
-            <div class="btnAddAdjunto" (click)="chooseFileMobile()">
-               <ion-icon name="add"></ion-icon>
-            </div>
-         </label>
-         <label for="attachment" *ngIf="!isMobile">
-            <div class="btnAddAdjunto">
-               <ion-icon name="add"></ion-icon>
-            </div>
-         </label>
-         <input type="file" style="display: none" id="attachment" (change)="chooseFileBrowser($event)" />
-      </ion-fab-button>
-   </ion-fab>
+    <ion-fab vertical="bottom" horizontal="end" *ngIf="sessionType=='attachments'" class="glass glRound" style="position: fixed">
+        <ion-fab-button>
+            <label *ngIf="isMobile">
+                <div class="btnAddAdjunto" (click)="chooseFileMobile()">
+                    <ion-icon name="add"></ion-icon>
+                </div>
+            </label>
+            <label for="attachment" *ngIf="!isMobile">
+                <div class="btnAddAdjunto">
+                    <ion-icon name="add"></ion-icon>
+                </div>
+            </label>
+            <input type="file" style="display: none" id="attachment" (change)="chooseFileBrowser($event)" />
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>
