@@ -23,6 +23,7 @@
     "@angular/router": "^7.2.2",
     "@ionic-native/chooser": "^5.12.0",
     "@ionic-native/core": "^5.12.0",
+    "@ionic-native/fcm": "^5.25.0",
     "@ionic-native/file": "^5.12.0",
     "@ionic-native/file-opener": "^5.12.0",
     "@ionic-native/file-transfer": "^5.12.0",
@@ -36,6 +37,7 @@
     "cordova-plugin-add-swift-support": "^2.0.2",
     "cordova-plugin-chooser": "^1.2.5",
     "cordova-plugin-device": "^2.0.3",
+    "cordova-plugin-fcm-with-dependecy-updated": "^6.3.1",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-opener2": "^2.2.1",
     "cordova-plugin-file-transfer": "^1.7.1",
@@ -101,7 +103,8 @@
       "cordova-plugin-file": {},
       "cordova-plugin-chooser": {},
       "cordova-plugin-fingerprint-aio": {},
-      "cordova-plugin-file-transfer": {}
+      "cordova-plugin-file-transfer": {},
+      "cordova-plugin-fcm-with-dependecy-updated": {}
     },
     "platforms": [
       "android",

@@ -1,53 +1,50 @@
-
-.success-message
-{
-  color: var(--ion-color-success);
+.success-message {
+	color: var(--ion-color-success);
 }
 
-.switch{
-   margin-left: 10px;
-   box-shadow: inset 1px 1px 3px black;
-   -webkit-appearance: none;
-   height: 2rem;
-   width: 4rem;
-   background-color: rgb(126, 126, 126);
-   border-radius: 43px;
-   position: relative;
-   cursor: pointer;
-   &::after {
-     top: 4px;
-     left: 4px;
-     content: '';
-     width: 1.5rem;
-     height:1.5rem;
-     background-color:lightgray;
-     box-shadow: 1px 1px 5px black;
-     position: absolute;
-     border-radius: 100%;
-     transition: 1s;
-     border:none;
-   }
-   &:checked {
-     background-color: #00aeff;
-     &::after {
-       transform: translateX(2rem);
-     }
-   }
-   &:focus {
-     outline:none;
-   }
- }
+.switch {
+	margin-left: 10px;
+	box-shadow: inset 1px 1px 3px black;
+	-webkit-appearance: none;
+	height: 2rem;
+	width: 4rem;
+	background-color: rgb(126, 126, 126);
+	border-radius: 43px;
+	position: relative;
+	cursor: pointer;
+	&::after {
+		top: 4px;
+		left: 4px;
+		content: '';
+		width: 1.5rem;
+		height: 1.5rem;
+		background-color: lightgray;
+		box-shadow: 1px 1px 5px black;
+		position: absolute;
+		border-radius: 100%;
+		transition: 1s;
+		border: none;
+	}
+	&:checked {
+		background-color: #00aeff;
+		&::after {
+			transform: translateX(2rem);
+		}
+	}
+	&:focus {
+		outline: none;
+	}
+}
 
 @media only screen and (min-width: 500px) {
-   .fichaAvatar {
-      width: 140px;
-      height: 140px;
-   }
+	.fichaAvatar {
+		width: 140px;
+		height: 140px;
+	}
 
-   .editFoto {
-      font-size: 18px;
-      margin-top: -40px;
-      padding: 3px 0 10px;
-   }
+	.editFoto {
+		font-size: 18px;
+		margin-top: -40px;
+		padding: 3px 0 10px;
+	}
 }
-
