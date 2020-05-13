@@ -1,65 +1,65 @@
 <ion-header>
-   <ion-toolbar>
-      <ion-buttons slot="start">
-         <ion-back-button defaultHref="/configuracion" (click)="cancel()"></ion-back-button>
-      </ion-buttons>
-      <div class="toolbarTitle">Edición de usuario</div>
-   </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/configuracion" (click)="cancel()"></ion-back-button>
+        </ion-buttons>
+        <div class="toolbarTitle">Edición de usuario</div>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding style="--ion-background-color: radial-gradient(#ffffff, #c1c1c1);">
-   <form [formGroup]="validations_form" class="backForm" (ngSubmit)="save(validations_form.value)">
-      <ion-grid>
-         <ion-row justify-content-center style="margin-bottom: 30px">
-            <ion-avatar class="fichaAvatar">
-               <img [src]="foto">
-               <div class="editFoto" *ngIf="isMobile" (click)="chooseFileMobile()">
-                  CAMBIAR
-               </div>
-               <label for="photoEdit" *ngIf="!isMobile">
-                  <div class="editFoto">
-                     CAMBIAR
-                  </div>
-               </label>
-            </ion-avatar>
-            <input type="file" style="display: none" id="photoEdit" (change)="chooseFileBrowser($event)" />
-         </ion-row>
-         <ion-row align-items-center justify-content-center>
-            <ion-col>
-               <input formControlName="displayName" type="text" placeholder="Nombre de usuario" class="displayName">
-               <div class="validation-errors">
-                  <ng-container *ngFor="let validation of validation_messages.displayName">
-                     <div class="error-message"
-                        *ngIf="validations_form.get('displayName').hasError(validation.type) && (validations_form.get('displayName').dirty || validations_form.get('displayName').touched)">
-                        {{ validation.message }}
-                     </div>
-                  </ng-container>
-               </div>
-            </ion-col>
-            <ion-col class="grdItem">
-               <div class="campo">
-                  Administrador
-               </div>
-               <input class="switch" type="checkbox" (change)="changeRole($event)" />
-            </ion-col>
-         </ion-row>
-         <ion-row>
-            <div class="email">{{user.email}}</div>
-         </ion-row>
-         <ion-row>
-            <p class="notification">No es posible cambiar el email, solo eliminar la cuenta y crear una nueva desde la
-                  administracion de usuarios.</p>
-         </ion-row>
-      </ion-grid>
-   </form>
-   <ion-row align-items-center justify-content-center style="margin-top:20px;">
-      <ion-col>
-         <button class="glass btnEdit" expand="block" (click)="deleteUser()">Eliminar usuario</button>
-      </ion-col>
-      <ion-col>
-         <button class="glass btnEdit" expand="block" type="submit" (click)="save(validations_form.value)">Actualizar datos</button>
-      </ion-col>
-   </ion-row>
+    <form [formGroup]="validations_form" class="backForm" (ngSubmit)="save(validations_form.value)">
+        <ion-grid>
+            <ion-row justify-content-center style="margin-bottom: 30px">
+                <ion-avatar class="fichaAvatar">
+                    <img [src]="foto">
+                    <div class="editFoto" *ngIf="isMobile" (click)="chooseFileMobile()">
+                        CAMBIAR
+                    </div>
+                    <label for="photoEdit" *ngIf="!isMobile">
+                        <div class="editFoto">
+                            CAMBIAR
+                        </div>
+                    </label>
+                </ion-avatar>
+                <input type="file" style="display: none" id="photoEdit" (change)="chooseFileBrowser($event)" />
+            </ion-row>
+            <ion-row align-items-center justify-content-center>
+                <ion-col>
+                    <input formControlName="displayName" type="text" placeholder="Nombre de usuario" class="displayName">
+                    <div class="validation-errors">
+                        <ng-container *ngFor="let validation of validation_messages.displayName">
+                            <div class="error-message"
+                                *ngIf="validations_form.get('displayName').hasError(validation.type) && (validations_form.get('displayName').dirty || validations_form.get('displayName').touched)">
+                                {{ validation.message }}
+                            </div>
+                        </ng-container>
+                    </div>
+                </ion-col>
+                <ion-col class="grdItem">
+                    <div class="campo">
+                        Administrador
+                    </div>
+                    <input class="switch" type="checkbox" (change)="changeRole($event)" />
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <div class="email">{{user.email}}</div>
+            </ion-row>
+            <ion-row>
+                <p class="notification">No es posible cambiar el email, solo eliminar la cuenta y crear una nueva desde la
+                    administracion de usuarios.</p>
+            </ion-row>
+        </ion-grid>
+    </form>
+    <ion-row align-items-center justify-content-center style="margin-top:20px;">
+        <ion-col>
+            <button class="glass btnEdit" expand="block" (click)="deleteUser()">Eliminar usuario</button>
+        </ion-col>
+        <ion-col>
+            <button class="glass btnEdit" expand="block" type="submit" (click)="save(validations_form.value)">Actualizar datos</button>
+        </ion-col>
+    </ion-row>
 </ion-content>
 
 

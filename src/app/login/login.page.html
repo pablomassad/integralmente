@@ -1,49 +1,48 @@
 <ion-content>
-   <div class="backImg">
-      <ion-grid class="loginFrame">
-         <ion-row>
-            <div class="loginPanel">
-               <!-- (ngSubmit)="tryEmailLogin(validations_form.value)" -->
-               <form [formGroup]="validations_form" class="backForm formlogin"
-                  (ngSubmit)="tryEmailLogin(validations_form.value)">
-                  <div class="formTitle">
-                     <img src="assets/images/integralmenteET.png">
-                  </div>
-
-                  <input formControlName="email" type="text" placeholder="Correo electrónico">
-                  <div class="validation-errors">
-                     <ng-container *ngFor="let validation of validation_messages.email">
-                        <div class="error-message"
-                           *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
-                           {{ validation.message }}
+    <div class="backImg">
+        <ion-grid class="loginFrame">
+            <ion-row>
+                <div class="loginPanel">
+                    <!-- (ngSubmit)="tryEmailLogin(validations_form.value)" -->
+                    <form [formGroup]="validations_form" class="backForm formlogin" (ngSubmit)="tryEmailLogin(validations_form.value)">
+                        <div class="formTitle">
+                            <img src="assets/images/integralmenteET.png">
                         </div>
-                     </ng-container>
-                  </div>
 
-                  <input formControlName="password" type="password" placeholder="Contraseña">
-                  <div class="validation-errors">
-                     <ng-container *ngFor="let validation of validation_messages.password">
-                        <div class="error-message"
-                           *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
-                           {{ validation.message }}
+                        <input formControlName="email" type="text" placeholder="Correo electrónico">
+                        <div class="validation-errors">
+                            <ng-container *ngFor="let validation of validation_messages.email">
+                                <div class="error-message"
+                                    *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+                                    {{ validation.message }}
+                                </div>
+                            </ng-container>
                         </div>
-                     </ng-container>
-                  </div>
 
-                  <button [disabled]="!validations_form.valid" type="submit" class="glass btnLogin">Ingresar</button>
-               </form>
-            </div>
-         </ion-row>
-         <ion-row justify-content-center align-items-center>
-            <div class="grdRegFinger">
-               <button class="glass glround" (click)="unlock()" style="margin-top: 25px;padding:10px">
-                  <ion-icon name="finger-print" class="lockFinger"></ion-icon>
-               </button>
-               <button (click)="gotoRegister()" type="submit" class="glass btnRegister">Registrarse</button>
-            </div>
-         </ion-row>
-      </ion-grid>
-   </div>
+                        <input formControlName="password" type="password" placeholder="Contraseña">
+                        <div class="validation-errors">
+                            <ng-container *ngFor="let validation of validation_messages.password">
+                                <div class="error-message"
+                                    *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+                                    {{ validation.message }}
+                                </div>
+                            </ng-container>
+                        </div>
+
+                        <button [disabled]="!validations_form.valid" type="submit" class="glass btnLogin">Ingresar</button>
+                    </form>
+                </div>
+            </ion-row>
+            <ion-row justify-content-center align-items-center>
+                <div class="grdRegFinger">
+                    <button class="glass glround" (click)="unlock()" style="margin-top: 25px;padding:10px">
+                        <ion-icon name="finger-print" class="lockFinger"></ion-icon>
+                    </button>
+                    <button (click)="gotoRegister()" type="submit" class="glass btnRegister">Registrarse</button>
+                </div>
+            </ion-row>
+        </ion-grid>
+    </div>
 </ion-content>
 
 <!--

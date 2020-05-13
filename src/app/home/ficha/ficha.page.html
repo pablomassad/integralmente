@@ -1,183 +1,181 @@
-   <ion-content>
-      <ion-grid *ngIf="patient">
-         <ion-row>
+<ion-content>
+    <ion-grid *ngIf="patient">
+        <ion-row>
             <ion-toolbar>
-               <div slot="start">
-                  <ion-avatar class="fichaAvatar">
-                     <img [src]="foto">
-                     <div class="editFoto" *ngIf="isMobile" (click)="chooseFileMobile()">
-                        CAMBIAR
-                     </div>
-                     <label for="photoEdit" *ngIf="!isMobile">
-                        <div class="editFoto">
-                           CAMBIAR
+                <div slot="start">
+                    <ion-avatar class="fichaAvatar">
+                        <img [src]="foto">
+                        <div class="editFoto" *ngIf="isMobile" (click)="chooseFileMobile()">
+                            CAMBIAR
                         </div>
-                     </label>
-                  </ion-avatar>
-                  <input type="file" style="display: none" id="photoEdit"
-                     (change)="chooseFileBrowser($event)" />
-               </div>
-               <ion-grid>
-                     <form [formGroup]="validations_form" *ngIf="patient" (ngSubmit)="save(validations_form.value)"
-                        class="backForm">
+                        <label for="photoEdit" *ngIf="!isMobile">
+                            <div class="editFoto">
+                                CAMBIAR
+                            </div>
+                        </label>
+                    </ion-avatar>
+                    <input type="file" style="display: none" id="photoEdit" (change)="chooseFileBrowser($event)" />
+                </div>
+                <ion-grid>
+                    <form [formGroup]="validations_form" *ngIf="patient" (ngSubmit)="save(validations_form.value)" class="backForm">
                         <ion-col>
-                           <div class="grdItem">
-                              <div class="campo">
-                                 Nombres:
-                              </div>
-                              <input formControlName="nombres" type="text" class="dato">
-                           </div>
-                           <div class="validation-errors">
-                              <ng-container *ngFor="let validation of validation_messages.nombres">
-                                 <div class="error-message"
-                                    *ngIf="validations_form.get('nombres').hasError(validation.type) && (validations_form.get('nombres').dirty || validations_form.get('nombres').touched)">
-                                    {{ validation.message }}
-                                 </div>
-                              </ng-container>
-                           </div>
+                            <div class="grdItem">
+                                <div class="campo">
+                                    Nombres:
+                                </div>
+                                <input formControlName="nombres" type="text" class="dato">
+                            </div>
+                            <div class="validation-errors">
+                                <ng-container *ngFor="let validation of validation_messages.nombres">
+                                    <div class="error-message"
+                                        *ngIf="validations_form.get('nombres').hasError(validation.type) && (validations_form.get('nombres').dirty || validations_form.get('nombres').touched)">
+                                        {{ validation.message }}
+                                    </div>
+                                </ng-container>
+                            </div>
                         </ion-col>
                         <ion-col>
-                           <div class="grdItem">
-                              <div class="campo">
-                                 Apellido:
-                              </div>
-                              <input formControlName="apellido"type="text" class="dato">
-                           </div>
-                           <div class="validation-errors">
-                              <ng-container *ngFor="let validation of validation_messages.apellido">
-                                 <div class="error-message"
-                                    *ngIf="validations_form.get('apellido').hasError(validation.type) && (validations_form.get('apellido').dirty || validations_form.get('apellido').touched)">
-                                    {{ validation.message }}
-                                 </div>
-                              </ng-container>
-                           </div>
+                            <div class="grdItem">
+                                <div class="campo">
+                                    Apellido:
+                                </div>
+                                <input formControlName="apellido" type="text" class="dato">
+                            </div>
+                            <div class="validation-errors">
+                                <ng-container *ngFor="let validation of validation_messages.apellido">
+                                    <div class="error-message"
+                                        *ngIf="validations_form.get('apellido').hasError(validation.type) && (validations_form.get('apellido').dirty || validations_form.get('apellido').touched)">
+                                        {{ validation.message }}
+                                    </div>
+                                </ng-container>
+                            </div>
                         </ion-col>
-                     </form>
-               </ion-grid>
+                    </form>
+                </ion-grid>
             </ion-toolbar>
-         </ion-row>
-         <ion-row>
+        </ion-row>
+        <ion-row>
             <ion-col class="grdItem">
-               <div class="campo">
-                  Fecha Nac.:
-               </div>
-               <ion-datetime monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Set, Oct, Nov, Dic"
-                  displayFormat="DD MMM YYYY" [(ngModel)]="fechaNacimiento" class="dato datePicker">
-               </ion-datetime>
+                <div class="campo">
+                    Fecha Nac.:
+                </div>
+                <ion-datetime monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Set, Oct, Nov, Dic" displayFormat="DD MMM YYYY" [(ngModel)]="fechaNacimiento"
+                    class="dato datePicker">
+                </ion-datetime>
             </ion-col>
             <ion-col class="grdItem">
-               <div class="campo">
-                  Edad:
-               </div>
-               <div class="dato lblEdad">
-                  {{evalEdad()}}
-               </div>
+                <div class="campo">
+                    Edad:
+                </div>
+                <div class="dato lblEdad">
+                    {{evalEdad()}}
+                </div>
             </ion-col>
             <ion-col class="grdItem">
-               <div class="campo">
-                  Colegio:
-               </div>
-               <input type="text" class="dato" [(ngModel)]="patient.colegio">
+                <div class="campo">
+                    Colegio:
+                </div>
+                <input type="text" class="dato" [(ngModel)]="patient.colegio">
             </ion-col>
             <ion-col class="grdItem">
-               <div class="campo">
-                  Curso:
-               </div>
-               <input type="text" class="dato" [(ngModel)]="patient.curso">
+                <div class="campo">
+                    Curso:
+                </div>
+                <input type="text" class="dato" [(ngModel)]="patient.curso">
             </ion-col>
             <ion-col class="grdItem">
-               <div class="campo">
-                  DNI:
-               </div>
-               <input type="number" class="dato" [(ngModel)]="patient.dni">
+                <div class="campo">
+                    DNI:
+                </div>
+                <input type="number" class="dato" [(ngModel)]="patient.dni">
             </ion-col>
             <ion-col class="grdItem">
-               <div class="campo">
-                  Obra Social:
-               </div>
-               <input type="text" class="dato" [(ngModel)]="patient.obrasocial">
+                <div class="campo">
+                    Obra Social:
+                </div>
+                <input type="text" class="dato" [(ngModel)]="patient.obrasocial">
             </ion-col>
             <ion-col class="grdItem">
-               <div class="campo">
-                  Afiliado Nr:
-               </div>
-               <input type="text" class="dato" [(ngModel)]="patient.afiliado">
+                <div class="campo">
+                    Afiliado Nr:
+                </div>
+                <input type="text" class="dato" [(ngModel)]="patient.afiliado">
             </ion-col>
             <ion-col class="grdItem">
-               <div class="campo">
-                  Diagnóstico:
-               </div>
-               <input type="text" class="dato" [(ngModel)]="patient.diagnostico">
+                <div class="campo">
+                    Diagnóstico:
+                </div>
+                <input type="text" class="dato" [(ngModel)]="patient.diagnostico">
             </ion-col>
             <ion-col class="grdItem">
-               <div class="campo">
-                  Dias de atención:
-               </div>
-               <input type="text" class="dato" [(ngModel)]="patient.atencion">
+                <div class="campo">
+                    Dias de atención:
+                </div>
+                <input type="text" class="dato" [(ngModel)]="patient.atencion">
             </ion-col>
-         </ion-row>
-         <ion-row class="frameContacto">
+        </ion-row>
+        <ion-row class="frameContacto">
             <ion-grid>
-               <ion-row class="subtitle">
-                  Datos de contacto
-               </ion-row>
-               <ion-row class="grdContacto">
-                  <ion-col class="grdItem">
-                     <div class="campo">
-                        Madre:
-                     </div>
-                     <input type="text" class="dato" [(ngModel)]="patient.madre">
-                  </ion-col>
-                  <ion-col class="grdItem">
-                     <div class="campo">
-                        Padre:
-                     </div>
-                     <input type="text" class="dato" [(ngModel)]="patient.padre">
-                  </ion-col>
-                  <ion-col class="grdItem">
-                     <div class="campo">
-                        Tel.Madre:
-                     </div>
-                     <input type="number" class="dato" [(ngModel)]="patient.telmadre">
-                  </ion-col>
-                  <ion-col class="grdItem">
-                     <div class="campo">
-                        Tel.Padre:
-                     </div>
-                     <input type="number" class="dato" [(ngModel)]="patient.telpadre">
-                  </ion-col>
-                  <ion-col class="grdItem">
-                     <div class="campo">
-                        Email:
-                     </div>
-                     <input type="text" class="dato" [(ngModel)]="patient.email">
-                  </ion-col>
-                  <ion-col class="grdItem">
-                     <div class="campo">
-                        Domicilio:
-                     </div>
-                     <input type="text" class="dato" [(ngModel)]="patient.domicilio">
-                  </ion-col>
-                  <ion-col class="grdItem">
-                     <div class="campo">
-                        Ciudad:
-                     </div>
-                     <input type="text" class="dato" [(ngModel)]="patient.ciudad">
-                  </ion-col>
-               </ion-row>
+                <ion-row class="subtitle">
+                    Datos de contacto
+                </ion-row>
+                <ion-row class="grdContacto">
+                    <ion-col class="grdItem">
+                        <div class="campo">
+                            Madre:
+                        </div>
+                        <input type="text" class="dato" [(ngModel)]="patient.madre">
+                    </ion-col>
+                    <ion-col class="grdItem">
+                        <div class="campo">
+                            Padre:
+                        </div>
+                        <input type="text" class="dato" [(ngModel)]="patient.padre">
+                    </ion-col>
+                    <ion-col class="grdItem">
+                        <div class="campo">
+                            Tel.Madre:
+                        </div>
+                        <input type="number" class="dato" [(ngModel)]="patient.telmadre">
+                    </ion-col>
+                    <ion-col class="grdItem">
+                        <div class="campo">
+                            Tel.Padre:
+                        </div>
+                        <input type="number" class="dato" [(ngModel)]="patient.telpadre">
+                    </ion-col>
+                    <ion-col class="grdItem">
+                        <div class="campo">
+                            Email:
+                        </div>
+                        <input type="text" class="dato" [(ngModel)]="patient.email">
+                    </ion-col>
+                    <ion-col class="grdItem">
+                        <div class="campo">
+                            Domicilio:
+                        </div>
+                        <input type="text" class="dato" [(ngModel)]="patient.domicilio">
+                    </ion-col>
+                    <ion-col class="grdItem">
+                        <div class="campo">
+                            Ciudad:
+                        </div>
+                        <input type="text" class="dato" [(ngModel)]="patient.ciudad">
+                    </ion-col>
+                </ion-row>
             </ion-grid>
-         </ion-row>
-         <ion-row>
+        </ion-row>
+        <ion-row>
             <ion-toolbar class="backFooter">
-               <button slot="start" class="glass glFlex" (click)="cancel()" >
-                  <ion-icon name="close"></ion-icon>
-                  <div>Cancelar</div>
-               </button>
-               <button slot="end" class="glass glFlex" [disabled]="!validations_form.valid" (click)="save(validations_form.value)" type="submit">
-                  <ion-icon name="save"></ion-icon>
-                  <div>Guardar</div>
-               </button>
+                <button slot="start" class="glass glFlex" (click)="cancel()">
+                    <ion-icon name="close"></ion-icon>
+                    <div>Cancelar</div>
+                </button>
+                <button slot="end" class="glass glFlex" [disabled]="!validations_form.valid" (click)="save(validations_form.value)" type="submit">
+                    <ion-icon name="save"></ion-icon>
+                    <div>Guardar</div>
+                </button>
             </ion-toolbar>
-         </ion-row>
-      </ion-grid>
-   </ion-content>
+        </ion-row>
+    </ion-grid>
+</ion-content>

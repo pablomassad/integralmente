@@ -1,86 +1,84 @@
 <ion-header *ngIf="factura">
-   <ion-toolbar>
-      <ion-buttons slot="start">
-         <ion-back-button defaultHref="/menu/facturacion" (click)="cancel()"></ion-back-button>
-      </ion-buttons>
-      <div class="toolbarTitle" *ngIf="!factura.id">Nueva factura</div>
-      <div class="toolbarTitle" *ngIf="factura.id">Editar factura</div>
-   </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/menu/facturacion" (click)="cancel()"></ion-back-button>
+        </ion-buttons>
+        <div class="toolbarTitle" *ngIf="!factura.id">Nueva factura</div>
+        <div class="toolbarTitle" *ngIf="factura.id">Editar factura</div>
+    </ion-toolbar>
 </ion-header>
 <ion-content *ngIf="factura">
-   <ion-grid class="facturaFrame">
-      <ion-row class="grdItem">
+    <ion-grid class="facturaFrame">
+        <ion-row class="grdItem">
 
-         <ion-col class="grdItem">
-            <div class="campo">
-               {{factura.estado}}
-            </div>
-            <input class="switch" type="checkbox" (change)="changeState($event)" />
-         </ion-col>
-         <ion-col class="grdItem">
-            <div class="campo">
-               Fecha:
-            </div>
-            <ion-datetime monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Set, Oct, Nov, Dic"
-               displayFormat="DD MMM YYYY" [(ngModel)]="fechaFactura" class="dato datePicker">
-            </ion-datetime>
-         </ion-col>
-         <ion-col class="grdItem">
-            <div class="campo">
-               Obra Social:
-            </div>
-            <input type="text" class="dato" [(ngModel)]="factura.obrasocial">
-         </ion-col>
-         <ion-col class="grdItem">
-            <div class="campo">
-               Monto:
-            </div>
-            <input type="text" class="dato" [(ngModel)]="factura.monto">
-         </ion-col>
-      </ion-row>
+            <ion-col class="grdItem">
+                <div class="campo">
+                    {{factura.estado}}
+                </div>
+                <input class="switch" type="checkbox" (change)="changeState($event)" />
+            </ion-col>
+            <ion-col class="grdItem">
+                <div class="campo">
+                    Fecha:
+                </div>
+                <ion-datetime max="2099-10-31" monthShortNames="Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Set, Oct, Nov, Dic" displayFormat="DD MMM YYYY" [(ngModel)]="fechaFactura"
+                    class="dato datePicker">
+                </ion-datetime>
+            </ion-col>
+            <ion-col class="grdItem">
+                <div class="campo">
+                    Obra Social:
+                </div>
+                <input type="text" class="dato" [(ngModel)]="factura.obrasocial">
+            </ion-col>
+            <ion-col class="grdItem">
+                <div class="campo">
+                    Monto:
+                </div>
+                <input type="text" class="dato" [(ngModel)]="factura.monto">
+            </ion-col>
+        </ion-row>
 
-      <ion-row>
-         <div class="campo">Observaciones</div>
-         <textarea (change)="onObsChanged($event)" rows="4" cols="40" labels="notes" wrap="virtual" class="txtArea">
+        <ion-row>
+            <div class="campo">Observaciones</div>
+            <textarea (change)="onObsChanged($event)" rows="4" cols="40" labels="notes" wrap="virtual" class="txtArea">
                   {{factura.observaciones}}
                </textarea>
-      </ion-row>
-      <ion-row>
-         <ion-col>
-            <div style="margin-top:20px;">
-               <label *ngIf="isMobile">
-                  <div class="glass glFlex facturaName"
-                     [ngClass]="{'facturaOK': (factura.url != undefined), 'facturaNO': (factura.url == undefined)}"
-                     (click)="chooseFileMobile()">
-                     <ion-icon name="attach" style="font-size: 23px !important;"></ion-icon>
-                     <div *ngIf="!factura.url">Adjuntar factura...</div>
-                     <div *ngIf="factura.url">{{factura.nombre}}</div>
-                  </div>
-               </label>
-               <label for="attachment" *ngIf="!isMobile">
-                  <div class="glass glFlex facturaName"
-                     [ngClass]="{'facturaOK': (factura.url != undefined), 'facturaNO': (factura.url == undefined)}">
-                     <ion-icon name="attach" style="font-size: 23px !important"></ion-icon>
-                     <div *ngIf="!factura.url">Adjuntar factura...</div>
-                     <div *ngIf="factura.url">{{factura.nombre}}</div>
-                  </div>
-               </label>
-               <input type="file" style="display: none" id="attachment" (change)="chooseFileBrowser($event)" />
-            </div>
-         </ion-col>
-      </ion-row>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <div style="margin-top:20px;">
+                    <label *ngIf="isMobile">
+                        <div class="glass glFlex facturaName" [ngClass]="{'facturaOK': (factura.url != undefined), 'facturaNO': (factura.url == undefined)}"
+                            (click)="chooseFileMobile()">
+                            <ion-icon name="attach" style="font-size: 23px !important;"></ion-icon>
+                            <div *ngIf="!factura.url">Adjuntar factura...</div>
+                            <div *ngIf="factura.url">{{factura.nombre}}</div>
+                        </div>
+                    </label>
+                    <label for="attachment" *ngIf="!isMobile">
+                        <div class="glass glFlex facturaName" [ngClass]="{'facturaOK': (factura.url != undefined), 'facturaNO': (factura.url == undefined)}">
+                            <ion-icon name="attach" style="font-size: 23px !important"></ion-icon>
+                            <div *ngIf="!factura.url">Adjuntar factura...</div>
+                            <div *ngIf="factura.url">{{factura.nombre}}</div>
+                        </div>
+                    </label>
+                    <input type="file" style="display: none" id="attachment" (change)="chooseFileBrowser($event)" />
+                </div>
+            </ion-col>
+        </ion-row>
 
-      <ion-row>
-         <ion-toolbar class="backFooter" style="--background: var(--medium);">
-            <div slot="start" class="glass glFlex" (click)="cancel()">
-               <ion-icon name="close"></ion-icon>
-               <div>Cancelar</div>
-            </div>
-            <div slot="end" class="glass glFlex" (click)="save()">
-               <ion-icon name="save"></ion-icon>
-               <div>Guardar</div>
-            </div>
-         </ion-toolbar>
-      </ion-row>
-   </ion-grid>
+        <ion-row>
+            <ion-toolbar class="backFooter" style="--background: var(--medium);">
+                <div slot="start" class="glass glFlex" (click)="cancel()">
+                    <ion-icon name="close"></ion-icon>
+                    <div>Cancelar</div>
+                </div>
+                <div slot="end" class="glass glFlex" (click)="save()">
+                    <ion-icon name="save"></ion-icon>
+                    <div>Guardar</div>
+                </div>
+            </ion-toolbar>
+        </ion-row>
+    </ion-grid>
 </ion-content>

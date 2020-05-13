@@ -1,41 +1,41 @@
-import { NgModule } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Routes, RouterModule } from '@angular/router'
+import {NgModule} from '@angular/core'
+import {CommonModule} from '@angular/common'
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import {Routes, RouterModule} from '@angular/router'
 
-import { IonicModule } from '@ionic/angular'
+import {IonicModule} from '@ionic/angular'
 
-import { LoginPage } from './login.page'
-import { RegisterPage } from './register.page'
-import { Fwk4AuthenticationModule } from 'fwk4-authentication'
-import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx'
+import {LoginPage} from './login.page'
+import {RegisterPage} from './register.page'
+import {Fwk4AuthenticationModule} from 'fwk4-authentication'
+import {FingerprintAIO} from '@ionic-native/fingerprint-aio/ngx'
 
 const routes: Routes = [
-   {
-      path: '',
-      component: LoginPage
-   }
+    {
+        path: '',
+        component: LoginPage
+    }
 ];
 
 @NgModule({
-   imports: [
-      CommonModule,
-      IonicModule,
-      FormsModule,
-      ReactiveFormsModule,
-      RouterModule.forChild(routes),
-      Fwk4AuthenticationModule
-   ],
-   entryComponents: [
-      RegisterPage
-   ],
-   providers:[
-      FingerprintAIO
-   ],
-   declarations: [LoginPage, RegisterPage]
+    imports: [
+        CommonModule,
+        IonicModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule.forChild(routes),
+        Fwk4AuthenticationModule
+    ],
+    entryComponents: [
+        RegisterPage
+    ],
+    providers: [
+        FingerprintAIO
+    ],
+    declarations: [LoginPage, RegisterPage]
 })
 export class LoginPageModule {
-   constructor() {
-      console.log('LoginPageModule constructor')
-   }
+    constructor () {
+        console.log('LoginPageModule constructor')
+    }
 }
