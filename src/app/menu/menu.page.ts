@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core'
 import {Router, RouterEvent} from '@angular/router'
+import {Platform} from '@ionic/angular'
 import {GlobalService, ApplicationService} from 'fwk4-services'
+import {FCM} from '@ionic-native/fcm/ngx'
+// import {FCMService} from '../fcm.service';
 
 @Component({
     selector: 'app-menu',
@@ -17,6 +20,8 @@ export class MenuPage implements OnInit {
     ]
 
     constructor (
+        private platform: Platform,
+        private fcm: FCM,
         private appSrv: ApplicationService,
         private globalSrv: GlobalService,
         private router: Router
@@ -43,6 +48,33 @@ export class MenuPage implements OnInit {
                 title: "Configuración",
                 url: "/menu/configuracion"
             })
+        }
+
+        const isMobile = !(this.platform.is('desktop'))
+        if (isMobile) {
+            this.appSrv.message('topic: '+usr.id, 'info')
+            this.fcm.subscribeToTopic(usr.id)
+
+            this.fcm.onNotification().subscribe(data => {
+                if (data.wasTapped) {
+                    this.appSrv.message('Rx in background', 'success')
+                    console.log("Received in background");
+                } else {
+                    this.appSrv.message('Rx in foreground', 'info')
+                    console.log("Received in foreground");
+                }
+            })
+
+            // this.fcm.getToken().then(token => {
+            //     console.log('getToken: ', token)
+            //     //backend.registerToken(token);
+            // })
+            // this.fcm.onTokenRefresh().subscribe(token => {
+            //     console.log('onTokenRefresh:', token)
+            //     //backend.registerToken(token);
+            // })
+
+            //this.fcm.unsubscribeFromTopic('marketing');
         }
     }
 }

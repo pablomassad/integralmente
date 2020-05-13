@@ -23,6 +23,7 @@ import {File} from '@ionic-native/file/ngx'
 import {Chooser} from '@ionic-native/chooser/ngx'
 import {FileOpener} from '@ionic-native/file-opener/ngx'
 import {FileTransfer} from '@ionic-native/file-transfer/ngx'
+import {FCM} from '@ionic-native/fcm/ngx'
 
 import {environment} from 'src/environments/environment'
 
@@ -42,6 +43,7 @@ import {environment} from 'src/environments/environment'
         AppRoutingModule,
     ],
     providers: [
+        FCM,
         StatusBar,
         SplashScreen,
         Chooser,
