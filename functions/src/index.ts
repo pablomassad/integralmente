@@ -40,7 +40,7 @@ function fcmPush(target:string, kid:string) {
         data: {
         }
     };
-    admin.messaging().sendToTopic('toolbox', payload)
+    admin.messaging().sendToTopic(target, payload)
         .then(x => {
             console.log('Msg sent ok to '+target)
         })

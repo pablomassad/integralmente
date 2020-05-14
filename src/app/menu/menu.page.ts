@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core'
 import {Router, RouterEvent} from '@angular/router'
 import {Platform} from '@ionic/angular'
 import {GlobalService, ApplicationService} from 'fwk4-services'
+import {AngularFirestore} from '@angular/fire/firestore'
 import {FCM} from '@ionic-native/fcm/ngx'
 // import {FCMService} from '../fcm.service';
 
@@ -21,6 +22,7 @@ export class MenuPage implements OnInit {
 
     constructor (
         private platform: Platform,
+        private afs:AngularFirestore,
         private fcm: FCM,
         private appSrv: ApplicationService,
         private globalSrv: GlobalService,
@@ -53,7 +55,7 @@ export class MenuPage implements OnInit {
         const isMobile = !(this.platform.is('desktop'))
         if (isMobile) {
             this.appSrv.message('topic: '+usr.id, 'info')
-            this.fcm.subscribeToTopic(usr.id)
+            this.fcm.subscribeToTopic('Cumples')
 
             this.fcm.onNotification().subscribe(data => {
                 if (data.wasTapped) {
@@ -65,14 +67,14 @@ export class MenuPage implements OnInit {
                 }
             })
 
-            // this.fcm.getToken().then(token => {
-            //     console.log('getToken: ', token)
-            //     //backend.registerToken(token);
-            // })
-            // this.fcm.onTokenRefresh().subscribe(token => {
-            //     console.log('onTokenRefresh:', token)
-            //     //backend.registerToken(token);
-            // })
+            this.fcm.getToken().then(async token => {
+                console.log('getToken: ', token)
+                await this.afs.doc('users/' + usr.id).set({token:token}, {merge: true})
+            })
+            this.fcm.onTokenRefresh().subscribe(async token => {
+                console.log('onTokenRefresh:', token)
+                await this.afs.doc('users/' + usr.id).set({token:token}, {merge: true})
+            })
 
             //this.fcm.unsubscribeFromTopic('marketing');
         }
