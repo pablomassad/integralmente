@@ -9,11 +9,12 @@ import {StatusBar} from '@ionic-native/status-bar/ngx'
 import {AppComponent} from './app.component'
 import {AppRoutingModule} from './app-routing.module'
 
+import {environment} from '../environments/environment'
+
 import {AngularFireModule} from '@angular/fire'
-import {AngularFirestoreModule} from '@angular/fire/firestore'
+import {AngularFirestoreModule, FirestoreSettingsToken} from '@angular/fire/firestore'
 import {AngularFireStorageModule} from '@angular/fire/storage'
 import {AngularFireAuthModule} from '@angular/fire/auth'
-import {AngularFireDatabaseModule} from '@angular/fire/database'
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 
@@ -25,8 +26,17 @@ import {FileOpener} from '@ionic-native/file-opener/ngx'
 import {FileTransfer} from '@ionic-native/file-transfer/ngx'
 import {FCM} from '@ionic-native/fcm/ngx'
 
-import {environment} from 'src/environments/environment'
 
+export const firebaseCredentials = {
+    apiKey: "AIzaSyBA1Bkh-HjZzwBiokJrtdXvd6E0UhVR-pE",
+    authDomain: "pp-integralmente.firebaseapp.com",
+    databaseURL: "https://pp-integralmente.firebaseio.com",
+    projectId: "pp-integralmente",
+    storageBucket: "pp-integralmente.appspot.com",
+    messagingSenderId: "857389537904",
+    appId: "1:857389537904:web:6265e500632eae90"
+};
+console.log(environment.firebaseConfig)
 
 @NgModule({
     declarations: [AppComponent],
@@ -36,11 +46,11 @@ import {environment} from 'src/environments/environment'
         IonicStorageModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,
-        AngularFireModule.initializeApp(environment.firebaseConfig), // imports firebase/app
-        AngularFirestoreModule, // imports firebase/firestore
-        AngularFireAuthModule, // imports firebase/auth
-        AngularFireStorageModule, // imports firebase/storage
-        AppRoutingModule,
+        AngularFireModule.initializeApp(firebaseCredentials),
+        AngularFirestoreModule, 
+        AngularFireStorageModule, 
+        AngularFireAuthModule, 
+        AppRoutingModule
     ],
     providers: [
         FCM,
@@ -51,7 +61,7 @@ import {environment} from 'src/environments/environment'
         FileOpener,
         FileTransfer,
         WebView,
-        // {provide: FirestoreSettingsToken, useValue: {}},
+        {provide: FirestoreSettingsToken, useValue: {}},
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]
