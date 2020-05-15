@@ -5,9 +5,9 @@ import { Subscription } from 'rxjs'
 import { FbsService } from 'fwk4-authentication'
 import { AlertController } from '@ionic/angular'
 import { Chooser, ChooserResult } from '@ionic-native/chooser/ngx'
-import { FileOpener } from '@ionic-native/file-opener/ngx';
-import { FileTransfer } from '@ionic-native/file-transfer/ngx';
-import { File } from '@ionic-native/file'
+import { FileOpener } from '@ionic-native/file-opener/ngx'
+import { FileTransfer } from '@ionic-native/file-transfer/ngx'
+import { File } from '@ionic-native/file/ngx'
 
 @Component({
    selector: 'app-docs',

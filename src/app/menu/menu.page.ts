@@ -55,7 +55,7 @@ export class MenuPage implements OnInit {
         const isMobile = !(this.platform.is('desktop'))
         if (isMobile) {
             this.appSrv.message('topic: '+usr.id, 'info')
-            this.fcm.subscribeToTopic('Cumples')
+            this.fcm.subscribeToTopic(usr.id)
 
             this.fcm.onNotification().subscribe(data => {
                 if (data.wasTapped) {

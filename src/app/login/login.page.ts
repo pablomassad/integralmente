@@ -5,7 +5,7 @@ import {Router} from '@angular/router'
 import {ApplicationService, GlobalService} from 'fwk4-services'
 import {ModalController} from '@ionic/angular'
 import {RegisterPage} from './register.page'
-import {FingerprintAIO} from '@ionic-native/fingerprint-aio/ngx';
+// import {FingerprintAIO} from '@ionic-native/fingerprint-aio/ngx';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
     }
 
     constructor (
-        private faio: FingerprintAIO,
+        // private faio: FingerprintAIO,
         private appSrv: ApplicationService,
         private globalSrv: GlobalService,
         private authSrv: AuthService,
@@ -73,17 +73,17 @@ export class LoginPage implements OnInit {
     }
 
     unlock() {
-        this.faio.show({
-            clientId: "Huella Dactilar",
-            clientSecret: "secretoIntegralmente"
-        })
-            .then(() => {
-                this.validations_form.setValue({password: '123456', email: 'patriciagonzalezvillar@gmail.com'})
-                this.tryEmailLogin(this.validations_form.value)
-            })
-            .catch(err => {
-                console.log('Error fingerprint: ', err)
-            })
+        // this.faio.show({
+        //     clientId: "Huella Dactilar",
+        //     clientSecret: "secretoIntegralmente"
+        // })
+        //     .then(() => {
+        //         this.validations_form.setValue({password: '123456', email: 'patriciagonzalezvillar@gmail.com'})
+        //         this.tryEmailLogin(this.validations_form.value)
+        //     })
+        //     .catch(err => {
+        //         console.log('Error fingerprint: ', err)
+        //     })
     }
     async tryEmailLogin(value) {
         try {
