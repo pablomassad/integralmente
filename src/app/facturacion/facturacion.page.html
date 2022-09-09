@@ -1,116 +1,116 @@
 <app-tool-head>
-    <ion-title>FACTURACION</ion-title>
+   <ion-title>FACTURACION</ion-title>
 </app-tool-head>
 
 <ion-content>
-    <ion-item>
-        <ion-icon name="person" class="filterIcon" slot="start"></ion-icon>
-        <ion-label position="floating" class="txtCriteria">Ingrese filtro</ion-label>
-        <ion-input type="text" [(ngModel)]="criteria" class="filterInput"></ion-input>
-    </ion-item>
-    <ion-grid>
-        <ion-row>
-            <ion-col class="facFrame">
-                <ion-list>
-                    <ion-list-header>
-                        <ion-label class="monto">Pendientes: </ion-label>
-                        <ion-label class="monto" style="color:red">${{totalPendientes}}</ion-label>
-                    </ion-list-header>
-                    <ion-item-sliding *ngFor="let fac of filterCriteria(facturasPendientes, 'totalPendientes') | orderBy:'fecha':true">
-                        <ion-item-options side="start">
-                            <ion-item-option color="primary" (click)="openFile(fac)">
-                                <ion-icon slot="top" name="download"></ion-icon>
-                                Ver
-                            </ion-item-option>
-                            <ion-item-option color="warning">
-                                <ion-icon slot="top" name="trash" (click)="deleteFactura(fac)"></ion-icon>
-                                Eliminar
-                            </ion-item-option>
-                        </ion-item-options>
-                        <ion-item (click)="gotoFactura(fac)" lines="none" no-padding style="border-top: 1px solid var(--dark);">
-                            <ion-grid>
-                                <ion-row align-items-center justify-content-center>
-                                    <ion-col size="1" class="grabCol">
-                                        <ion-icon name="more" class="grabIcon"></ion-icon>
-                                    </ion-col>
-                                    <ion-col class="facFecha">
-                                        <div>{{fac.fecha | date:'dd/MM/yy'}}</div>
-                                    </ion-col>
-                                    <ion-col class="facOS">
-                                        <div>{{fac.obrasocial}}</div>
-                                    </ion-col>
-                                    <ion-col class="facMonto" justify-self-right>
-                                        <div>${{fac.monto}}</div>
-                                    </ion-col>
-                                    <ion-col size="1" class="grabCol">
-                                        <ion-icon name="more" class="grabIcon"></ion-icon>
-                                    </ion-col>
-                                </ion-row>
-                            </ion-grid>
-                        </ion-item>
-                        <ion-item-options side="end">
-                            <ion-item-option color="success" side="end" (click)="changeState(fac, 'Cobrada')">
-                                <ion-icon slot="top" name="arrow-round-forward"></ion-icon>
-                                Cobrada
-                            </ion-item-option>
-                        </ion-item-options>
-                    </ion-item-sliding>
-                </ion-list>
-            </ion-col>
-            <ion-col class="facFrame">
-                <ion-list>
-                    <ion-list-header>
-                        <ion-label class="monto">Cobradas: </ion-label>
-                        <div class="monto" style="color:green">${{totalCobradas}}</div>
-                    </ion-list-header>
+   <ion-item>
+      <ion-icon name="person" class="filterIcon" slot="start"></ion-icon>
+      <ion-label position="floating" class="txtCriteria">Ingrese filtro</ion-label>
+      <ion-input type="text" [(ngModel)]="criteria" class="filterInput"></ion-input>
+   </ion-item>
+   <ion-grid>
+      <ion-row>
+         <ion-col class="facFrame">
+            <ion-list>
+               <ion-list-header>
+                  <ion-label class="monto">Pendientes: </ion-label>
+                  <ion-label class="monto" style="color:red">${{totalPendientes}}</ion-label>
+               </ion-list-header>
+               <ion-item-sliding *ngFor="let fac of filterCriteria(facturasPendientes, 'totalPendientes') | orderBy:'fecha':true">
+                  <ion-item-options side="start">
+                     <ion-item-option color="primary" (click)="openFile(fac)">
+                        <ion-icon slot="top" name="download"></ion-icon>
+                        Ver
+                     </ion-item-option>
+                     <ion-item-option color="warning">
+                        <ion-icon slot="top" name="trash" (click)="deleteFactura(fac)"></ion-icon>
+                        Eliminar
+                     </ion-item-option>
+                  </ion-item-options>
+                  <ion-item (click)="gotoFactura(fac)" lines="none" no-padding style="border-top: 1px solid var(--dark);">
+                     <ion-grid>
+                        <ion-row align-items-center justify-content-center>
+                           <ion-col size="1" class="grabCol">
+                              <ion-icon name="more" class="grabIcon"></ion-icon>
+                           </ion-col>
+                           <ion-col class="facFecha">
+                              <div>{{fac.fecha | date:'dd/MM/yy'}}</div>
+                           </ion-col>
+                           <ion-col class="facOS">
+                              <div>{{fac.obrasocial}}</div>
+                           </ion-col>
+                           <ion-col class="facMonto" justify-self-right>
+                              <div>${{fac.monto}}</div>
+                           </ion-col>
+                           <ion-col size="1" class="grabCol">
+                              <ion-icon name="more" class="grabIcon"></ion-icon>
+                           </ion-col>
+                        </ion-row>
+                     </ion-grid>
+                  </ion-item>
+                  <ion-item-options side="end">
+                     <ion-item-option color="success" side="end" (click)="changeState(fac, 'Cobrada')">
+                        <ion-icon slot="top" name="arrow-round-forward"></ion-icon>
+                        Cobrada
+                     </ion-item-option>
+                  </ion-item-options>
+               </ion-item-sliding>
+            </ion-list>
+         </ion-col>
+         <ion-col class="facFrame">
+            <ion-list>
+               <ion-list-header>
+                  <ion-label class="monto">Cobradas: </ion-label>
+                  <div class="monto" style="color:green">${{totalCobradas}}</div>
+               </ion-list-header>
 
-                    <ion-item-sliding *ngFor="let fac of filterCriteria(facturasCobradas, 'totalCobradas') | orderBy:'fecha':true">
-                        <ion-item-options side="start">
-                            <ion-item-option color="danger" (click)="changeState(fac, 'Pendiente')">
-                                <ion-icon slot="top" name="arrow-round-back"></ion-icon>
-                                Pendiente
-                            </ion-item-option>
-                        </ion-item-options>
-                        <ion-item (click)="gotoFactura(fac)" lines="none" no-padding style="border-top: 1px solid var(--dark);">
-                            <ion-grid>
-                                <ion-row align-items-center justify-content-center>
-                                    <ion-col size="1" class="grabCol">
-                                        <ion-icon name="more" class="grabIcon"></ion-icon>
-                                    </ion-col>
-                                    <ion-col class="facFecha">
-                                        <div>{{fac.fecha | date:'dd/MM/yy'}}</div>
-                                    </ion-col>
-                                    <ion-col class="facOS">
-                                        <div>{{fac.obrasocial}}</div>
-                                    </ion-col>
-                                    <ion-col class="facMonto" justify-self-right>
-                                        <div>${{fac.monto}}</div>
-                                    </ion-col>
-                                    <ion-col size="1" class="grabCol">
-                                        <ion-icon name="more" class="grabIcon"></ion-icon>
-                                    </ion-col>
-                                </ion-row>
-                            </ion-grid>
-                        </ion-item>
-                        <ion-item-options side="end">
-                            <ion-item-option color="primary" (click)="openFile(fac)">
-                                <ion-icon slot="top" name="download"></ion-icon>
-                                Ver
-                            </ion-item-option>
-                            <ion-item-option color="warning" (click)="deleteFactura(fac)">
-                                <ion-icon slot="top" name="trash"></ion-icon>
-                                Eliminar
-                            </ion-item-option>
-                        </ion-item-options>
-                    </ion-item-sliding>
-                </ion-list>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+               <ion-item-sliding *ngFor="let fac of filterCriteria(facturasCobradas, 'totalCobradas') | orderBy:'fecha':true">
+                  <ion-item-options side="start">
+                     <ion-item-option color="danger" (click)="changeState(fac, 'Pendiente')">
+                        <ion-icon slot="top" name="arrow-round-back"></ion-icon>
+                        Pendiente
+                     </ion-item-option>
+                  </ion-item-options>
+                  <ion-item (click)="gotoFactura(fac)" lines="none" no-padding style="border-top: 1px solid var(--dark);">
+                     <ion-grid>
+                        <ion-row align-items-center justify-content-center>
+                           <ion-col size="1" class="grabCol">
+                              <ion-icon name="more" class="grabIcon"></ion-icon>
+                           </ion-col>
+                           <ion-col class="facFecha">
+                              <div>{{fac.fecha | date:'dd/MM/yy'}}</div>
+                           </ion-col>
+                           <ion-col class="facOS">
+                              <div>{{fac.obrasocial}}</div>
+                           </ion-col>
+                           <ion-col class="facMonto" justify-self-right>
+                              <div>${{fac.monto}}</div>
+                           </ion-col>
+                           <ion-col size="1" class="grabCol">
+                              <ion-icon name="more" class="grabIcon"></ion-icon>
+                           </ion-col>
+                        </ion-row>
+                     </ion-grid>
+                  </ion-item>
+                  <ion-item-options side="end">
+                     <ion-item-option color="primary" (click)="openFile(fac)">
+                        <ion-icon slot="top" name="download"></ion-icon>
+                        Ver
+                     </ion-item-option>
+                     <ion-item-option color="warning" (click)="deleteFactura(fac)">
+                        <ion-icon slot="top" name="trash"></ion-icon>
+                        Eliminar
+                     </ion-item-option>
+                  </ion-item-options>
+               </ion-item-sliding>
+            </ion-list>
+         </ion-col>
+      </ion-row>
+   </ion-grid>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="glass glRound" style="position: fixed;">
-        <ion-fab-button (click)="gotoFactura({})">
-            <ion-icon name="add"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
+   <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="glass glRound" style="position: fixed;">
+      <ion-fab-button (click)="gotoFactura({})">
+         <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+   </ion-fab>
 </ion-content>

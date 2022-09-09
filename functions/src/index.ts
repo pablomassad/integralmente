@@ -4,13 +4,29 @@ import * as moment from 'moment'
 
 admin.initializeApp(functions.config().firebase)
 const afs = admin.firestore()
+const sto = admin.storage()
 
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
+
+export const deletePDFs = functions.firestore.document("facturas/{id}").onDelete((snap, context) => {
+    // const {id} = context.params;
+    const nombre = context.params['nombre']
+    console.log('nombre:', nombre)
+    const bucket = sto.bucket();
+
+    // const imagesRemovePromises = deletedImages.map((imagePath: string) => {
+    //   return bucket.file(imagePath).delete();
+    // });
+    return new Promise((resolve, reject)=>{
+        resolve(true)
+    })
+    // return bucket.deleteFiles({
+    //     prefix: `facturas/${nombre}`
+    // });
+});
+
 export const happyBirthday = functions.https.onRequest((request, response) => {
-    fcmPush('YBHqrkv2VBS5VAJuWweey1TO8zf2', 'Pablito') 
+    fcmPush('YBHqrkv2VBS5VAJuWweey1TO8zf2', 'Pablito')
     response.send("Happy Birtday!");
 });
 
@@ -21,9 +37,9 @@ export const evalBirthdays = functions.https.onRequest(async (req, res) => {
     const today = moment().format('YYMMDD')
     const birthdaysToday = 0
     docs.forEach(pac => {
-        if (pac.nacimiento !== undefined){
-            if (today === moment(pac.nacimiento).format('YYMMDD')){
-                fcmPush(pac.uid, pac.apellido + ', ' + pac.nombres) 
+        if (pac.nacimiento !== undefined) {
+            if (today === moment(pac.nacimiento).format('YYMMDD')) {
+                fcmPush(pac.uid, pac.apellido + ', ' + pac.nombres)
             }
         }
     })
@@ -31,7 +47,7 @@ export const evalBirthdays = functions.https.onRequest(async (req, res) => {
     res.send(birthdaysToday)
 })
 
-function fcmPush(target:string, kid:string) {
+function fcmPush(target: string, kid: string) {
     const payload = {
         notification: {
             title: 'Cumples INTEGRALMENTE',
@@ -42,7 +58,7 @@ function fcmPush(target:string, kid:string) {
     };
     admin.messaging().sendToTopic(target, payload)
         .then(x => {
-            console.log('Msg sent ok to '+target)
+            console.log('Msg sent ok to ' + target)
         })
         .catch(err => {
             console.log('Error sending msg')
