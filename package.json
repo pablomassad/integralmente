@@ -50,7 +50,7 @@
         "fwk4-authentication": "0.0.53",
         "fwk4-pipes": "0.0.11",
         "fwk4-services": "^0.1.33",
-        "moment": "^2.25.3",
+        "moment": "^2.29.4",
         "ngx-order-pipe": "^2.0.4",
         "npm": "^6.14.5",
         "rxjs": "^6.5.0",
